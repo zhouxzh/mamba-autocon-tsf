@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "status": "exploratory_shared_core_self_supervision_traffic_validation",
+  "created_at": "2026-10-02",
+  "research_question": "Can train-only ACF AutoCon pretraining of a strictly channel-count agnostic, one-Mamba-block MambaTSv3 patch encoder improve 10% Traffic adaptation beyond the same averaged source-core initialization?",
+  "architecture": "The deployed target uses one MambaTSv3 Mamba block per shared patch sequence, batched over channels. It bypasses channel embeddings and cross-variable context, so parameter shapes and per-channel encoded states are invariant to sensor count and channel order. It updates only patch_embedding, patch_position_embedding, encoder, final_norm, and repr_* parameters. The masked-patch decoder and mask token are training-only and excluded from transfer.",
+  "source_pool": ["PEMS03", "PEMS04", "PEMS07", "PEMS08", "METR-LA", "PEMS-BAY", "Electricity", "Weather"],
+  "excluded_target": "Traffic",
+  "data_boundary": "Every source uses only its chronological 60% training prefix. Traffic uses only 10% of its chronological training prefix for adaptation and its existing validation block for selection. No target test row, target test metric, or target test prediction is opened.",
+  "shared_parameters": ["patch_embedding", "patch_position_embedding", "encoder", "final_norm", "repr_projection", "repr_norm", "repr_head"],
+  "excluded_parameters": ["channel_embedding", "context_projection", "forecast_head", "persistence_head", "persistence_scale", "masked_patch_decoder", "mask_token"],
+  "pretraining_controls": {
+    "initial_average": "Equal average of four PEMS H12 AutoCon MambaTSv3 source cores before self-supervision.",
+    "reconstruction_only": {"mamba_lambda": 0.0},
+    "autocon_reconstruction": {"mamba_lambda": 0.1},
+    "autocon_only": {"mamba_lambda": 0.1, "reconstruction_weight": 0.0}
+  },
+  "training_contract": {
+    "seq_len": 96,
+    "patch_len": 24,
+    "patch_stride": 24,
+    "d_model": 24,
+    "d_ff": 48,
+    "mamba_d_state": 8,
+    "mamba_d_conv": 2,
+    "mamba_expand": 1,
+    "source_epochs": 3,
+    "source_max_windows": 64,
+    "source_batch_size": 4,
+    "mask_ratio": 0.25,
+    "target_fraction": 0.1,
+    "target_epochs": 5,
+    "target_freeze_core_epochs": 1,
+    "target_max_train_windows": 64,
+    "seed": 3601,
+    "cpu_threads": 4,
+    "gpu_guard": {"temperature_limit_c": 78, "fan_limit_percent": 85}
+  },
+  "comparison_contract": {
+    "primary_metric": "minimum validation scaled MSE",
+    "primary_contrast": "autocon_only versus channel-agnostic initial_average",
+    "secondary_contrast": "all historical reconstruction arms remain negative controls",
+    "test_metrics_produced": false,
+    "promotion_rule": "A result may only enter a new independent Weather gate if AutoCon improves reconstruction-only and initial_average on Traffic development. No target-specific retuning follows a failed contrast."
+  },
+  "execution": {"authorized": true, "training_started": false, "test_split_allowed": false}
+}

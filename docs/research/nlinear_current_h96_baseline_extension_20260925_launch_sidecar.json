@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "kind": "training_plan_launch_authorization",
+  "plan_path": "/home/zhong/Documents/Self-Supervised-Contrastive-Forecsating/docs/research/nlinear_current_h96_baseline_extension_20260925.json",
+  "plan_sha256": "8de32659f2d35a99014a4390482e7aad90b21fe327b9e6a7b33b28991dc82c3b",
+  "plan_status": "exploratory_nlinear_current_h96_baseline_extension",
+  "authorized": true,
+  "approval": {"approved": true, "approved_by": "user continuation request and Codex implementation authorization", "approved_at_utc": "2026-09-25T00:00:00Z"},
+  "prelaunch_gate_evidence_hashes": {
+    "verify four dataset hashes and M-feature dimensions": "13db617914ba578382272e5aed2c709a5fb53f1fa1f8872232d64dc58f500d79",
+    "verify NLinear runtime contract": "f662591d9498947a56faf8bd73e64da59701b39fb7297e87fe35deeea0779bf8",
+    "keep skip_test=true for every job": "8de32659f2d35a99014a4390482e7aad90b21fe327b9e6a7b33b28991dc82c3b",
+    "pair every dataset-horizon-seed coordinate": "8de32659f2d35a99014a4390482e7aad90b21fe327b9e6a7b33b28991dc82c3b"
+  }
+}

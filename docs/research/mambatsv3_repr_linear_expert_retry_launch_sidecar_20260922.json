@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "kind": "training_plan_launch_authorization",
+  "plan_path": "/home/zhong/Documents/Self-Supervised-Contrastive-Forecsating/docs/research/mambatsv3_repr_linear_expert_retry_20260922.json",
+  "plan_sha256": "8e886106758ab97df549d0468d68824f4e6547c545170673e9f46dd78155d846",
+  "plan_status": "exploratory_mambatsv3_repr_linear_expert_retry",
+  "authorized": true,
+  "approval": {"approved": true, "approved_by": "user continuation request and Codex implementation authorization", "approved_at_utc": "2026-09-22T15:30:00Z"},
+  "prelaunch_gate_evidence_hashes": {
+    "verify Exchange-Rate and ILI fingerprints": "d55e7aa2641009814a18ba3279431b13f6d413b0eab195b9ff21988d8cf94e97",
+    "preserve the original expert-off control and failed run": "1782b8063cbeb0dcac03a0ce08a73cdd3f728824b4764120dc99d9ed3160820c",
+    "keep test execution disabled": "8e886106758ab97df549d0468d68824f4e6547c545170673e9f46dd78155d846",
+    "freeze the corrected source snapshot and new output root": "8e886106758ab97df549d0468d68824f4e6547c545170673e9f46dd78155d846"
+  }
+}

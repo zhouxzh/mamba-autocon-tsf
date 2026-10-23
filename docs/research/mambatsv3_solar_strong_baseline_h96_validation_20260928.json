@@ -1,0 +1,104 @@
+{
+  "version": 1,
+  "schema_version": 1,
+  "status": "exploratory_mambatsv3_solar_strong_baseline_h96_validation",
+  "created_at": "2026-09-28",
+  "job_order_seed": 20261129,
+  "purpose": "Current-source paired validation-only SolarEnergy matrix for the AutoCon-connected MambaTSv3 candidate and strong baselines.",
+  "research_question": "Does MambaTSv3AutoCon remain competitive with strong baselines on the existing SolarEnergy coordinate under a single frozen contract?",
+  "evidence_boundary": "Validation-only. No test metrics, predictions, or held-out release is permitted.",
+  "claim_boundary": "This matrix can document SolarEnergy as a success or failure boundary only; it cannot establish universal forecasting, AutoCon causality, or speed superiority.",
+  "execution": {
+    "authorized": false,
+    "status": "exploratory_mambatsv3_solar_strong_baseline_h96_validation",
+    "training_started": false,
+    "human_review_required": true,
+    "required_before_launch": [
+      "verify SolarEnergy hash and exact 18-job expansion",
+      "freeze candidate and baseline contracts",
+      "keep test execution disabled for every job",
+      "preserve one source snapshot and output root"
+    ]
+  },
+  "data_fingerprints": {
+    "solar": {
+      "relative_path": "dataset/solar/solar_AL.txt",
+      "format": "txt",
+      "channels_including_target": 137,
+      "frequency": "t",
+      "target_index": 136,
+      "data_interval_minutes": 10,
+      "sha256": "230327ef72d2abb387939d4a35d6fd34f1066071bc7c40ce7ecf5531a0122ac2"
+    }
+  },
+  "global": {
+    "features": "M", "seq_len": 96, "label_len": 48, "d_model": 32, "d_ff": 64,
+    "e_layers": 1, "n_heads": 4, "d_layers": 1, "factor": 1, "top_k": 5,
+    "num_kernels": 6, "moving_avg": 25, "patch_len": 16, "patch_stride": 8,
+    "dropout": 0.1, "embed": "timeF", "activation": "gelu", "wo_freq": "",
+    "individual": false, "mamba_d_state": 16, "mamba_d_conv": 4, "mamba_expand": 2,
+    "mamba_headdim": 16, "mamba_ts_variant": "v3", "mamba_ts_context_rank": 16,
+    "mamba_ts_repr_forecast_fusion": true, "mamba_ts_repr_forecast_channelwise": false,
+    "mamba_use_acf_memory": false, "mamba_acf_relation_loss": false,
+    "autocon_scale": 96, "autocon_wnorm": "MeanStd", "autocon_warmup": 0,
+    "autocon_acf_source": "raw", "AutoCon_temperature": 0.2,
+    "AutoCon_relation_temperature": 0.25, "AutoCon_sign_weight": 0.25,
+    "AutoCon_sign_margin": 0.1, "autocon_lambda": 0.001,
+    "batch_size": 32, "epochs": 8, "patience": 3, "learning_rate": 0.001,
+    "lradj": "cosine", "min_learning_rate": 0.00001, "weight_decay": 0.00001,
+    "num_workers": 0, "drop_last_train": false, "train_ratio": 0.6,
+    "use_gpu": true, "skip_test": true, "save_predictions": false,
+    "stream_metrics": false, "stream_sample_windows": 1
+  },
+  "selection_contract": {
+    "seeds": [3271, 3272, 3273],
+    "test_split_allowed": false,
+    "selection_metric": "minimum pure-forecast validation scaled MSE",
+    "freeze_rule": "Candidate, baseline set, optimizer, normalization, source snapshot and budget are frozen before launch.",
+    "no_test_selection": true
+  },
+  "capacity_fairness_contract": {
+    "common_public_budget": "All arms share split, features, sequence length, horizon, optimizer, scheduler, batch, epoch budget, patience and normalization.",
+    "candidate_boundary": "Only MambaTSv3AutoCon receives the AutoCon objective and prediction-connected representation fusion.",
+    "baseline_boundary": "External baselines receive no candidate-only AutoCon or Mamba flags."
+  },
+  "phases": [
+    {
+      "name": "candidate_solar_h96_validation",
+      "purpose": "Frozen MambaTSv3 AutoCon candidate on SolarEnergy H96.",
+      "output_root": "artifacts/exploratory/mambatsv3_solar_strong_baseline_h96_validation_20260928/candidate",
+      "datasets": ["solar"], "models": ["MambaTSv3AutoCon"], "features": "M", "horizons": [96],
+      "seeds": [3271, 3272, 3273], "mamba_ts_variant": "v3", "mamba_ts_repr_forecast_fusion": true,
+      "autocon_lambda": 0.001, "skip_test": true, "stream_metrics": false
+    },
+    {
+      "name": "baselines_solar_h96_validation",
+      "purpose": "Strong same-source SolarEnergy context baselines.",
+      "output_root": "artifacts/exploratory/mambatsv3_solar_strong_baseline_h96_validation_20260928/baselines",
+      "datasets": ["solar"], "models": ["DLinear", "NLinear", "PatchTST", "TimesNet", "iTransformer"],
+      "features": "M", "horizons": [96], "seeds": [3271, 3272, 3273], "baseline_check": true,
+      "mamba_ts_variant": "v1", "mamba_ts_repr_forecast_fusion": false, "mamba_use_acf_memory": false,
+      "mamba_acf_relation_loss": false, "skip_test": true, "stream_metrics": false
+    }
+  ],
+  "comparison_contract": {
+    "primary_metric": "minimum pure-forecast validation scaled MSE",
+    "pairing_unit": ["dataset", "horizon", "seed"],
+    "primary_comparators": ["DLinear", "NLinear", "PatchTST", "TimesNet", "iTransformer"],
+    "test_selection_allowed": false, "test_metrics_produced": false,
+    "reporting_rule": "Report paired validation deltas only; a held-out test release requires a separate plan and approval."
+  },
+  "stopping_rules": [
+    "Do not convert validation results into test claims.",
+    "If any coordinate is incomplete or has test artifacts, stop and mark the matrix invalid.",
+    "A favorable Solar result requires an independent full-budget confirmation before any publication claim."
+  ],
+  "registered_job_counts": {
+    "candidate_solar_h96_validation": 3,
+    "baselines_solar_h96_validation": 15,
+    "exploratory_total": 18,
+    "training_total": 18,
+    "total": 18,
+    "training_started": false
+  }
+}

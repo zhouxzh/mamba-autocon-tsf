@@ -1,0 +1,9 @@
+einops==0.8.1
+ninja==1.13.0
+numpy==1.23.5
+pandas==2.3.3
+scikit-learn==1.6.1
+torch==2.8.0
+transformers==4.57.6
+causal_conv1d @ file:///path/to/repo/artifacts/reproducibility_wheels_20261003/causal_conv1d-1.6.2.post1-cp39-cp39-linux_x86_64.whl#sha256=435cfb57c204eec017e051fdf51b3d3f22edfcb624f394f18b3f1c46b67f4e28
+mamba_ssm @ file:///path/to/repo/artifacts/reproducibility_wheels_20261003/mamba_ssm-2.3.1-cp39-cp39-linux_x86_64.whl#sha256=e5efa9866d44ab54572d105e5a6b2c6cd0ec8aea623373c3d3c1310638079d41

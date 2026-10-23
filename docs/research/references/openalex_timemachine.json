@@ -1,0 +1,54 @@
+{
+  "query": "TimeMachine A Time Series is Worth 4 Mambas for Long-term Forecasting",
+  "count": 3,
+  "results": [
+    {
+      "openalex_id": "https://openalex.org/W4403488223",
+      "doi": "10.3233/faia240677",
+      "title": "TimeMachine: A Time Series is Worth 4 Mambas for Long-Term Forecasting",
+      "authors": "Md Atik Ahamed and Qiang Cheng",
+      "journal": "Frontiers in artificial intelligence and applications",
+      "publisher": "",
+      "year": "2024",
+      "volume": "392",
+      "issue": "",
+      "pages": "1688-1695",
+      "type": "book-chapter",
+      "citations": 120,
+      "is_open_access": true,
+      "abstract": "Long-term time-series forecasting remains challenging due to the difficulty in capturing long-term dependencies, achieving linear scalability, and maintaining computational efficiency. We introduce TimeMachine, an innovative model that leverages Mamba, a state-space model, to capture long-term dependencies in multivariate time series data while maintaining linear scalability and small memory footprints. TimeMachine exploits the unique properties of time series data to produce salient contextual cues at multi-scales and leverage an innovative integrated quadruple-Mamba architecture to unify the handling of channel-mixing and channel-independence situations, thus enabling effective selection of contents for prediction against global and local contexts at different scales. Experimentally, TimeMachine achieves superior performance in prediction accuracy, scalability, and memory efficiency, as extensively validated using benchmark datasets."
+    },
+    {
+      "openalex_id": "https://openalex.org/W4392929796",
+      "doi": "10.48550/arxiv.2403.09898",
+      "title": "TimeMachine: A Time Series is Worth 4 Mambas for Long-term Forecasting",
+      "authors": "Md Atik Ahamed and Qiang Cheng",
+      "journal": "arXiv (Cornell University)",
+      "publisher": "Cornell University",
+      "year": "2024",
+      "volume": "",
+      "issue": "",
+      "pages": "",
+      "type": "preprint",
+      "citations": 5,
+      "is_open_access": true,
+      "abstract": "Long-term time-series forecasting remains challenging due to the difficulty in capturing long-term dependencies, achieving linear scalability, and maintaining computational efficiency. We introduce TimeMachine, an innovative model that leverages Mamba, a state-space model, to capture long-term dependencies in multivariate time series data while maintaining linear scalability and small memory footprints. TimeMachine exploits the unique properties of time series data to produce salient contextual cues at multi-scales and leverage an innovative integrated quadruple-Mamba architecture to unify the handling of channel-mixing and channel-independence situations, thus enabling effective selection of contents for prediction against global and local contexts at different scales. Experimentally, TimeMachine achieves superior performance in prediction accuracy, scalability, and memory efficiency, as extensively validated using benchmark datasets. Code availability: https://github.com/Atik-Ahamed/TimeMachine"
+    },
+    {
+      "openalex_id": "https://openalex.org/W4409363427",
+      "doi": "10.1609/aaai.v39i20.35463",
+      "title": "Affirm: Interactive Mamba with Adaptive Fourier Filters for Long-term Time Series Forecasting",
+      "authors": "Yuhan Wu and Xiyu Meng and Huajin Hu and Junru Zhang and Yabo Dong and Dongming Lu",
+      "journal": "Proceedings of the AAAI Conference on Artificial Intelligence",
+      "publisher": "Association for the Advancement of Artificial Intelligence",
+      "year": "2025",
+      "volume": "39",
+      "issue": "20",
+      "pages": "21599-21607",
+      "type": "conference-paper",
+      "citations": 24,
+      "is_open_access": true,
+      "abstract": "In long-term series forecasting (LTSF), it is imperative for models to adeptly discern and distill from historical time series data to forecast future states. Although Transformer-based models excel at capturing long-term dependencies in LTSF, their practical use is limited by issues like computational inefficiency, noise sensitivity, and overfitting on smaller datasets. Therefore, we introduce a novel time series lightweight interactive Mamba with an adaptive Fourier filter model (Affirm). Specifically, (i) we propose an adaptive Fourier filter block. This neural operator employs Fourier analysis to refine feature representation, reduces noise with learnable adaptive thresholds, and captures inter-frequency interactions using global and local semantic adaptive Fourier filters via element-wise multiplication. (ii) A dual interactive Mamba block is introduced to facilitate efficient intra-modal interactions at different granularities, capturing more detailed local features and broad global contextual information, providing a more comprehensive representation for LTSF. Extensive experiments on multiple benchmarks demonstrate that Affirm consistently outperforms existing SOTA methods, offering a superior balance of accuracy and efficiency, making it ideal for various challenging scenarios with noise levels and data sizes."
+    }
+  ]
+}

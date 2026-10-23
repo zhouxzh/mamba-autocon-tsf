@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "kind": "training_plan_launch_authorization",
+  "plan_path": "/home/zhong/Documents/Self-Supervised-Contrastive-Forecsating/docs/research/mambatsv3_d24_highdim_h12_transfer_20260927.json",
+  "plan_sha256": "8322df5916650c6699b1dc0aea6474adcd69ddfc51f5553b273bb84635fcdd4e",
+  "plan_status": "exploratory_mambatsv3_d24_highdim_h12_transfer",
+  "authorized": true,
+  "approval": {
+    "approved": true,
+    "approved_by": "user continuation request and active research objective",
+    "approved_at_utc": "2026-09-27T00:00:00Z"
+  },
+  "prelaunch_gate_evidence_hashes": {
+    "verify Electricity and Traffic SHA256 fingerprints and registered multivariate dimensions": "6ab8207c5eb65badce28240f97e2ac5c8e3878d10ae307769a5c2cc5291129d3",
+    "verify exact active/null graph pairing with fresh seeds": "8322df5916650c6699b1dc0aea6474adcd69ddfc51f5553b273bb84635fcdd4e",
+    "verify prediction-connected AutoCon representation and lambda-only treatment contrast": "8322df5916650c6699b1dc0aea6474adcd69ddfc51f5553b273bb84635fcdd4e",
+    "verify seven external baselines disable all candidate-only AutoCon and Mamba options": "8322df5916650c6699b1dc0aea6474adcd69ddfc51f5553b273bb84635fcdd4e",
+    "verify d24 exact-shape prediction-only resource preflights before launch": "576e08b5cd19b4615d44147a8ffc65ffe14576d7cd669940ecdab5372ead1431",
+    "keep skip_test=true and save_predictions=false for every job": "8322df5916650c6699b1dc0aea6474adcd69ddfc51f5553b273bb84635fcdd4e"
+  }
+}

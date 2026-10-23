@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "kind": "training_plan_launch_authorization",
+  "plan_path": "/home/zhong/Documents/Self-Supervised-Contrastive-Forecsating/docs/research/pems_mambatsv3_d24_test_release_20260926.json",
+  "plan_sha256": "566910f80d8a0aec889d696707fc7ba5f6da08bdd9a3f060ccf86bae7fcc8a83",
+  "plan_status": "launch_authorized",
+  "authorized": true,
+  "approval": {"approved": true, "approved_by": "user continuation request and active research objective", "approved_at_utc": "2026-09-26T00:00:00Z"},
+  "prelaunch_gate_evidence_hashes": {
+    "verify four PEMS hashes and exact 172-job expansion": "566910f80d8a0aec889d696707fc7ba5f6da08bdd9a3f060ccf86bae7fcc8a83",
+    "freeze candidate and baseline contracts": "566910f80d8a0aec889d696707fc7ba5f6da08bdd9a3f060ccf86bae7fcc8a83",
+    "keep test metrics out of selection": "566910f80d8a0aec889d696707fc7ba5f6da08bdd9a3f060ccf86bae7fcc8a83",
+    "run all phases under the immutable launch sidecar": "497c0676d2092d1a9c7e31cc8c75311f4518def62ed44a428f1c02fd021ed651",
+    "read test metrics only after all strict phase validators pass": "566910f80d8a0aec889d696707fc7ba5f6da08bdd9a3f060ccf86bae7fcc8a83"
+  },
+  "evidence_files": ["docs/research/pems_fullcover_p24_s24_d24_mambatsv3_autocon_h12_confirmation_readout_20260926.md", "docs/research/pems_d32_same_snapshot_baseline_screen_20260926_readout.md"]
+}

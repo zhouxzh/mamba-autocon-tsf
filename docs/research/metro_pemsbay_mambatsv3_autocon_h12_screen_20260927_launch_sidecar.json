@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "kind": "training_plan_launch_authorization",
+  "plan_path": "/home/zhong/Documents/Self-Supervised-Contrastive-Forecsating/docs/research/metro_pemsbay_mambatsv3_autocon_h12_screen_20260927.json",
+  "plan_sha256": "796ca49a4519037473427271dff6f1397e9d09cf97f6751816d9267269e83f34",
+  "plan_status": "exploratory_metro_pemsbay_mambatsv3_autocon_h12",
+  "authorized": true,
+  "approval": {"approved": true, "approved_by": "user continuation request and active research objective", "approved_at_utc": "2026-09-27T00:00:00Z"},
+  "prelaunch_gate_evidence_hashes": {
+    "verify METR-LA and PEMS-BAY source hashes, timestamp-first CSV numeric schema, cadence and channel dimensions": "2c4acd977e271fd16a34575ce9e6143114fbb9eed6d11a743eea62870ec1eb9a",
+    "verify exact MambaTSv3 plain/null/active graph pairing with fresh seeds": "796ca49a4519037473427271dff6f1397e9d09cf97f6751816d9267269e83f34",
+    "verify all external baselines disable AutoCon and candidate-only options": "796ca49a4519037473427271dff6f1397e9d09cf97f6751816d9267269e83f34",
+    "verify same-shape prediction-only resource rows before launch": "c1ed7dfdc0727291d605f515fc9411dd1446242764980b3d9f8031a205caa3e7",
+    "keep skip_test=true and save_predictions=false for every job": "796ca49a4519037473427271dff6f1397e9d09cf97f6751816d9267269e83f34"
+  }
+}

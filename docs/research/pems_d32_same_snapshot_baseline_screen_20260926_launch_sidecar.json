@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "kind": "training_plan_launch_authorization",
+  "plan_path": "/home/zhong/Documents/Self-Supervised-Contrastive-Forecsating/docs/research/pems_d32_same_snapshot_baseline_screen_20260926.json",
+  "plan_sha256": "a593f914c04fffc47578e6769a644c9901bb946514a3d8b817ba16fac6b92497",
+  "plan_status": "exploratory_pems_d32_same_snapshot_baseline_screen",
+  "authorized": true,
+  "approval": {"approved": true, "approved_by": "user continuation request and active research objective", "approved_at_utc": "2026-09-26T00:00:00Z"},
+  "prelaunch_gate_evidence_hashes": {
+    "verify PEMS03/04/07/08 hashes, axes, and train-only normalization": "a593f914c04fffc47578e6769a644c9901bb946514a3d8b817ba16fac6b92497",
+    "freeze d32 candidate, exact lambda-zero control, comparator set, seeds, and budget": "a593f914c04fffc47578e6769a644c9901bb946514a3d8b817ba16fac6b92497",
+    "verify all baseline and MambaTS v3 runtime contracts": "a593f914c04fffc47578e6769a644c9901bb946514a3d8b817ba16fac6b92497",
+    "keep skip_test=true for every job": "a593f914c04fffc47578e6769a644c9901bb946514a3d8b817ba16fac6b92497",
+    "require exact dataset-horizon-seed pairing before any analysis": "a593f914c04fffc47578e6769a644c9901bb946514a3d8b817ba16fac6b92497"
+  }
+}

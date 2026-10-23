@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "kind": "training_plan_launch_authorization",
+  "plan_path": "/home/zhong/Documents/Self-Supervised-Contrastive-Forecsating/docs/research/mambatsv3_repr_linear_expert_screen_20260922.json",
+  "plan_sha256": "1782b8063cbeb0dcac03a0ce08a73cdd3f728824b4764120dc99d9ed3160820c",
+  "plan_status": "exploratory_mambatsv3_repr_linear_expert_screen",
+  "authorized": true,
+  "approval": {"approved": true, "approved_by": "user continuation request and Codex implementation authorization", "approved_at_utc": "2026-09-22T15:00:00Z"},
+  "prelaunch_gate_evidence_hashes": {
+    "verify Exchange-Rate and ILI fingerprints": "d55e7aa2641009814a18ba3279431b13f6d413b0eab195b9ff21988d8cf94e97",
+    "retain exact expert-off and expert-on paired arms": "1782b8063cbeb0dcac03a0ce08a73cdd3f728824b4764120dc99d9ed3160820c",
+    "keep test execution disabled": "1782b8063cbeb0dcac03a0ce08a73cdd3f728824b4764120dc99d9ed3160820c",
+    "freeze source snapshot and output root": "dee371ffa8715867baba3481377dfced3775a07f27bbda0df9ba4eefbd2ae192"
+  }
+}

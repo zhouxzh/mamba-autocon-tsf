@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "kind": "training_plan_launch_authorization",
+  "plan_path": "/home/zhong/Documents/Self-Supervised-Contrastive-Forecsating/docs/research/nlinear_variable_mamba_acf_selector_electricity_h96_strong_baseline_confirmation_20260927.json",
+  "plan_sha256": "d373f34da4cbabd8602bbb000dd8651a04883f0c78b64960564dff8750adf939",
+  "plan_status": "exploratory_nlinear_variable_mamba_acf_selector_electricity_h96_strong_baseline_confirmation",
+  "authorized": true,
+  "approval": {"approved": true, "approved_by": "user continuation request and active research objective", "approved_at_utc": "2026-09-27T00:00:00Z"},
+  "prelaunch_gate_evidence_hashes": {
+    "verify Electricity SHA256 fingerprint and multivariate feature dimensions": "d373f34da4cbabd8602bbb000dd8651a04883f0c78b64960564dff8750adf939",
+    "verify prediction-connected AutoCon representation, train-only ACF memory, and legal observed lags": "d373f34da4cbabd8602bbb000dd8651a04883f0c78b64960564dff8750adf939",
+    "verify exact selector-on/off pairing and fresh seeds": "d373f34da4cbabd8602bbb000dd8651a04883f0c78b64960564dff8750adf939",
+    "verify external baselines have relation loss and relation-lag options disabled": "d373f34da4cbabd8602bbb000dd8651a04883f0c78b64960564dff8750adf939",
+    "keep skip_test=true for every job": "d373f34da4cbabd8602bbb000dd8651a04883f0c78b64960564dff8750adf939"
+  }
+}

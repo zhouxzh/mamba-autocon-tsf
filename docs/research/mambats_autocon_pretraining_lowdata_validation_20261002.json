@@ -1,0 +1,74 @@
+{
+  "version": 1,
+  "schema_version": 1,
+  "status": "exploratory_mambats_autocon_pretraining_lowdata_validation",
+  "created_at": "2026-10-02",
+  "purpose": "Validation-only leave-one-domain-out evaluation of channel-count agnostic one-scan Mamba pretraining with train-only AutoCon relations.",
+  "research_question": "Does AutoCon-plus-reconstruction pretraining improve low-data target adaptation and robustness beyond reconstruction-only pretraining, target-only training, and random initialization?",
+  "evidence_boundary": "No target test split or held-out metric may be opened. This plan is validation-only and must not be used to select a test release after observing any target test result.",
+  "execution": {
+    "authorized": false,
+    "training_started": false,
+    "human_review_required": true,
+    "required_before_launch": [
+      "verify every source and target dataset hash plus source-target exclusion",
+      "verify pretraining checkpoint hash and reconstruction-only control identity",
+      "verify exact low-data split prefixes and robustness stressor seeds",
+      "keep all target test splits closed",
+      "create immutable source snapshots and guard GPU temperature and fan"
+    ]
+  },
+  "source_pool": ["pems03", "pems04", "pems07", "pems08", "metr_la", "pems_bay", "electricity", "traffic", "weather"],
+  "target_domains": ["weather", "electricity", "traffic", "pems03"],
+  "leave_one_domain_out": true,
+  "few_shot_fractions": [0.1, 0.25],
+  "seeds": [3501, 3502, 3503, 3504, 3505],
+  "architecture": {
+    "model": "MambaTSPretrain",
+    "seq_len": 96,
+    "pred_len": 96,
+    "patch_len": 24,
+    "patch_stride": 24,
+    "d_model": 32,
+    "d_ff": 64,
+    "mamba_scans": 1,
+    "channel_count_agnostic": true,
+    "inference_computes_autocon_loss": false
+  },
+  "pretraining_arms": [
+    {"name": "random_init", "checkpoint": "none", "reconstruction": false, "autocon_relation": false},
+    {"name": "reconstruction_only", "reconstruction": true, "autocon_relation": false, "mamba_lambda": 0.0},
+    {"name": "autocon_reconstruction", "reconstruction": true, "autocon_relation": true, "mamba_lambda": 0.001},
+    {"name": "target_only_autocon", "checkpoint": "none", "reconstruction": true, "autocon_relation": true, "mamba_lambda": 0.001}
+  ],
+  "robustness": {
+    "channel_dropout": [0.0, 0.1, 0.3],
+    "noise_std": [0.0, 0.05],
+    "stressor_seed": 3601,
+    "temporal_shift": "later chronological validation block"
+  },
+  "baselines": ["DLinear", "PatchTST", "iTransformer", "TimesNet", "TimeMixer", "Mamba2"],
+  "comparison_contract": {
+    "primary_metric": "validation_scaled_mse",
+    "primary_mechanism_contrast": "autocon_reconstruction versus reconstruction_only",
+    "pairing_unit": ["target_domain", "few_shot_fraction", "seed"],
+    "noninferiority_margin_ratio": 1.02,
+    "test_metrics_produced": false,
+    "reporting_rule": "Report every target, fraction, stressor and failed cell; do not pool windows or channels as independent replicates."
+  },
+  "promotion_rule": [
+    "AutoCon-plus-reconstruction is non-inferior to reconstruction-only on at least two leave-one-domain-out targets.",
+    "It improves a registered low-data or robustness endpoint over random initialization and reconstruction-only control.",
+    "It remains non-inferior to the strongest registered external baseline on target validation.",
+    "Single-scan prediction-only latency remains within the registered nonlinear reference budget.",
+    "A separately reviewed fresh-seed held-out plan is required before any target test metric is read."
+  ],
+  "registered_job_counts": {
+    "pretraining_checkpoints": 18,
+    "target_finetune_cells": 160,
+    "external_baseline_cells": 240,
+    "robustness_cells": 480,
+    "total_before_deduplication": 898,
+    "training_started": false
+  }
+}

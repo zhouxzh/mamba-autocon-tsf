@@ -1,0 +1,25 @@
+{
+  "version": 2,
+  "schema_version": 1,
+  "status": "exploratory_timemixer_pems_baseline_extension",
+  "created_at": "2026-09-23",
+  "job_order_seed": 20260925,
+  "purpose": "Add an official-structure TimeMixer baseline to the frozen PEMS strong-baseline coordinates.",
+  "research_question": "How does TimeMixer compare descriptively with the completed PEMS forecasting baselines under the same validation-only budget?",
+  "evidence_boundary": "Validation-only baseline extension; no test metrics or Mamba architecture selection are allowed.",
+  "claim_boundary": "This plan adds a comparator only and cannot reopen stopped Mamba candidate branches.",
+  "execution": {"authorized": true, "status": "exploratory_timemixer_pems_baseline_extension", "training_started": false, "human_review_required": true},
+  "prelaunch_gates": ["recheck all PEMS data hashes and axis contracts", "freeze source snapshot after TimeMixer contract tests pass", "keep skip_test=true for every job", "verify the 40 coordinates use the same seeds and budget as the completed matrix"],
+  "data_fingerprints": {
+    "pems03": {"relative_path": "dataset/PEMS03/PEMS03.npz", "format": "npz", "data_key": "data", "data_feature_index": 0, "channels_including_target": 358, "frequency": "t", "time_column": null, "data_interval_minutes": 5, "target_index": 357, "sha256": "34859517425eded66a0014db63de54b95d0428c38890741a1710ed4d3b043de8"},
+    "pems04": {"relative_path": "dataset/PEMS04/PEMS04.npz", "format": "npz", "data_key": "data", "data_feature_index": 0, "channels_including_target": 307, "frequency": "t", "time_column": null, "data_interval_minutes": 5, "target_index": 306, "sha256": "95a3c9b720fffdb85f0330d09bfab41b0b3cad0ca86c0d7d5f3accacb4ac999a"},
+    "pems07": {"relative_path": "dataset/PEMS07/PEMS07.npz", "format": "npz", "data_key": "data", "data_feature_index": 0, "channels_including_target": 883, "frequency": "t", "time_column": null, "data_interval_minutes": 5, "target_index": 882, "sha256": "a07887e610aa986276209bc9384d14ed7858fdcad1ded67f53dca19eb828600b"},
+    "pems08": {"relative_path": "dataset/PEMS08/PEMS08.npz", "format": "npz", "data_key": "data", "data_feature_index": 0, "channels_including_target": 170, "frequency": "t", "time_column": null, "data_interval_minutes": 5, "target_index": 169, "sha256": "e1d03ce74e9fb79149e6e7c37c680214822c4a285baa2f42278cacabcd25c075"}
+  },
+  "global": {"features": "M", "seq_len": 96, "label_len": 48, "d_model": 32, "d_ff": 64, "e_layers": 1, "n_heads": 4, "d_layers": 1, "factor": 1, "top_k": 5, "num_kernels": 6, "moving_avg": 25, "patch_len": 16, "patch_stride": 8, "timemixer_down_sampling_window": 2, "timemixer_down_sampling_layers": 1, "timemixer_channel_independence": false, "timemixer_decomp_method": "moving_avg", "dropout": 0.1, "embed": "timeF", "activation": "gelu", "wo_freq": "", "autocon_wnorm": "MeanStd", "autocon_scale": 96, "batch_size": 32, "epochs": 20, "patience": 5, "learning_rate": 0.001, "lradj": "cosine", "min_learning_rate": 0.00001, "weight_decay": 0.00001, "num_workers": 0, "train_ratio": 0.6, "use_gpu": true, "skip_test": true, "save_predictions": false, "stream_metrics": false, "stream_sample_windows": 1},
+  "phases": [
+    {"name": "timemixer", "purpose": "Official-structure efficient multi-scale MLP baseline.", "output_root": "artifacts/exploratory/timemixer_pems_baseline_extension_20260923/timemixer", "datasets": ["pems03", "pems04", "pems07", "pems08"], "models": ["TimeMixer"], "features": "M", "horizons": [12, 96], "seeds": [2021, 2022, 2023, 2024, 2025], "skip_test": true, "stream_metrics": false}
+  ],
+  "comparison_contract": {"primary_metric": "minimum pure-forecast validation val_loss", "pairing_unit": {"fields": ["dataset", "horizon", "seed"], "mode": "exact"}, "test_selection_allowed": false, "test_metrics_produced": false, "publication_claim_boundary": "TimeMixer is a comparator row, not a proposed method or a basis for test release."},
+  "registered_job_counts": {"timemixer": 40, "exploratory_total": 40, "training_total": 40, "total": 40, "training_started": false}
+}

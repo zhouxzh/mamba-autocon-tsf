@@ -1,0 +1,134 @@
+{
+  "version": 1,
+  "schema_version": 1,
+  "status": "exploratory_nlinear_variable_mamba_solar_h96_mechanism_strong_baseline",
+  "created_at": "2026-09-28",
+  "job_order_seed": 20261130,
+  "purpose": "Current-source, validation-only Solar H96 matrix for the compact variable-axis Mamba with separate prediction-connected representation and contrastive-relation controls.",
+  "research_question": "Can the variable-axis Mamba retain its Solar H96 accuracy and resource signal against strong baselines while the AutoCon representation path and relation objective are both tested with exact paired controls?",
+  "evidence_boundary": "Validation-only exploratory matrix. No held-out test metric, prediction, streaming metric, or test release may be generated or inspected.",
+  "claim_boundary": "The matrix can establish only same-source validation and fixed-shape forward-resource evidence. It cannot establish universal superiority, a held-out result, or an AutoCon mechanism effect unless the registered paired controls pass.",
+  "execution": {
+    "authorized": false,
+    "training_started": false,
+    "human_review_required": true,
+    "required_before_launch": [
+      "verify SolarEnergy fingerprint and the complete 27-job expansion",
+      "freeze model, control, baseline, optimizer, normalization, and seed contracts",
+      "keep skip_test=true and save_predictions=false for every job",
+      "create one immutable source snapshot and fresh output root"
+    ]
+  },
+  "data_fingerprints": {
+    "solar": {
+      "relative_path": "dataset/solar/solar_AL.txt",
+      "format": "txt",
+      "channels_including_target": 137,
+      "frequency": "t",
+      "target_index": 136,
+      "data_interval_minutes": 10,
+      "sha256": "230327ef72d2abb387939d4a35d6fd34f1066071bc7c40ce7ecf5531a0122ac2"
+    }
+  },
+  "global": {
+    "features": "M", "seq_len": 96, "label_len": 48, "d_model": 64, "d_ff": 128,
+    "e_layers": 2, "n_heads": 8, "d_layers": 1, "factor": 1, "top_k": 5,
+    "num_kernels": 6, "moving_avg": 25, "patch_len": 16, "patch_stride": 8,
+    "dropout": 0.1, "embed": "timeF", "activation": "gelu", "wo_freq": "",
+    "individual": false, "mamba_d_state": 8, "mamba_d_conv": 2, "mamba_expand": 1,
+    "mamba_headdim": 16, "mamba_ts_variant": "v1", "mamba_ts_context_rank": 16,
+    "mamba_variable_repr_fusion": true,
+    "mamba_use_acf_memory": false, "mamba_acf_relation_loss": true,
+    "mamba_acf_relation_batching": "lag_pairs", "mamba_acf_relation_lag_balance": "balanced",
+    "mamba_acf_relation_channel_reduce": "mean", "mamba_acf_relation_scope": "global",
+    "mamba_acf_relation_representation": "encoder", "mamba_acf_relation_lag_mask": true,
+    "mamba_acf_relation_lag_tolerance": 0, "mamba_acf_relation_min_lag": 96,
+    "mamba_acf_relation_target_mode": "hard_selected", "mamba_acf_relation_soft_min_abs": 0.1,
+    "mamba_acf_relation_diagnostic_min_abs": 0.1, "mamba_acf_relation_selected_lag_boost": 0.0,
+    "mamba_acf_lags": [24, 168, 336], "autocon_scale": 96, "autocon_wnorm": "LastVal",
+    "autocon_warmup": 2, "autocon_acf_source": "raw", "AutoCon_temperature": 0.2,
+    "AutoCon_relation_temperature": 0.25, "AutoCon_sign_weight": 0.25,
+    "AutoCon_sign_margin": 0.1, "autocon_lambda": 0.0001,
+    "batch_size": 32, "epochs": 8, "patience": 3, "learning_rate": 0.001,
+    "lradj": "type1", "min_learning_rate": 0.0, "weight_decay": 0.0,
+    "num_workers": 0, "drop_last_train": false, "train_ratio": 0.6,
+    "use_gpu": true, "skip_test": true, "save_predictions": false,
+    "stream_metrics": false, "stream_sample_windows": 1
+  },
+  "selection_contract": {
+    "seeds": [3281, 3282, 3283],
+    "selection_metric": "minimum pure-forecast validation scaled MSE",
+    "test_split_allowed": false,
+    "freeze_rule": "All model, control, baseline, training, data, and seed settings are fixed before launch.",
+    "no_test_selection": true
+  },
+  "capacity_fairness_contract": {
+    "common_public_budget": "All arms share Solar loader, chronological split, M features, input length, horizon, optimizer, scheduler, batch size, epoch budget, patience, and seeds.",
+    "active_difference": "The active candidate uses one variable-axis Mamba-1 scan, prediction-connected AutoCon representation fusion, and the train-only AutoCon relation objective at lambda=.0001.",
+    "fusion_control_difference": "Only mamba_variable_repr_fusion is disabled; AutoCon relation training remains active.",
+    "relation_null_difference": "Only AutoCon lambda is set to zero under the explicit exploratory zero-lambda contract; the same representation-fusion graph remains active.",
+    "baseline_boundary": "External baselines receive no AutoCon, relation, variable-axis Mamba, or representation-fusion setting. MambaTSv3AutoCon is a separately labelled temporal-Mamba context arm, not an external baseline."
+  },
+  "phases": [
+    {
+      "name": "variable_active", "purpose": "Compact variable-axis Mamba with prediction-connected AutoCon representation and active relation objective.",
+      "output_root": "artifacts/exploratory/nlinear_variable_mamba_solar_h96_mechanism_strong_baseline_20260928/active",
+      "datasets": ["solar"], "models": ["NLinearVariableMambaAutoCon"], "features": "M", "horizons": [96], "seeds": [3281, 3282, 3283],
+      "mamba_ts_residual_init": 0.1, "mamba_variable_repr_fusion": true, "mamba_acf_relation_loss": true, "autocon_lambda": 0.0001,
+      "skip_test": true, "stream_metrics": false
+    },
+    {
+      "name": "variable_fusion_off", "purpose": "Exact prediction-connected representation-fusion control retaining the same relation objective.",
+      "output_root": "artifacts/exploratory/nlinear_variable_mamba_solar_h96_mechanism_strong_baseline_20260928/fusion_off",
+      "datasets": ["solar"], "models": ["NLinearVariableMambaAutoCon"], "features": "M", "horizons": [96], "seeds": [3281, 3282, 3283],
+      "mamba_ts_residual_init": 0.1, "mamba_variable_repr_fusion": false, "mamba_acf_relation_loss": true, "autocon_lambda": 0.0001,
+      "skip_test": true, "stream_metrics": false
+    },
+    {
+      "name": "variable_relation_null", "purpose": "Exact contrastive-relation null retaining the prediction-connected representation-fusion graph.",
+      "output_root": "artifacts/exploratory/nlinear_variable_mamba_solar_h96_mechanism_strong_baseline_20260928/relation_null",
+      "datasets": ["solar"], "models": ["NLinearVariableMambaAutoCon"], "features": "M", "horizons": [96], "seeds": [3281, 3282, 3283],
+      "mamba_ts_residual_init": 0.1, "mamba_variable_repr_fusion": true, "mamba_acf_relation_loss": true, "autocon_lambda": 0.0,
+      "allow_zero_autocon_lambda": true, "skip_test": true, "stream_metrics": false
+    },
+    {
+      "name": "external_baselines", "purpose": "Strong external Solar context baselines under the common data and training budget.",
+      "output_root": "artifacts/exploratory/nlinear_variable_mamba_solar_h96_mechanism_strong_baseline_20260928/baselines",
+      "datasets": ["solar"], "models": ["DLinear", "NLinear", "PatchTST", "TimesNet", "iTransformer"], "features": "M", "horizons": [96], "seeds": [3281, 3282, 3283],
+      "baseline_check": true, "mamba_variable_repr_fusion": false, "mamba_acf_relation_loss": false, "mamba_acf_relation_min_lag": 0,
+      "skip_test": true, "stream_metrics": false
+    },
+    {
+      "name": "temporal_mambatsv3_context", "purpose": "Current temporal-axis MambaTSv3 AutoCon context arm, separately labelled from external baselines.",
+      "output_root": "artifacts/exploratory/nlinear_variable_mamba_solar_h96_mechanism_strong_baseline_20260928/mambatsv3_context",
+      "datasets": ["solar"], "models": ["MambaTSv3AutoCon"], "features": "M", "horizons": [96], "seeds": [3281, 3282, 3283],
+      "mamba_ts_variant": "v3", "mamba_ts_repr_forecast_fusion": true, "mamba_ts_context_rank": 16,
+      "mamba_variable_repr_fusion": false, "mamba_acf_relation_loss": false, "mamba_acf_relation_min_lag": 0, "autocon_wnorm": "MeanStd", "autocon_warmup": 0,
+      "autocon_lambda": 0.001, "skip_test": true, "stream_metrics": false
+    }
+  ],
+  "fixed_variable_repr_fusion_contract": {
+    "phases": ["variable_active", "variable_relation_null"],
+    "state": "enabled"
+  },
+  "comparison_contract": {
+    "primary_metric": "minimum pure-forecast validation scaled MSE",
+    "pairing_unit": ["dataset", "horizon", "seed"],
+    "mechanism_contrasts": ["variable_active versus variable_fusion_off", "variable_active versus variable_relation_null"],
+    "external_comparators": ["DLinear", "NLinear", "PatchTST", "TimesNet", "iTransformer"],
+    "context_comparator": "MambaTSv3AutoCon",
+    "test_selection_allowed": false, "test_metrics_produced": false,
+    "reporting_rule": "Report all paired deltas, including failed controls. A held-out test release requires a separate frozen and explicitly approved plan."
+  },
+  "stopping_rules": [
+    "Reject the entire readout if any job is incomplete, source snapshots differ, or a test artifact exists.",
+    "Do not promote the architecture if it is not non-inferior to iTransformer or if it is slower on the matched resource benchmark.",
+    "Do not claim a contrastive-loss accuracy contribution if variable_active does not improve on variable_relation_null in at least two of three exact seed pairs.",
+    "Do not claim a prediction-connected representation contribution if variable_active does not improve on variable_fusion_off in at least two of three exact seed pairs."
+  ],
+  "registered_job_counts": {
+    "variable_active": 3, "variable_fusion_off": 3, "variable_relation_null": 3,
+    "external_baselines": 15, "temporal_mambatsv3_context": 3,
+    "exploratory_total": 27, "training_total": 27, "total": 27, "training_started": false
+  }
+}

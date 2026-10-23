@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "kind": "training_plan_launch_authorization",
+  "plan_path": "/home/zhong/Documents/Self-Supervised-Contrastive-Forecsating/docs/research/metro_pemsbay_mambatsv3_d24_test_release_20260927.json",
+  "plan_sha256": "678c0c0317c1cfe88c26f27b31d02a939df81694f85076543a6e97c90ee012c0",
+  "plan_status": "launch_authorized",
+  "authorized": true,
+  "approval": {"approved": true, "approved_by": "user continuation request and active research objective", "approved_at_utc": "2026-09-27T00:00:00Z"},
+  "prelaunch_gate_evidence_hashes": {
+    "verify METR-LA and PEMS-BAY hashes and exact 76-job expansion": "2c4acd977e271fd16a34575ce9e6143114fbb9eed6d11a743eea62870ec1eb9a",
+    "freeze candidate and baseline contracts": "678c0c0317c1cfe88c26f27b31d02a939df81694f85076543a6e97c90ee012c0",
+    "keep test metrics out of selection": "678c0c0317c1cfe88c26f27b31d02a939df81694f85076543a6e97c90ee012c0",
+    "run all phases under the immutable launch sidecar": "678c0c0317c1cfe88c26f27b31d02a939df81694f85076543a6e97c90ee012c0",
+    "read test metrics only after all strict phase validators pass": "678c0c0317c1cfe88c26f27b31d02a939df81694f85076543a6e97c90ee012c0"
+  }
+}

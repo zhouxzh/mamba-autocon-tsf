@@ -1,0 +1,55 @@
+{
+  "version": 1,
+  "schema_version": 1,
+  "status": "stopped_gpu_thermal_protection",
+  "created_at": "2026-09-28",
+  "job_order_seed": 20261111,
+  "purpose": "Pre-register an independent held-out METR-LA/PEMS-BAY H12 comparison between the frozen MambaTSv3 AutoCon fusion candidate and the validation-passed Graph WaveNet-style graph baseline, with TimesNet and Mamba2 context baselines.",
+  "research_question": "Does the frozen MambaTSv3 AutoCon prediction-connected fusion candidate remain non-inferior to a fixed-plus-adaptive graph temporal baseline on untouched METR-LA and PEMS-BAY H12 windows?",
+  "evidence_boundary": "This is an unapproved protocol draft. No job from it may be launched, and no new held-out metric may be read, until a human approval sidecar binds its exact SHA-256.",
+  "claim_boundary": "If approved and passed, this extension supports only a non-graph candidate comparison with a local canonical-style GraphWaveNet baseline on METR-LA/PEMS-BAY H12. It is not an external-code bitwise reproduction and cannot establish universal, graph-aware, causal-AutoCon, or hardware-independent claims.",
+  "execution": {
+    "authorized": false,
+    "status": "stopped_gpu_thermal_protection",
+    "training_started": true,
+    "human_review_required": true,
+    "required_before_launch": [
+      "verify dataset and adjacency fingerprints plus exact 46-job expansion",
+      "confirm candidate, GraphWaveNet configuration, seeds, and common budget remain fixed",
+      "approve the exact plan SHA-256 in a separate launch sidecar",
+      "execute all phases from one immutable source snapshot and read test metrics only after strict validation"
+    ]
+  },
+  "stop_record": {
+    "status": "stopped_gpu_thermal_protection",
+    "stopped_at_utc": "2026-10-01T00:17:40Z",
+    "reason": "GraphWaveNet baseline first held-out job sustained 74-75C at 67-68% fan and roughly 510-528W. The operator safety policy proactively terminated the process group at 75C before the 78C hard guard threshold.",
+    "completed_phase_jobs": {
+      "selection_fusion_candidate_validation": 6,
+      "confirmatory_fusion_candidate_test": 10,
+      "confirmatory_graphwavenet_baseline_test": 0,
+      "confirmatory_timesnet_mamba2_baselines_test": 0
+    },
+    "reporting_rule": "Do not read or report candidate held-out metrics. The paired GraphWaveNet and context baseline phases are incomplete."
+  },
+  "data_fingerprints": {
+    "metr_la": {"relative_path": "dataset/METR-LA/METR-LA.csv", "format": "csv_numeric", "channels_including_target": 207, "frequency": "t", "target_index": 206, "data_interval_minutes": 5, "sha256": "5fa498de0c90f5ff9b67e7cf9654bec031a803b320a8eb13d48021b9983bec82", "adjacency_relative_path": "dataset/METR-LA/adjacency.npz", "adjacency_sha256": "97cfc5c63ab90bc6517108881f1aa3c26c62fbc548584b4ec76b28b0e16eac89"},
+    "pems_bay": {"relative_path": "dataset/PEMS-BAY/PEMS-BAY.csv", "format": "csv_numeric", "channels_including_target": 325, "frequency": "t", "target_index": 324, "data_interval_minutes": 5, "sha256": "c39dc8f5f3a7f1e9e9deeab1f3fdfa7b87d2b4e45b4075d4c3bd3c62c3051ef2", "adjacency_relative_path": "dataset/PEMS-BAY/adjacency.npz", "adjacency_sha256": "3567957c59f994a678526725b810cf29031affe03dca99c72d0c4eba9e8761c7"}
+  },
+  "global": {"features": "M", "seq_len": 96, "label_len": 48, "d_model": 24, "d_ff": 48, "e_layers": 1, "n_heads": 4, "d_layers": 1, "factor": 1, "top_k": 5, "num_kernels": 6, "moving_avg": 25, "patch_len": 24, "patch_stride": 24, "dropout": 0.1, "embed": "timeF", "activation": "gelu", "wo_freq": "", "individual": false, "mamba_d_state": 8, "mamba_d_conv": 2, "mamba_expand": 1, "mamba_headdim": 8, "mamba_ts_context_rank": 16, "mamba_ts_variant": "v3", "mamba_ts_repr_forecast_fusion": false, "mamba_ts_repr_forecast_channelwise": false, "mamba_use_acf_memory": false, "mamba_acf_relation_loss": false, "autocon_scale": 96, "autocon_wnorm": "LastVal", "autocon_warmup": 2, "autocon_acf_source": "raw", "AutoCon_temperature": 0.2, "AutoCon_relation_temperature": 0.25, "AutoCon_sign_weight": 0.25, "AutoCon_sign_margin": 0.1, "autocon_lambda": 0.001, "batch_size": 32, "epochs": 20, "patience": 5, "learning_rate": 0.001, "lradj": "cosine", "min_learning_rate": 0.00001, "weight_decay": 0.00001, "num_workers": 0, "drop_last_train": false, "train_ratio": 0.6, "use_gpu": true, "skip_test": true, "save_predictions": false, "stream_metrics": false, "stream_sample_windows": 1},
+  "selection_contract": {"selection_seeds": [3091, 3092, 3093], "selection_horizons": [12], "test_split_allowed": false, "selection_metric": "best_validation_scaled_mse", "freeze_rule": "The candidate and GraphWaveNet configurations were frozen before this draft; selection only verifies executable provenance and may not use baseline or held-out values.", "no_test_selection": true},
+  "confirmation_contract": {"confirmation_seeds": [3101, 3102, 3103, 3104, 3105], "horizons": [12], "pairing_unit": "same dataset, horizon, seed", "primary_metric": "held_out_streaming_scaled_mse", "secondary_metrics": ["held_out_streaming_scaled_mae", "held_out_streaming_original_mse", "held_out_streaming_original_mae"], "test_read_gate": "Read test metrics only after every registered phase validator succeeds.", "independence_note": "Seed-level paired contrasts are the uncertainty unit; forecast windows and channels are not inferential replicates."},
+  "capacity_fairness_contract": {"common_public_budget": "All arms share loader, chronological split, features, sequence length, horizon, epochs, patience, optimizer, scheduler, batch and normalization.", "candidate_boundary": "Only MambaTSv3AutoCon receives its frozen prediction-connected representation-fusion flag and AutoCon objective.", "graphwavenet_boundary": "GraphWaveNet receives only the adjacency contract and its fixed/adaptive graph supports; it receives no AutoCon or candidate-only representation flags.", "external_baseline_boundary": "TimesNet and Mamba2 receive no candidate-only AutoCon, representation-fusion or graph flags."},
+  "accuracy_claim_contract": {"primary_noninferiority_comparators": ["GraphWaveNet", "Mamba2"], "secondary_descriptive_baselines": ["TimesNet"], "boundary": "The two primary comparator families use a Bonferroni-adjusted one-sided interval; TimesNet is descriptive in this extension."},
+  "phases": [
+    {"name": "selection_fusion_candidate_validation", "purpose": "Validation-only executable contract check of the previously frozen MambaTSv3 AutoCon fusion candidate.", "output_root": "artifacts/paper_final/metro_pemsbay_graphwavenet_mambatsv3_h12_test_release_20260928/selection", "datasets": ["metr_la", "pems_bay"], "models": ["MambaTSv3AutoCon"], "features": "M", "horizons": [12], "seeds": [3091, 3092, 3093], "mamba_ts_variant": "v3", "mamba_ts_repr_forecast_fusion": true, "autocon_lambda": 0.001, "skip_test": true, "stream_metrics": false},
+    {"name": "confirmatory_fusion_candidate_test", "purpose": "Frozen MambaTSv3 AutoCon fusion candidate held-out phase.", "output_root": "artifacts/paper_final/metro_pemsbay_graphwavenet_mambatsv3_h12_test_release_20260928/candidate", "datasets": ["metr_la", "pems_bay"], "models": ["MambaTSv3AutoCon"], "features": "M", "horizons": [12], "seeds": [3101, 3102, 3103, 3104, 3105], "mamba_ts_variant": "v3", "mamba_ts_repr_forecast_fusion": true, "autocon_lambda": 0.001, "skip_test": false, "stream_metrics": true},
+    {"name": "confirmatory_graphwavenet_baseline_test", "purpose": "Frozen local GraphWaveNet-style held-out baseline using the registered adjacency NPZ contract.", "output_root": "artifacts/paper_final/metro_pemsbay_graphwavenet_mambatsv3_h12_test_release_20260928/graphwavenet", "datasets": ["metr_la", "pems_bay"], "models": ["GraphWaveNet"], "features": "M", "horizons": [12], "seeds": [3101, 3102, 3103, 3104, 3105], "baseline_check": true, "mamba_ts_graph_spatial": true, "skip_test": false, "stream_metrics": true},
+    {"name": "confirmatory_timesnet_mamba2_baselines_test", "purpose": "Frozen TimesNet and Mamba2 held-out context baselines without candidate-only AutoCon or graph settings.", "output_root": "artifacts/paper_final/metro_pemsbay_graphwavenet_mambatsv3_h12_test_release_20260928/baselines", "datasets": ["metr_la", "pems_bay"], "models": ["TimesNet", "Mamba2"], "features": "M", "horizons": [12], "seeds": [3101, 3102, 3103, 3104, 3105], "baseline_check": true, "mamba_ts_variant": "v1", "mamba_ts_repr_forecast_fusion": false, "mamba_use_acf_memory": false, "mamba_acf_relation_loss": false, "skip_test": false, "stream_metrics": true}
+  ],
+  "comparison_contract": {"primary_metric": "held_out_streaming_scaled_mse", "pairing_unit": {"fields": ["dataset", "horizon", "seed"], "mode": "exact"}, "primary_contrasts": ["confirmatory_fusion_candidate_test:MambaTSv3AutoCon::confirmatory_graphwavenet_baseline_test:GraphWaveNet", "confirmatory_fusion_candidate_test:MambaTSv3AutoCon::confirmatory_timesnet_mamba2_baselines_test:Mamba2"], "secondary_contrasts": ["confirmatory_fusion_candidate_test:MambaTSv3AutoCon::confirmatory_timesnet_mamba2_baselines_test:TimesNet"], "test_selection_allowed": false, "test_metrics_produced": true, "metric_source": "results/<setting>/stream_metrics.json"},
+  "statistical_gate": {"primary_comparisons": ["confirmatory_fusion_candidate_test:MambaTSv3AutoCon::confirmatory_graphwavenet_baseline_test:GraphWaveNet", "confirmatory_fusion_candidate_test:MambaTSv3AutoCon::confirmatory_timesnet_mamba2_baselines_test:Mamba2"], "paired_effect": "seed-level log(MSE_candidate / MSE_baseline)", "interval_alpha": 0.025, "multiplicity": "Bonferroni across the two primary comparator families", "noninferiority_margin_ratio": 1.02, "interpretation": "A primary cell is non-inferior only if its Bonferroni-adjusted one-sided paired upper MSE ratio is <=1.02.", "small_n_warning": "Five seeds remain modest and do not support universal claims."},
+  "resource_contract": {"tool": "scripts/benchmark_model_resources.py", "when": "after test accuracy is frozen", "comparators": ["GraphWaveNet", "TimesNet", "Mamba2"], "same_conditions": ["same GPU/driver", "FP32", "device-resident inputs", "batch shape", "warm-up", "timed iterations"], "efficiency_claim_gate": "Report prediction-only speed only for named comparators whose registered accuracy gate passes; never use training wall time as inference throughput."},
+  "prelaunch_gates": ["verify dataset and adjacency fingerprints plus exact 46-job expansion", "confirm candidate, GraphWaveNet configuration, seeds, and common budget remain fixed", "approve the exact plan SHA-256 in a separate launch sidecar", "execute all phases from one immutable source snapshot and read test metrics only after strict validation"],
+  "registered_job_counts": {"selection_fusion_candidate_validation": 6, "confirmatory_fusion_candidate_test": 10, "confirmatory_graphwavenet_baseline_test": 10, "confirmatory_timesnet_mamba2_baselines_test": 20, "selection_total": 6, "confirmation_total": 40, "training_total": 46, "total": 46, "training_started": false}
+}

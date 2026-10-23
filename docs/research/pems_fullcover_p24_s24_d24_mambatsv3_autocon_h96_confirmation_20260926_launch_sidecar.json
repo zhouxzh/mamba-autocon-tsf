@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "kind": "training_plan_launch_authorization",
+  "plan_path": "/home/zhong/Documents/Self-Supervised-Contrastive-Forecsating/docs/research/pems_fullcover_p24_s24_d24_mambatsv3_autocon_h96_confirmation_20260926.json",
+  "plan_sha256": "4acaf2b0e6626898fbe04d75a3482e5f58f641215b4d028c509ea48ac2420f9a",
+  "plan_status": "exploratory_pems_fullcover_p24_s24_d24_mambatsv3_autocon_h96_confirmation",
+  "authorized": true,
+  "approval": {"approved": true, "approved_by": "user continuation request and active research objective", "approved_at_utc": "2026-09-26T00:00:00Z"},
+  "prelaunch_gate_evidence_hashes": {
+    "verify four PEMS hashes and train-only normalization contract": "4acaf2b0e6626898fbe04d75a3482e5f58f641215b4d028c509ea48ac2420f9a",
+    "freeze full-coverage p24/s24 d24 H96 candidate and exact lambda-zero graph": "4acaf2b0e6626898fbe04d75a3482e5f58f641215b4d028c509ea48ac2420f9a",
+    "use fresh paired seeds": "4acaf2b0e6626898fbe04d75a3482e5f58f641215b4d028c509ea48ac2420f9a",
+    "keep skip_test=true": "4acaf2b0e6626898fbe04d75a3482e5f58f641215b4d028c509ea48ac2420f9a",
+    "verify the pre-training PEMS07 d24 H96 GPU forward measurement": "6ae20ba8fcf9ec4efcc9ae729ebc01eadc6f7a430d5440808f31e2137197d80e"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "kind": "training_plan_launch_authorization",
+  "plan_path": "/home/zhong/Documents/Self-Supervised-Contrastive-Forecsating/docs/research/mambatsv10_vastlite_etth1_h336_preflight_20260927.json",
+  "plan_sha256": "4b8a5d3a3488b402245cf8a5494693a75b8da1ac26a4ea0b5efd6c7bc60dc00f",
+  "plan_status": "exploratory_mambatsv10_vastlite_etth1_h336_preflight",
+  "authorized": true,
+  "approval": {
+    "approved": true,
+    "approved_by": "user continuation request and active research objective",
+    "approved_at_utc": "2026-09-27T00:00:00Z"
+  },
+  "prelaunch_gate_evidence_hashes": {
+    "verify ETTh1 SHA256 and multivariate dimensions": "4b8a5d3a3488b402245cf8a5494693a75b8da1ac26a4ea0b5efd6c7bc60dc00f",
+    "verify MambaTSv10 direct AutoCon forecast connection": "4b8a5d3a3488b402245cf8a5494693a75b8da1ac26a4ea0b5efd6c7bc60dc00f",
+    "fit ACF from train split only and store its sidecar": "4b8a5d3a3488b402245cf8a5494693a75b8da1ac26a4ea0b5efd6c7bc60dc00f",
+    "retain exactly one Mamba scan and fixed evaluation order": "4b8a5d3a3488b402245cf8a5494693a75b8da1ac26a4ea0b5efd6c7bc60dc00f",
+    "use exact paired fresh seeds": "4b8a5d3a3488b402245cf8a5494693a75b8da1ac26a4ea0b5efd6c7bc60dc00f",
+    "keep skip_test=true for all phases": "4b8a5d3a3488b402245cf8a5494693a75b8da1ac26a4ea0b5efd6c7bc60dc00f"
+  }
+}

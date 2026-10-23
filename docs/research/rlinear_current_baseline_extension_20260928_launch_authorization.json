@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "kind": "training_plan_launch_authorization",
+  "authorized": true,
+  "plan_path": "docs/research/rlinear_current_baseline_extension_20260928.json",
+  "plan_sha256": "2a931db6a51bda25a97590d55955fce82712ad32d44761cbde1370d44f38ffd2",
+  "plan_status": "exploratory_rlinear_current_baseline_extension",
+  "approval": {
+    "approved": true,
+    "approved_by": "user persistent objective: baseline expansion",
+    "approved_at_utc": "2026-09-28T07:13:01Z"
+  },
+  "prelaunch_gate_evidence_hashes": {
+    "verify all six dataset hashes and dimensions": {"sha256": "2a931db6a51bda25a97590d55955fce82712ad32d44761cbde1370d44f38ffd2", "artifact": "docs/research/rlinear_current_baseline_extension_20260928.json"},
+    "verify exact 18-job RLinear expansion": {"sha256": "2a931db6a51bda25a97590d55955fce82712ad32d44761cbde1370d44f38ffd2", "artifact": "docs/research/rlinear_current_baseline_extension_20260928.json"},
+    "keep test execution disabled for every job": {"sha256": "2a931db6a51bda25a97590d55955fce82712ad32d44761cbde1370d44f38ffd2", "artifact": "docs/research/rlinear_current_baseline_extension_20260928.json"},
+    "preserve a single source snapshot and immutable output roots": {"sha256": "2a931db6a51bda25a97590d55955fce82712ad32d44761cbde1370d44f38ffd2", "artifact": "docs/research/rlinear_current_baseline_extension_20260928.json"}
+  }
+}

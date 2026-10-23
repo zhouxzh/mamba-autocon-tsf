@@ -1,0 +1,50 @@
+{
+  "version": 1,
+  "schema_version": 1,
+  "status": "exploratory_mambatsv3_autocon_fusion_crossdomain_h96_validation",
+  "created_at": "2026-09-27",
+  "job_order_seed": 20261011,
+  "purpose": "Validation-only cross-domain confirmation of the prediction-connected MambaTSv3 AutoCon fusion with seven same-source baselines.",
+  "research_question": "Does the frozen prediction-connected AutoCon fusion remain competitive outside traffic-speed data on ETTh1, Weather, Exchange-Rate, and ILI coordinates?",
+  "architecture": "MambaTSv3 uses one shared Mamba-1 patch scan; the AutoCon representation is connected to the forecast through a zero-initialized low-rank temporal residual. The representation objective remains train-only and uses the existing AutoCon contrastive/relationship loss.",
+  "evidence_boundary": "Validation-only. No test metrics or predictions are generated. A pass permits a separately registered held-out release; a failure stops the corresponding dataset branch.",
+  "claim_boundary": "This matrix cannot establish universal forecasting, causal AutoCon attribution, long-horizon superiority, or hardware-independent speed.",
+  "execution": {
+    "authorized": true,
+    "status": "exploratory_mambatsv3_autocon_fusion_crossdomain_h96_validation",
+    "training_started": false,
+    "human_review_required": true,
+    "required_before_launch": [
+      "verify four dataset hashes and exact 96-job expansion",
+      "freeze candidate fusion and baseline contracts",
+      "keep test execution disabled",
+      "run all phases under the immutable launch sidecar",
+      "preserve source snapshot and output root"
+    ]
+  },
+  "data_fingerprints": {
+    "ETTh1": {"relative_path": "dataset/ETT-small/ETTh1.csv", "channels_including_target": 7, "frequency": "h", "time_column": "date", "target": "OT", "sha256": "f18de3ad269cef59bb07b5438d79bb3042d3be49bdeecf01c1cd6d29695ee066"},
+    "weather": {"relative_path": "dataset/weather/weather.csv", "channels_including_target": 21, "frequency": "t", "time_column": "date", "target": "OT", "sha256": "773b97c4495ed044b390241cea9a9c39b79c80b2436dbcc0fbd32e289c86abf5"},
+    "exchange_rate": {"relative_path": "dataset/exchange_rate/exchange_rate.csv", "channels_including_target": 8, "frequency": "d", "time_column": "date", "target": "OT", "sha256": "d55e7aa2641009814a18ba3279431b13f6d413b0eab195b9ff21988d8cf94e97"},
+    "national_illness": {"relative_path": "dataset/illness/national_illness.csv", "channels_including_target": 7, "frequency": "d", "time_column": "date", "target": "OT", "sha256": "8594cecb98c6f2f9dc014eca11c4d5d1e38ad5ce6ed0592d4abe65b146fce395"}
+  },
+  "global": {
+    "features": "M", "seq_len": 96, "label_len": 48, "d_model": 32, "d_ff": 64, "e_layers": 1, "n_heads": 4, "d_layers": 1, "factor": 1, "top_k": 5, "num_kernels": 6, "moving_avg": 25, "patch_len": 16, "patch_stride": 8, "dropout": 0.1, "embed": "timeF", "activation": "gelu", "wo_freq": "", "individual": false,
+    "mamba_d_state": 16, "mamba_d_conv": 4, "mamba_expand": 2, "mamba_headdim": 16, "mamba_ts_variant": "v3", "mamba_ts_context_rank": 16, "mamba_scales": [1], "mamba_token_stride": 1, "mamba_bidirectional": false, "mamba_causal_embedding": true,
+    "mamba_ts_repr_forecast_fusion": false, "mamba_ts_repr_forecast_channelwise": false, "mamba_use_acf_memory": false, "mamba_acf_relation_loss": false,
+    "autocon_scale": 96, "autocon_wnorm": "MeanStd", "autocon_warmup": 0, "autocon_acf_source": "raw", "AutoCon_temperature": 0.2, "AutoCon_relation_temperature": 0.25, "AutoCon_sign_weight": 0.25, "AutoCon_sign_margin": 0.1, "autocon_lambda": 0.001,
+    "batch_size": 32, "epochs": 12, "patience": 4, "learning_rate": 0.001, "lradj": "cosine", "min_learning_rate": 0.00001, "weight_decay": 0.00001, "num_workers": 0, "drop_last_train": false, "train_ratio": 0.6, "use_gpu": true, "skip_test": true, "save_predictions": false, "stream_metrics": false, "stream_sample_windows": 1
+  },
+  "selection_contract": {"seeds": [2411, 2412, 2413], "test_split_allowed": false, "selection_metric": "best_validation_scaled_mse", "freeze_rule": "The fusion mechanism and lambda are fixed before this matrix; no dataset may select a different architecture or hyperparameter.", "no_test_selection": true},
+  "capacity_fairness_contract": {"common_public_budget": "All arms share split, features, sequence length, horizon, optimizer, scheduler, batch, epoch budget, patience, and normalization.", "external_baseline_boundary": "Baselines receive no candidate-only AutoCon fusion or relation-loss flags; capacity and resource signatures are reported separately."},
+  "phases": [
+    {"name": "fusion_candidate_h96_validation", "purpose": "Frozen MambaTSv3 prediction-connected AutoCon fusion candidate on three standard H96 datasets.", "output_root": "artifacts/exploratory/mambatsv3_autocon_fusion_crossdomain_h96_validation_20260927/candidate_h96", "datasets": ["ETTh1", "weather", "exchange_rate"], "models": ["MambaTSv3AutoCon"], "features": "M", "horizons": [96], "seeds": [2411, 2412, 2413], "mamba_ts_variant": "v3", "mamba_ts_repr_forecast_fusion": true, "autocon_lambda": 0.001, "skip_test": true, "stream_metrics": false},
+    {"name": "fusion_baselines_h96_validation", "purpose": "Same-source H96 baseline context for ETTh1, Weather, and Exchange-Rate.", "output_root": "artifacts/exploratory/mambatsv3_autocon_fusion_crossdomain_h96_validation_20260927/baselines_h96", "datasets": ["ETTh1", "weather", "exchange_rate"], "models": ["DLinear", "NLinear", "PatchTST", "TimeMixer", "iTransformer", "Mamba2", "MambaTM1"], "features": "M", "horizons": [96], "seeds": [2411, 2412, 2413], "baseline_check": true, "mamba_ts_variant": "v1", "mamba_ts_repr_forecast_fusion": false, "mamba_use_acf_memory": false, "mamba_acf_relation_loss": false, "skip_test": true, "stream_metrics": false},
+    {"name": "fusion_candidate_ili_h48_validation", "purpose": "Frozen fusion candidate on the standard ILI H48 coordinate.", "output_root": "artifacts/exploratory/mambatsv3_autocon_fusion_crossdomain_h96_validation_20260927/candidate_ili", "datasets": ["national_illness"], "models": ["MambaTSv3AutoCon"], "features": "M", "horizons": [48], "seeds": [2411, 2412, 2413], "mamba_ts_variant": "v3", "mamba_ts_repr_forecast_fusion": true, "autocon_lambda": 0.001, "skip_test": true, "stream_metrics": false},
+    {"name": "fusion_baselines_ili_h48_validation", "purpose": "Same-source ILI H48 baseline context.", "output_root": "artifacts/exploratory/mambatsv3_autocon_fusion_crossdomain_h96_validation_20260927/baselines_ili", "datasets": ["national_illness"], "models": ["DLinear", "NLinear", "PatchTST", "TimeMixer", "iTransformer", "Mamba2", "MambaTM1"], "features": "M", "horizons": [48], "seeds": [2411, 2412, 2413], "baseline_check": true, "mamba_ts_variant": "v1", "mamba_ts_repr_forecast_fusion": false, "mamba_use_acf_memory": false, "mamba_acf_relation_loss": false, "skip_test": true, "stream_metrics": false}
+  ],
+  "comparison_contract": {"primary_metric": "minimum pure-forecast validation scaled MSE", "pairing_unit": ["dataset", "horizon", "seed"], "primary_comparators": ["TimeMixer", "iTransformer", "Mamba2", "MambaTM1"], "secondary_comparators": ["DLinear", "NLinear", "PatchTST"], "test_selection_allowed": false, "test_metrics_produced": false},
+  "stopping_rules": ["Stop a dataset branch if candidate is more than 2% worse than its strongest baseline.", "Do not claim AutoCon causal gain unless the fusion candidate is compared with its exact lambda-zero control in a separately registered mechanism screen.", "Do not release held-out test for a failed dataset branch."],
+  "prelaunch_gates": ["verify four dataset hashes and exact 96-job expansion", "freeze candidate fusion and baseline contracts", "keep test execution disabled", "run all phases under the immutable launch sidecar", "preserve source snapshot and output root"],
+  "registered_job_counts": {"fusion_candidate_h96_validation": 9, "fusion_baselines_h96_validation": 63, "fusion_candidate_ili_h48_validation": 3, "fusion_baselines_ili_h48_validation": 21, "exploratory_total": 96, "training_total": 96, "total": 96, "training_started": false}
+}

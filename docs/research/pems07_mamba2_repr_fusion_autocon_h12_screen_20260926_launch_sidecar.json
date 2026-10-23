@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "kind": "training_plan_launch_authorization",
+  "plan_path": "/home/zhong/Documents/Self-Supervised-Contrastive-Forecsating/docs/research/pems07_mamba2_repr_fusion_autocon_h12_screen_20260926.json",
+  "plan_sha256": "3ae410daad709def9ab613bce7ef0c469cf6625aad6f22a1056de1282b3fb169",
+  "plan_status": "exploratory_pems07_mamba2_repr_fusion_autocon_h12_screen",
+  "authorized": true,
+  "approval": {"approved": true, "approved_by": "user continuation request and active research objective", "approved_at_utc": "2026-09-26T00:00:00Z"},
+  "prelaunch_gate_evidence_hashes": {
+    "verify PEMS07 fingerprint and M feature geometry": "a07887e610aa986276209bc9384d14ed7858fdcad1ded67f53dca19eb828600b",
+    "pair the exact lambda-zero Mamba2AutoCon control with the prediction-connected treatment": "3ae410daad709def9ab613bce7ef0c469cf6625aad6f22a1056de1282b3fb169",
+    "keep skip_test=true for every job": "3ae410daad709def9ab613bce7ef0c469cf6625aad6f22a1056de1282b3fb169",
+    "retain the synchronized RTX 5090 D resource probe as the efficiency evidence": "3ae410daad709def9ab613bce7ef0c469cf6625aad6f22a1056de1282b3fb169",
+    "stop if treatment is more than 1% worse than the control mean": "3ae410daad709def9ab613bce7ef0c469cf6625aad6f22a1056de1282b3fb169"
+  }
+}

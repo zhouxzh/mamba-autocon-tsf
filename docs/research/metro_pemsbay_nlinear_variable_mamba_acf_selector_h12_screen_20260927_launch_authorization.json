@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "kind": "training_plan_launch_authorization",
+  "authorized": true,
+  "plan_path": "docs/research/metro_pemsbay_nlinear_variable_mamba_acf_selector_h12_screen_plan_20260927.json",
+  "plan_sha256": "3c48354155b7e6ef98c68f49d60dedd3b718dc306c190f9b3c0fb3554f819ca8",
+  "plan_status": "exploratory_nlinear_variable_mamba_acf_selector_h12_screen_authorized",
+  "approval": {
+    "approved": true,
+    "approved_by": "user",
+    "approved_at_utc": "2026-09-27T10:29:11Z"
+  },
+  "prelaunch_gate_evidence_hashes": {
+    "verify METR-LA and PEMS-BAY CSV and adjacency fingerprints": {
+      "sha256": "3c48354155b7e6ef98c68f49d60dedd3b718dc306c190f9b3c0fb3554f819ca8",
+      "artifact": "docs/research/metro_pemsbay_nlinear_variable_mamba_acf_selector_h12_screen_plan_20260927.json"
+    },
+    "verify exact selector-on/off pairing and fresh seeds": {
+      "sha256": "3c48354155b7e6ef98c68f49d60dedd3b718dc306c190f9b3c0fb3554f819ca8",
+      "artifact": "docs/research/metro_pemsbay_nlinear_variable_mamba_acf_selector_h12_screen_plan_20260927.json"
+    },
+    "verify candidate-only AutoCon relation settings are absent from external baselines": {
+      "sha256": "3c48354155b7e6ef98c68f49d60dedd3b718dc306c190f9b3c0fb3554f819ca8",
+      "artifact": "docs/research/metro_pemsbay_nlinear_variable_mamba_acf_selector_h12_screen_plan_20260927.json"
+    },
+    "preserve skip_test=true and disable prediction artifacts for every job": {
+      "sha256": "3c48354155b7e6ef98c68f49d60dedd3b718dc306c190f9b3c0fb3554f819ca8",
+      "artifact": "docs/research/metro_pemsbay_nlinear_variable_mamba_acf_selector_h12_screen_plan_20260927.json"
+    },
+    "run the immutable plan validator and resource preflight before any GPU launch": {
+      "sha256": "5aee0f92344b0621aaf22186effbb1e2fd1506019b09479fbf6f2105eee7fbb2",
+      "artifact": "artifacts/preflight_nlinear_variable_mamba_selector_h12_20260927_cuda_bench/model_resources.json"
+    }
+  }
+}

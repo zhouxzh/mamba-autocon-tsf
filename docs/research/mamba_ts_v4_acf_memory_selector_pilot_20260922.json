@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "schema_version": 1,
+  "status": "exploratory_mambats_v4_acf_memory_selector_pilot",
+  "created_at": "2026-09-22",
+  "purpose": "Pilot a representation-selected correction to the train-only static ACF memory. The selector reads the MambaTS AutoCon representation and applies a zero-gated horizon-wise correction; it does not add channel-dependent parameters or inference priors.",
+  "evidence_boundary": "Single-seed validation-only mechanism pilot. It cannot establish a paper result or select test metrics.",
+  "global": {
+    "features": "M", "seq_len": 96, "label_len": 48, "d_model": 32, "d_ff": 64, "e_layers": 1, "n_heads": 4, "d_layers": 1, "patch_len": 16, "patch_stride": 8, "dropout": 0.1, "embed": "timeF", "activation": "gelu", "mamba_ts_context_rank": 16,
+    "mamba_d_state": 16, "mamba_d_conv": 4, "mamba_expand": 2, "mamba_scales": [1], "mamba_token_stride": 1, "mamba_bidirectional": false, "mamba_causal_embedding": true,
+    "mamba_use_acf_memory": true, "mamba_acf_lags": [24, 48], "mamba_acf_lag_mode": "fixed", "mamba_acf_temperature": 4.0, "mamba_acf_relation_loss": false, "mamba_acf_repr_fusion": false,
+    "autocon_scale": 96, "autocon_wnorm": "MeanStd", "autocon_warmup": 0, "autocon_acf_source": "raw", "batch_size": 32, "epochs": 8, "patience": 3, "learning_rate": 0.001, "lradj": "cosine", "min_learning_rate": 0.00001, "weight_decay": 0.00001, "num_workers": 0, "drop_last_train": false, "train_ratio": 0.6, "use_gpu": true, "skip_test": true, "stream_metrics": false
+  },
+  "phases": [
+    {"name": "v4_memory_control_h96", "purpose": "Exact v4 AutoCon static-memory control.", "output_root": "artifacts/exploratory/mamba_ts_v4_acf_memory_selector_pilot_20260922/v4_memory_control_h96", "datasets": ["ETTh1", "ETTm1", "electricity", "traffic"], "models": ["MambaTSv4AutoCon"], "features": "M", "horizons": [96], "seeds": [2021], "autocon_lambda": 0.001, "mamba_ts_acf_memory_selector": false, "baseline_check": false, "skip_test": true, "stream_metrics": false},
+    {"name": "v4_memory_selector_h96", "purpose": "Same v4 AutoCon static memory plus representation-selected horizon correction.", "output_root": "artifacts/exploratory/mamba_ts_v4_acf_memory_selector_pilot_20260922/v4_memory_selector_h96", "datasets": ["ETTh1", "ETTm1", "electricity", "traffic"], "models": ["MambaTSv4AutoCon"], "features": "M", "horizons": [96], "seeds": [2021], "autocon_lambda": 0.001, "mamba_ts_acf_memory_selector": true, "baseline_check": false, "skip_test": true, "stream_metrics": false}
+  ],
+  "comparison_contract": {"primary_metric": "minimum pure-forecast validation val_loss", "pairing_unit": "same dataset, horizon, seed", "primary_contrast": "selector versus static-memory control", "test_selection_allowed": false, "test_metrics_produced": false},
+  "registered_job_counts": {"v4_memory_control_h96": 4, "v4_memory_selector_h96": 4, "exploratory_total": 8, "training_total": 8, "total": 8, "training_started": false}
+}

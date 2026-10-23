@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "kind": "training_plan_launch_authorization",
+  "authorized": true,
+  "plan_path": "docs/research/mambatsv12_multiscale_autocon_h96_validation_20260927.json",
+  "plan_sha256": "4ed29656405ae85df13f50b8b7466430d09079ba64126c9cf95057ec30f77de2",
+  "plan_status": "exploratory_mambatsv12_multiscale_autocon_h96_validation",
+  "approval": {"approved": true, "approved_by": "user", "approved_at_utc": "2026-09-27T16:00:00Z"},
+  "prelaunch_gate_evidence_hashes": {
+    "verify ETTh1, Weather, and PEMS07 hashes and exact 54-job expansion": {"sha256": "4ed29656405ae85df13f50b8b7466430d09079ba64126c9cf95057ec30f77de2", "artifact": "docs/research/mambatsv12_multiscale_autocon_h96_validation_20260927.json"},
+    "freeze v12 Delta multipliers and AutoCon settings": {"sha256": "4ed29656405ae85df13f50b8b7466430d09079ba64126c9cf95057ec30f77de2", "artifact": "docs/research/mambatsv12_multiscale_autocon_h96_validation_20260927.json"},
+    "keep test execution disabled": {"sha256": "4ed29656405ae85df13f50b8b7466430d09079ba64126c9cf95057ec30f77de2", "artifact": "docs/research/mambatsv12_multiscale_autocon_h96_validation_20260927.json"},
+    "run all phases under the immutable launch sidecar": {"sha256": "4ed29656405ae85df13f50b8b7466430d09079ba64126c9cf95057ec30f77de2", "artifact": "docs/research/mambatsv12_multiscale_autocon_h96_validation_20260927.json"},
+    "preserve source snapshot and output root": {"sha256": "4ed29656405ae85df13f50b8b7466430d09079ba64126c9cf95057ec30f77de2", "artifact": "docs/research/mambatsv12_multiscale_autocon_h96_validation_20260927.json"}
+  }
+}

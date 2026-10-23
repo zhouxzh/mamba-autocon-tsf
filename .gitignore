@@ -218,3 +218,49 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Editor and operating-system files
+.vscode/
+.idea/
+*.code-workspace
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Local configuration and credentials
+.env.*
+!.env.example
+*.pem
+*.key
+*.crt
+
+# Machine learning and experiment outputs
+# These are reproducible local outputs. Keep experiment plans, source code, and
+# documentation in version control; publish selected results separately when needed.
+/artifacts/
+/checkpoints/
+/results/
+/test_results/
+/logs/
+/runs/
+/wandb/
+/mlruns/
+/lightning_logs/
+/tensorboard/
+result_long_term_forecast.txt
+events.out.tfevents.*
+*.ckpt
+*.pt
+*.pth
+*.onnx
+*.npy
+*.npz
+*.pkl
+*.pickle
+
+# Raw benchmark datasets are downloaded or generated locally. Keep only
+# repository metadata that documents dataset acquisition and layout.
+/dataset/**
+!/dataset/**/
+!/dataset/**/.gitignore
+!/dataset/**/README.md

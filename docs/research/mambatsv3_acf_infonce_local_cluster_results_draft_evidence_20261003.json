@@ -1,0 +1,6 @@
+{
+  "E-LC-PACKAGE": "artifacts/paper_final/mambatsv3_local_cluster_acf_evidence_package_20261003/bundle.json",
+  "E-LC-COMPATIBILITY": "docs/research/acf_transfer_compatibility_analysis_20261003.md",
+  "E-LC-HUMAN-REVIEW": "docs/research/mambatsv3_acf_infonce_local_cluster_human_review_20261003.md",
+  "status": "unverified_human_review_required"
+}

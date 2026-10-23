@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "schema_version": 1,
+  "status": "exploratory_mambatsv3_repr_fusion_h12_baseline_confirmation_authorized",
+  "created_at": "2026-09-27",
+  "job_order_seed": 20261000,
+  "purpose": "Same-source validation-only external-baseline confirmation for the passed MambaTSv3 prediction-connected AutoCon fusion candidate.",
+  "research_question": "Is the frozen MambaTSv3 AutoCon representation-fusion candidate competitive with strong baselines on METR-LA and PEMS-BAY H12 under the same d24 training contract?",
+  "evidence_boundary": "All jobs use skip_test=true; no held-out test metrics are generated or read.",
+  "claim_boundary": "This phase supplies validation context only. It cannot establish test accuracy, universal superiority, or speed.",
+  "execution": {"authorized": true, "status": "exploratory_mambatsv3_repr_fusion_h12_baseline_confirmation_authorized", "training_started": false, "human_review_required": true},
+  "data_fingerprints": {
+    "metr_la": {"relative_path": "dataset/METR-LA/METR-LA.csv", "format": "csv_numeric", "channels_including_target": 207, "frequency": "t", "target_index": 206, "data_interval_minutes": 5, "sha256": "5fa498de0c90f5ff9b67e7cf9654bec031a803b320a8eb13d48021b9983bec82"},
+    "pems_bay": {"relative_path": "dataset/PEMS-BAY/PEMS-BAY.csv", "format": "csv_numeric", "channels_including_target": 325, "frequency": "t", "target_index": 324, "data_interval_minutes": 5, "sha256": "c39dc8f5f3a7f1e9e9deeab1f3fdfa7b87d2b4e45b4075d4c3bd3c62c3051ef2"}
+  },
+  "global": {"features": "M", "seq_len": 96, "label_len": 48, "d_model": 24, "d_ff": 48, "e_layers": 1, "n_heads": 4, "d_layers": 1, "factor": 1, "top_k": 5, "num_kernels": 6, "moving_avg": 25, "patch_len": 24, "patch_stride": 24, "dropout": 0.1, "embed": "timeF", "activation": "gelu", "wo_freq": "", "individual": false, "mamba_d_state": 8, "mamba_d_conv": 2, "mamba_expand": 1, "mamba_headdim": 8, "mamba_ts_variant": "v3", "mamba_ts_context_rank": 16, "mamba_ts_repr_forecast_fusion": false, "mamba_use_acf_memory": false, "mamba_acf_relation_loss": false, "autocon_scale": 96, "autocon_wnorm": "LastVal", "autocon_warmup": 2, "autocon_acf_source": "raw", "batch_size": 32, "epochs": 8, "patience": 3, "learning_rate": 0.001, "lradj": "cosine", "min_learning_rate": 0.00001, "weight_decay": 0.00001, "num_workers": 0, "drop_last_train": false, "train_ratio": 0.6, "use_gpu": true, "skip_test": true, "save_predictions": false, "stream_metrics": false, "stream_sample_windows": 1},
+  "phases": [
+    {"name": "external_context_h12", "purpose": "Same-source fixed external baselines; candidate-only AutoCon representation settings are disabled.", "output_root": "artifacts/exploratory/metro_pemsbay_mambatsv3_repr_fusion_h12_baseline_confirmation_20260927/external_context_h12", "datasets": ["metr_la", "pems_bay"], "models": ["DLinear", "NLinear", "PatchTST", "TimeMixer", "iTransformer", "MambaTSv3"], "features": "M", "horizons": [12], "seeds": [2811, 2812, 2813], "mamba_ts_variant": "v3", "mamba_ts_repr_forecast_fusion": false, "mamba_use_acf_memory": false, "mamba_acf_relation_loss": false, "skip_test": true, "stream_metrics": false}
+  ],
+  "comparison_contract": {"primary_metric": "minimum pure-forecast validation val_loss", "pairing_unit": ["dataset", "horizon", "seed"], "test_selection_allowed": false, "test_metrics_produced": false, "candidate_binding": {"plan": "docs/research/metro_pemsbay_mambatsv3_autocon_repr_fusion_h12_screen_plan_20260927.json", "candidate_phase": "fusion_on_h12", "candidate_source_tree_sha256": "9c81fc909b8e61b95d695fed3a35afb63a76525ebfa7f5c1210060a9db09a06c"}, "accuracy_gate": "Candidate must be within 2% of the strongest external baseline on each dataset; otherwise no held-out release."},
+  "stopping_rules": ["Do not remove an external baseline or change seeds/budget after launch.", "Do not open test metrics from this phase.", "Do not call a prediction-only resource result an end-to-end speed claim."],
+  "registered_job_counts": {"external_context_h12": 36, "exploratory_total": 36, "training_total": 36, "total": 36, "training_started": false}
+}

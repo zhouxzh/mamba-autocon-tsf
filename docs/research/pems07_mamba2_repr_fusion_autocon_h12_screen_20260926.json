@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "schema_version": 1,
+  "status": "exploratory_pems07_mamba2_repr_fusion_autocon_h12_screen",
+  "created_at": "2026-09-26",
+  "job_order_seed": 20260980,
+  "purpose": "Screen prediction-connected Mamba2AutoCon against its exact AutoCon control on PEMS07 H12 before any multi-dataset confirmation.",
+  "research_question": "Does routing the AutoCon representation into the Mamba2 forecast improve validation accuracy without invalidating the low-latency resource profile?",
+  "selection_history": "The prediction-connected branch was added after a contract audit showed that the legacy Mamba2AutoCon representation was auxiliary-only. Its ReZero gate is initialized at zero and was verified by unit tests and a synchronized RTX 5090 D probe.",
+  "evidence_boundary": "Validation-only exploratory screen. No test metric is generated, inspected, or used for selection.",
+  "claim_boundary": "This screen cannot establish cross-dataset, long-horizon, graph-aware, or publication-level superiority.",
+  "execution": {"authorized": true, "status": "exploratory_pems07_mamba2_repr_fusion_autocon_h12_screen", "training_started": false, "human_review_required": true},
+  "prelaunch_gates": [
+    "verify PEMS07 fingerprint and M feature geometry",
+    "pair the exact lambda-zero Mamba2AutoCon control with the prediction-connected treatment",
+    "keep skip_test=true for every job",
+    "retain the synchronized RTX 5090 D resource probe as the efficiency evidence",
+    "stop if treatment is more than 1% worse than the control mean"
+  ],
+  "data_fingerprints": {
+    "pems07": {"relative_path": "dataset/PEMS07/PEMS07.npz", "format": "npz", "data_key": "data", "data_feature_index": 0, "channels_including_target": 883, "frequency": "t", "time_column": null, "data_interval_minutes": 5, "target_index": 882, "sha256": "a07887e610aa986276209bc9384d14ed7858fdcad1ded67f53dca19eb828600b"}
+  },
+  "global": {
+    "features": "M", "seq_len": 96, "label_len": 48, "d_model": 32, "d_ff": 64, "e_layers": 1, "n_heads": 4, "d_layers": 1, "factor": 1, "top_k": 5, "num_kernels": 6, "moving_avg": 25,
+    "patch_len": 16, "patch_stride": 8, "dropout": 0.1, "embed": "timeF", "activation": "gelu", "wo_freq": "", "individual": false,
+    "mamba_d_state": 16, "mamba_d_conv": 4, "mamba_expand": 2, "mamba_headdim": 16, "mamba_causal_embedding": true,
+    "mamba2_repr_forecast_fusion": false, "mamba_acf_relation_loss": false,
+    "autocon_scale": 96, "autocon_wnorm": "MeanStd", "autocon_warmup": 0, "autocon_acf_source": "raw",
+    "AutoCon_temperature": 0.2, "AutoCon_relation_temperature": 0.25, "AutoCon_sign_weight": 0.25, "AutoCon_sign_margin": 0.1,
+    "batch_size": 32, "epochs": 8, "patience": 3, "learning_rate": 0.001, "lradj": "cosine", "min_learning_rate": 0.00001,
+    "weight_decay": 0.00001, "num_workers": 0, "drop_last_train": false, "train_ratio": 0.6, "use_gpu": true,
+    "skip_test": true, "save_predictions": false, "stream_metrics": false, "stream_sample_windows": 1
+  },
+  "phases": [
+    {"name": "pems07_h12_mamba2_autocon_null", "purpose": "Exact Mamba2AutoCon control with auxiliary AutoCon objective and no prediction fusion.", "output_root": "artifacts/exploratory/pems07_mamba2_repr_fusion_autocon_h12_screen_20260926/null", "datasets": ["pems07"], "models": ["Mamba2AutoCon"], "features": "M", "horizons": [12], "seeds": [2061, 2062], "autocon_lambda": 0.001, "mamba2_repr_forecast_fusion": false, "skip_test": true, "stream_metrics": false},
+    {"name": "pems07_h12_mamba2_autocon_fusion", "purpose": "Mamba2AutoCon with the zero-initialized prediction-connected AutoCon representation residual.", "output_root": "artifacts/exploratory/pems07_mamba2_repr_fusion_autocon_h12_screen_20260926/fusion", "datasets": ["pems07"], "models": ["Mamba2AutoCon"], "features": "M", "horizons": [12], "seeds": [2061, 2062], "autocon_lambda": 0.001, "mamba2_repr_forecast_fusion": true, "skip_test": true, "stream_metrics": false}
+  ],
+  "comparison_contract": {"primary_metric": "minimum pure-forecast validation val_loss", "pairing_unit": {"fields": ["dataset", "horizon", "seed"], "mode": "exact"}, "primary_contrast": "prediction-connected fusion versus exact Mamba2AutoCon control", "noninferiority_margin": "0.01 relative validation MSE", "test_selection_allowed": false, "test_metrics_produced": false, "resource_contract": "Report synchronized GPU latency, parameters and peak memory for both branches and the frozen baselines.", "publication_claim_boundary": "No test-set, cross-dataset, long-horizon, or publication claim is permitted."},
+  "stopping_rules": ["Do not change architecture, seeds, or budget after launch.", "If fusion exceeds the exact control mean by more than 1%, stop and do not promote.", "Do not release test metrics from this screen."],
+  "registered_job_counts": {"pems07_h12_mamba2_autocon_null": 2, "pems07_h12_mamba2_autocon_fusion": 2, "exploratory_total": 4, "training_total": 4, "total": 4, "training_started": false}
+}

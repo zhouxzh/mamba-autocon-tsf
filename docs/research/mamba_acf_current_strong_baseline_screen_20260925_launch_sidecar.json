@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "kind": "training_plan_launch_authorization",
+  "plan_path": "/home/zhong/Documents/Self-Supervised-Contrastive-Forecsating/docs/research/mamba_acf_current_strong_baseline_screen_20260925.json",
+  "plan_sha256": "923d71a28d144d6609c7c305a480388bb07d93f5fedb1efe4a726ba2df1191ab",
+  "plan_status": "exploratory_mamba_acf_current_strong_baseline_screen",
+  "authorized": true,
+  "approval": {"approved": true, "approved_by": "user continuation request and Codex implementation authorization", "approved_at_utc": "2026-09-25T00:00:00Z"},
+  "prelaunch_gate_evidence_hashes": {
+    "verify four dataset hashes and M-feature dimensions": "13db617914ba578382272e5aed2c709a5fb53f1fa1f8872232d64dc58f500d79",
+    "verify all strong-baseline and MambaACF runtime contracts": "7c5022ad2a02cf6b4689c973e5f7826f32d7977f3f73b8137cb2648a15466d4f",
+    "keep skip_test=true for every job": "f0ba0c52e8e29ea48c5bc63801035bf6598ea7013bd042d434a622f2366a572d",
+    "pair every model by exact dataset-horizon-seed coordinate": "f0ba0c52e8e29ea48c5bc63801035bf6598ea7013bd042d434a622f2366a572d",
+    "report prediction-only GPU latency and parameters separately": "7c5022ad2a02cf6b4689c973e5f7826f32d7977f3f73b8137cb2648a15466d4f"
+  }
+}

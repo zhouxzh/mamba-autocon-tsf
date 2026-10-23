@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "kind": "training_plan_launch_authorization",
+  "plan_path": "/home/zhong/Documents/Self-Supervised-Contrastive-Forecsating/docs/research/mamba_ts_v3_channel_adapter_confirmation_20260923.json",
+  "plan_sha256": "a53dd1b1df2ea932035b4b11cab8f9ea1db1ab01ba8e370d2bbcaa8e99ac925a",
+  "plan_status": "exploratory_mamba_ts_v3_channel_adapter_confirmation",
+  "authorized": true,
+  "approval": {"approved": true, "approved_by": "user continuation request and Codex implementation authorization", "approved_at_utc": "2026-09-23T00:30:00Z"},
+  "prelaunch_gate_evidence_hashes": {
+    "recheck all four PEMS hashes and feature-axis contracts": "a53dd1b1df2ea932035b4b11cab8f9ea1db1ab01ba8e370d2bbcaa8e99ac925a",
+    "freeze source snapshot after plan review": "868338e0d147b405ccadaf0c88de76e34f42aad38ab1b91e1272bd1ade46f1e1",
+    "verify all six arms use paired five-seed coordinates": "a53dd1b1df2ea932035b4b11cab8f9ea1db1ab01ba8e370d2bbcaa8e99ac925a",
+    "keep skip_test=true": "a53dd1b1df2ea932035b4b11cab8f9ea1db1ab01ba8e370d2bbcaa8e99ac925a",
+    "bind synchronized resource protocol": "868338e0d147b405ccadaf0c88de76e34f42aad38ab1b91e1272bd1ade46f1e1"
+  }
+}

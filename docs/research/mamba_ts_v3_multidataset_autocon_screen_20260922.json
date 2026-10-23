@@ -1,0 +1,55 @@
+{
+  "version": 1,
+  "schema_version": 1,
+  "status": "exploratory_mamba_ts_v3_multidataset_autocon_screen",
+  "created_at": "2026-09-22",
+  "job_order_seed": 20260923,
+  "purpose": "Isolate the existing AutoCon representation objective on the fast MambaTS v3 forecasting backbone after the ACF-memory v4 extension failed to preserve Traffic validation accuracy.",
+  "research_question": "Under the exact four-dataset H96/MeanStd contract, does a low nonzero AutoCon objective preserve or improve MambaTS v3 forecasting relative to the identical AutoCon architecture with lambda=0?",
+  "evidence_boundary": "Exploratory validation-only screen. Test metrics are withheld. The lambda=0 arm is the within-architecture null; this is not a paper-level accuracy, non-inferiority, or speed experiment.",
+  "claim_boundary": "Do not attribute candidate performance to AutoCon unless lambda=0.001 improves over the exact lambda=0 null. Do not merge this new source snapshot with earlier PEMS screens or release test metrics.",
+  "execution": {
+    "authorized": false,
+    "status": "exploratory_mamba_ts_v3_multidataset_autocon_screen",
+    "training_started": false,
+    "human_review_required": true,
+    "required_before_launch": [
+      "verify the four data hashes and source snapshot",
+      "verify lambda=0 is retained as the only AutoCon null control",
+      "keep M features, MeanStd, H96, optimizer and short budget identical across arms",
+      "keep test execution disabled"
+    ]
+  },
+  "data_fingerprints": {
+    "ETTh1": {"relative_path": "dataset/ETT-small/ETTh1.csv", "channels_including_target": 7, "frequency": "h", "time_column": "date", "target": "OT", "sha256": "f18de3ad269cef59bb07b5438d79bb3042d3be49bdeecf01c1cd6d29695ee066"},
+    "ETTm1": {"relative_path": "dataset/ETT-small/ETTm1.csv", "channels_including_target": 7, "frequency": "t", "time_column": "date", "target": "OT", "sha256": "6ce1759b1a18e3328421d5d75fadcb316c449fcd7cec32820c8dafda71986c9e"},
+    "electricity": {"relative_path": "dataset/electricity/electricity.csv", "channels_including_target": 321, "frequency": "h", "time_column": "date", "target": "OT", "sha256": "7e45845d54c5219bad0ae6bc1b5316cf8ff9cead5d33fa998a5a51c2e4a497ad"},
+    "traffic": {"relative_path": "dataset/traffic/traffic.csv", "channels_including_target": 862, "frequency": "h", "time_column": "date", "target": "OT", "sha256": "cb06463d56fa17d87f47027cd9389ceae82a69eddee51cdb61480e120dab0b16"}
+  },
+  "global": {
+    "features": "M", "seq_len": 96, "label_len": 48, "d_model": 32, "d_ff": 64, "e_layers": 1, "n_heads": 4, "d_layers": 1, "factor": 1, "top_k": 5, "num_kernels": 6, "moving_avg": 25, "patch_len": 16, "patch_stride": 8, "dropout": 0.1, "embed": "timeF", "activation": "gelu", "wo_freq": "",
+    "mamba_d_state": 16, "mamba_d_conv": 4, "mamba_expand": 2, "mamba_ts_context_rank": 16, "mamba_scales": [1], "mamba_token_stride": 1, "mamba_bidirectional": false, "mamba_causal_embedding": true,
+    "mamba_use_acf_memory": false, "mamba_acf_relation_loss": false, "mamba_acf_repr_fusion": false,
+    "autocon_scale": 96, "autocon_wnorm": "MeanStd", "autocon_warmup": 0, "autocon_acf_source": "raw", "AutoCon_temperature": 0.2, "AutoCon_relation_temperature": 0.25, "AutoCon_sign_weight": 0.25, "AutoCon_sign_margin": 0.1,
+    "batch_size": 32, "epochs": 8, "patience": 3, "learning_rate": 0.001, "lradj": "cosine", "min_learning_rate": 0.00001, "weight_decay": 0.00001, "num_workers": 0, "drop_last_train": false, "train_ratio": 0.6, "use_gpu": true, "skip_test": true, "save_predictions": false, "stream_metrics": false, "stream_sample_windows": 1
+  },
+  "phases": [
+    {
+      "name": "mambatsv3_autocon_null_h96",
+      "purpose": "MambaTS v3 AutoCon representation architecture with the objective disabled.",
+      "output_root": "artifacts/exploratory/mamba_ts_v3_multidataset_autocon_screen_20260922/mambatsv3_autocon_null_h96",
+      "datasets": ["ETTh1", "ETTm1", "electricity", "traffic"], "models": ["MambaTSv3AutoCon"], "features": "M", "horizons": [96], "seeds": [2021, 2022, 2023], "autocon_lambda": 0.0, "allow_zero_autocon_lambda": true, "baseline_check": false, "skip_test": true, "stream_metrics": false
+    },
+    {
+      "name": "mambatsv3_autocon_lambda001_h96",
+      "purpose": "Exact architecture match with active low-weight AutoCon representation objective.",
+      "output_root": "artifacts/exploratory/mamba_ts_v3_multidataset_autocon_screen_20260922/mambatsv3_autocon_lambda001_h96",
+      "datasets": ["ETTh1", "ETTm1", "electricity", "traffic"], "models": ["MambaTSv3AutoCon"], "features": "M", "horizons": [96], "seeds": [2021, 2022, 2023], "autocon_lambda": 0.001, "baseline_check": false, "skip_test": true, "stream_metrics": false
+    }
+  ],
+  "comparison_contract": {
+    "primary_metric": "minimum pure-forecast validation val_loss", "pairing_unit": "same dataset, horizon, seed", "primary_contrast": "MambaTSv3AutoCon lambda=0.001 versus MambaTSv3AutoCon lambda=0", "test_selection_allowed": false, "test_metrics_produced": false,
+    "publication_claim_boundary": "Only a later frozen multi-horizon, full-budget, test-withheld confirmation can select a candidate. This screen is not a speed or paper claim."
+  },
+  "registered_job_counts": {"mambatsv3_autocon_null_h96": 12, "mambatsv3_autocon_lambda001_h96": 12, "exploratory_total": 24, "training_total": 24, "total": 24, "training_started": false}
+}

@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "kind": "training_plan_launch_authorization",
+  "plan_path": "/home/zhong/Documents/Self-Supervised-Contrastive-Forecsating/docs/research/pems07_mambatsv3_fullcover_p16_s16_d16_autocon_h96_probe_20260926.json",
+  "plan_sha256": "d4599dfe4a96aa25e9073150877eb5607e3c7f96712c66b3868fe8a877b6d5f6",
+  "plan_status": "exploratory_pems07_mambatsv3_fullcover_p16_s16_d16_autocon_h96_probe",
+  "authorized": true,
+  "approval": {"approved": true, "approved_by": "user continuation request and active research objective", "approved_at_utc": "2026-09-26T00:00:00Z"},
+  "prelaunch_gate_evidence_hashes": {
+    "verify PEMS07 fingerprint, M feature geometry, and train-only normalization contract": "a07887e610aa986276209bc9384d14ed7858fdcad1ded67f53dca19eb828600b",
+    "freeze full-coverage p16/s16 d16 MambaTS v3 active/null graph and dimensions": "d4599dfe4a96aa25e9073150877eb5607e3c7f96712c66b3868fe8a877b6d5f6",
+    "use fresh paired seeds": "d4599dfe4a96aa25e9073150877eb5607e3c7f96712c66b3868fe8a877b6d5f6",
+    "keep skip_test=true for every job": "d4599dfe4a96aa25e9073150877eb5607e3c7f96712c66b3868fe8a877b6d5f6",
+    "verify same-shape candidate and TimeMixer GPU forward measurements": "638ca4272d08556779dd9d01b52640b2ac9bdc84e32e17978987047190582c18"
+  }
+}

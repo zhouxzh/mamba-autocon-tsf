@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "kind": "training_plan_launch_authorization",
+  "authorized": true,
+  "plan_path": "docs/research/mambatsv3_stride24_relation_auxiliary_highdim_cpu4_test_release_20261001.json",
+  "plan_sha256": "e3e83446a3c6835cab22c1d48c5bffa4196c65245c48c08136117922e8c71967",
+  "plan_status": "launch_authorized",
+  "approval": {
+    "approved": true,
+    "approved_by": "user authorization for CPU-limited retraining with GPU telemetry",
+    "approved_at_utc": "2026-09-30T14:52:36Z"
+  },
+  "prelaunch_gate_evidence_hashes": {
+    "verify Electricity and Traffic fingerprints and exact 86-job expansion": {
+      "sha256": "e3e83446a3c6835cab22c1d48c5bffa4196c65245c48c08136117922e8c71967",
+      "artifact": "docs/research/mambatsv3_stride24_relation_auxiliary_highdim_cpu4_test_release_20261001.json"
+    },
+    "confirm the stride-24 relation-auxiliary candidate, its AutoCon participation audit, and seven comparator configurations are frozen from validation": {
+      "sha256": "1bd3eb1b0b3d52e7f4d308fb204e797f25622b425c4f9189b9162f67730395b9",
+      "artifact": "docs/research/stride24_highdim_heldout_launch_review_20261001.md"
+    },
+    "verify current default Mamba-1 stride-24 path remains semantically equivalent to the frozen validation snapshot": {
+      "sha256": "5ec8d710a90813caccd592e1510f3ba1a0bcb5b1e3611353b8f086956fd73176",
+      "artifact": "artifacts/exploratory/mambatsv3_stride24_default_path_equivalence_20261001/audit.json"
+    },
+    "approve the exact plan SHA-256 in a separate launch sidecar": {
+      "sha256": "e3e83446a3c6835cab22c1d48c5bffa4196c65245c48c08136117922e8c71967",
+      "artifact": "docs/research/mambatsv3_stride24_relation_auxiliary_highdim_cpu4_test_release_20261001.json"
+    },
+    "run all phases from one immutable source snapshot and read test metrics only after strict validation": {
+      "sha256": "a683b5928238c932ee60dc7ae663621c0649f6406926a1a0034e86fe061524a4",
+      "artifact": "scripts/run_gpu_guarded.py"
+    }
+  }
+}

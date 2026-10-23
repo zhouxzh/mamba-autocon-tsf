@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "kind": "training_plan_launch_authorization",
+  "plan_path": "/home/zhong/Documents/Self-Supervised-Contrastive-Forecsating/docs/research/mambatsv3_transfer_baseline_pilot_20260922.json",
+  "plan_sha256": "b9e9eda54f81c04213051fc47e23bd7705d490f685dda8f06180ffa9877acc42",
+  "plan_status": "exploratory_mambatsv3_transfer_baseline_pilot",
+  "authorized": true,
+  "approval": {
+    "approved": true,
+    "approved_by": "user continuation request and Codex implementation authorization",
+    "approved_at_utc": "2026-09-22T10:23:09Z"
+  },
+  "prelaunch_gate_evidence_hashes": {
+    "verify current dataset hashes": "f0d946e6958d0149fb46a5e69601b3557383926f6da7d171475564afdb0b8807",
+    "keep all six model arms and three seeds": "f0d946e6958d0149fb46a5e69601b3557383926f6da7d171475564afdb0b8807",
+    "keep test execution disabled": "f0d946e6958d0149fb46a5e69601b3557383926f6da7d171475564afdb0b8807"
+  },
+  "evidence_files": [
+    "docs/research/mambatsv3_transfer_baseline_pilot_launch_review_20260922.md",
+    "docs/research/mambatsv3_transfer_baseline_pilot_20260922.json"
+  ],
+  "evidence_hashes": {
+    "launch_review": "f0d946e6958d0149fb46a5e69601b3557383926f6da7d171475564afdb0b8807",
+    "runner": "b0b959a36dae5f83885f5bec419d494e5b993451dd5946b6c9a6f448e5d9cf16",
+    "weather": "773b97c4495ed044b390241cea9a9c39b79c80b2436dbcc0fbd32e289c86abf5",
+    "exchange_rate": "d55e7aa2641009814a18ba3279431b13f6d413b0eab195b9ff21988d8cf94e97",
+    "national_illness": "8594cecb98c6f2f9dc014eca11c4d5d1e38ad5ce6ed0592d4abe65b146fce395"
+  }
+}

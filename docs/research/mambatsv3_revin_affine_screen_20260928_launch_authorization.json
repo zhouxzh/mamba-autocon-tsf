@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "kind": "training_plan_launch_authorization",
+  "authorized": true,
+  "plan_path": "docs/research/mambatsv3_revin_affine_screen_20260928.json",
+  "plan_sha256": "aea00effa05d0a30f613ce19c1f7617b2466797abb81e8ce33f41111bc2ab085",
+  "plan_status": "exploratory_mambatsv3_revin_affine_validation",
+  "approval": {
+    "approved": true,
+    "approved_by": "user persistent objective: optimize MambaTS with AutoCon representation learning",
+    "approved_at_utc": "2026-09-28T10:00:00Z"
+  },
+  "prelaunch_gate_evidence_hashes": {
+    "verify the three ETT fingerprints and exact 18-job expansion": {"sha256": "aea00effa05d0a30f613ce19c1f7617b2466797abb81e8ce33f41111bc2ab085", "artifact": "docs/research/mambatsv3_revin_affine_screen_20260928.json"},
+    "freeze MeanStd normalization, AutoCon lambda and optimizer budget": {"sha256": "aea00effa05d0a30f613ce19c1f7617b2466797abb81e8ce33f41111bc2ab085", "artifact": "docs/research/mambatsv3_revin_affine_screen_20260928.json"},
+    "keep test execution disabled for every job": {"sha256": "aea00effa05d0a30f613ce19c1f7617b2466797abb81e8ce33f41111bc2ab085", "artifact": "docs/research/mambatsv3_revin_affine_screen_20260928.json"},
+    "preserve one source snapshot and output root": {"sha256": "aea00effa05d0a30f613ce19c1f7617b2466797abb81e8ce33f41111bc2ab085", "artifact": "docs/research/mambatsv3_revin_affine_screen_20260928.json"}
+  }
+}

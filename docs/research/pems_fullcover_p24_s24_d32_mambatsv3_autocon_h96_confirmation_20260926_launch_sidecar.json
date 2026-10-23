@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "kind": "training_plan_launch_authorization",
+  "plan_path": "/home/zhong/Documents/Self-Supervised-Contrastive-Forecsating/docs/research/pems_fullcover_p24_s24_d32_mambatsv3_autocon_h96_confirmation_20260926.json",
+  "plan_sha256": "dff3beb76c5871a0db88ac08e75f545a089c5a591a721009385899ee66602623",
+  "plan_status": "exploratory_pems_fullcover_p24_s24_d32_mambatsv3_autocon_h96_confirmation",
+  "authorized": true,
+  "approval": {"approved": true, "approved_by": "user continuation request and active research objective", "approved_at_utc": "2026-09-26T00:00:00Z"},
+  "prelaunch_gate_evidence_hashes": {
+    "verify four PEMS hashes and train-only normalization contract": "dff3beb76c5871a0db88ac08e75f545a089c5a591a721009385899ee66602623",
+    "freeze full-coverage p24/s24 d32 H96 candidate and exact lambda-zero graph": "dff3beb76c5871a0db88ac08e75f545a089c5a591a721009385899ee66602623",
+    "pair active/null on every dataset-seed coordinate": "dff3beb76c5871a0db88ac08e75f545a089c5a591a721009385899ee66602623",
+    "keep skip_test=true": "dff3beb76c5871a0db88ac08e75f545a089c5a591a721009385899ee66602623",
+    "use the fixed d32 H96 resource protocol": "aba4a61581f13da8e24f7b8a98a382a2da6ae2cd3cfcece505460febeee3bf08"
+  }
+}

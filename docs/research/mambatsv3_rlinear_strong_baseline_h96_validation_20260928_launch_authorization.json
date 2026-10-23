@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "kind": "training_plan_launch_authorization",
+  "authorized": true,
+  "plan_path": "docs/research/mambatsv3_rlinear_strong_baseline_h96_validation_20260928.json",
+  "plan_sha256": "81b222e6f3de368ee482d066cbc4b72710452500705223cc0bd39470b82ec19e",
+  "plan_status": "exploratory_mambatsv3_rlinear_strong_baseline_h96_validation",
+  "approval": {
+    "approved": true,
+    "approved_by": "user persistent objective: baseline expansion and MambaTSv3 optimization",
+    "approved_at_utc": "2026-09-28T07:27:00Z"
+  },
+  "prelaunch_gate_evidence_hashes": {
+    "verify four dataset hashes and exact 72-job expansion": {"sha256": "81b222e6f3de368ee482d066cbc4b72710452500705223cc0bd39470b82ec19e", "artifact": "docs/research/mambatsv3_rlinear_strong_baseline_h96_validation_20260928.json"},
+    "freeze candidate and baseline contracts": {"sha256": "81b222e6f3de368ee482d066cbc4b72710452500705223cc0bd39470b82ec19e", "artifact": "docs/research/mambatsv3_rlinear_strong_baseline_h96_validation_20260928.json"},
+    "keep test execution disabled for every job": {"sha256": "81b222e6f3de368ee482d066cbc4b72710452500705223cc0bd39470b82ec19e", "artifact": "docs/research/mambatsv3_rlinear_strong_baseline_h96_validation_20260928.json"},
+    "preserve one source snapshot and output root": {"sha256": "81b222e6f3de368ee482d066cbc4b72710452500705223cc0bd39470b82ec19e", "artifact": "docs/research/mambatsv3_rlinear_strong_baseline_h96_validation_20260928.json"}
+  }
+}

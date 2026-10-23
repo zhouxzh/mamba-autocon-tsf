@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "status": "draft_not_retroactive_preregistration",
+  "created_at": "2026-08-31",
+  "research_question": "Can a shared Mamba-2 forecaster with train-only signed-ACF relation supervision and a lightweight cross-variable token branch match strong forecasting baselines without claiming universal Mamba superiority?",
+  "primary_hypothesis": "The cross-variable token branch is more likely to recover multivariate forecasting accuracy than a plain shared temporal scan; for a causal memory, train-only ACF peak strength should be combined with legal forecast-step availability. Signed ACF supervision remains a separate objective and may help only when train-split periodic structure is stable.",
+  "datasets": [
+    {"name": "electricity", "features": "M", "channels": 321},
+    {"name": "traffic", "features": "M", "channels": 862},
+    {"name": "ETTh1", "features": "M", "channels": 7},
+    {"name": "ETTh2", "features": "M", "channels": 7}
+  ],
+  "horizons": [96, 336, 720],
+  "seeds": [2021, 2022, 2023, 2024, 2025],
+  "fixed_training_contract": {
+    "seq_len": 96,
+    "label_len": 48,
+    "d_model": 32,
+    "d_ff": 64,
+    "e_layers": 1,
+    "mamba_d_state": 16,
+    "mamba_d_conv": 4,
+    "mamba_expand": 2,
+    "mamba_headdim": 16,
+    "mamba_scales": [1],
+    "mamba_acf_step_reliability": false,
+    "AutoCon_wnorm": "LastVal",
+    "AutoCon_acf_source": "residual",
+    "learning_rate": 0.001,
+    "weight_decay": 0.00001,
+    "lradj": "cosine",
+    "min_learning_rate": 0.00001,
+    "epochs": 20,
+    "patience": 5,
+    "batch_size": 32,
+    "selection_metric": "validation_mse",
+    "test_used_for_selection": false
+  },
+  "arms": [
+    {"id": "patchtst", "model": "PatchTST", "purpose": "strong attention/patch baseline"},
+    {"id": "dlinear", "model": "DLinear", "purpose": "linear baseline"},
+    {"id": "mamba1", "model": "Mamba1", "purpose": "Mamba-1 architecture ablation"},
+    {"id": "mamba2", "model": "Mamba2", "purpose": "Mamba-2 historical-compatible baseline"},
+    {"id": "mamba_acf_plain", "model": "MambaACF", "purpose": "direct Mamba forecaster without auxiliary branches"},
+    {"id": "mamba_acf_variable", "model": "MambaACF", "mamba_variable_mixer": true, "purpose": "cross-variable token branch"},
+    {"id": "mamba_acf_variable_strength_order", "model": "MambaACF", "mamba_variable_mixer": true, "mamba_acf_channel_order": "strength", "purpose": "train-only dominant signed-ACF strength order for variable tokens"},
+    {"id": "mamba_acf_channel_independent", "model": "MambaACF", "mamba_channel_independent": true, "purpose": "channel-specific temporal control for high-dimensional data"},
+    {"id": "mamba_acf_relation", "model": "MambaACFAutoCon", "mamba_acf_relation_loss": true, "purpose": "signed ACF relation representation learning"},
+    {"id": "mamba_acf_memory", "model": "MambaACF", "mamba_use_acf_memory": true, "mamba_acf_lag_mode": "fixed", "purpose": "historical fixed-lag causal ACF residual control"},
+    {"id": "mamba_acf_memory_available", "model": "MambaACF", "mamba_use_acf_memory": true, "mamba_acf_lag_mode": "train_peaks_available", "purpose": "availability-weighted train-only ACF residual"},
+    {"id": "mamba_acf_memory_stepwise", "model": "MambaACF", "mamba_use_acf_memory": true, "mamba_acf_lag_mode": "train_peaks_available", "mamba_acf_step_reliability": true, "purpose": "horizon-step-specific reliability for legal ACF memory"}
+  ],
+  "acf_contract": {
+    "fit_split": "train_only",
+    "signal": "residual",
+    "candidate_lags": [24, 168, 336],
+    "lag_selection": "train_peaks_available uses train-only peak strength times legal forecast-step fraction; resolved lags are horizon-specific and persisted in run metadata",
+    "out_of_range": "masked_or_zero_not_clipped",
+    "relation_batching": "lag_pairs",
+    "relation_scope_ablations": ["both", "global", "global_sparse"],
+    "sign_retained": true,
+    "memory_future_values_allowed": false
+  },
+  "primary_analysis": [
+    "paired seed delta in scaled MSE against PatchTST and against MambaACF plain",
+    "channel-structure controls: shared, channel-independent, variable-token, and variable-order permutation",
+    "95 percent paired confidence interval and Wilcoxon signed-rank sensitivity",
+    "Holm and BH-FDR correction across dataset-horizon comparisons",
+    "parameter count, peak allocated/reserved GPU memory, end-to-end epoch time, and device-resident latency",
+    "channel-level error distribution for Electricity and Traffic"
+  ],
+  "stopping_and_reporting": {
+    "pilot_results_are_confirmatory": false,
+    "posthoc_architecture_selection_allowed_in_primary_table": false,
+    "negative_or_heterogeneous_results_must_be_reported": true,
+    "publication_claim_boundary": "No claim of universal Mamba superiority or speed advantage unless all registered comparisons support it."
+  }
+}

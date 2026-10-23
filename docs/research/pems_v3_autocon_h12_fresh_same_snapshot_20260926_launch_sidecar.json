@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "kind": "training_plan_launch_authorization",
+  "plan_path": "/home/zhong/Documents/Self-Supervised-Contrastive-Forecsating/docs/research/pems_v3_autocon_h12_fresh_same_snapshot_20260926.json",
+  "plan_sha256": "2f46b60624e34e2a9e2260f3ace7c5ffeca5f6f1c1994081e89bac226b0fa1e9",
+  "plan_status": "exploratory_pems_v3_autocon_h12_fresh_same_snapshot",
+  "authorized": true,
+  "approval": {"approved": true, "approved_by": "user continuation request and active research objective", "approved_at_utc": "2026-09-26T00:00:00Z"},
+  "prelaunch_gate_evidence_hashes": {
+    "verify four PEMS hashes, feature axes, and train-only normalization contract": "41a6ca12fee0e90332821a5bc9814dfba11f3e6f46e1102b47aa95a9413021d5",
+    "freeze the exact MambaTS v3 plain/null/active contract and all baseline runtime contracts": "464d0966ce8ac7b4d27c202ee52527f0d9d1ffd8b47091df93b72a0eb31e393b",
+    "use fresh seeds only and pair every dataset-horizon-seed-model coordinate": "2f46b60624e34e2a9e2260f3ace7c5ffeca5f6f1c1994081e89bac226b0fa1e9",
+    "keep skip_test=true for every job": "2f46b60624e34e2a9e2260f3ace7c5ffeca5f6f1c1994081e89bac226b0fa1e9",
+    "run same-shape prediction and end-to-end resource benchmarks only after accuracy results are frozen": "2f46b60624e34e2a9e2260f3ace7c5ffeca5f6f1c1994081e89bac226b0fa1e9"
+  }
+}

@@ -1,0 +1,111 @@
+{
+  "version": 1,
+  "schema_version": 1,
+  "status": "stopped_cpu_thread_reconfiguration",
+  "created_at": "2026-10-01",
+  "job_order_seed": 20261001,
+  "purpose": "Stopped held-out attempt for the validation-selected stride-24 MambaTSv3 relation-auxiliary candidate; superseded before completion by a CPU-thread-limited retraining plan.",
+  "research_question": "Does a full-coverage stride-24 AutoCon MambaTSv3 retain non-inferiority to strong forecasting and Mamba baselines on untouched Electricity/Traffic H96 test windows while preserving its validation-supported fixed-shape efficiency boundary?",
+  "evidence_boundary": "This attempt is incomplete because CPU thread limits were changed after launch. Its partial selection/candidate/baseline artifacts are retained for operational audit only and cannot enter held-out analysis.",
+  "claim_boundary": "If approved and passed, this release supports only Electricity/Traffic H96 comparisons for the registered stride-24 configuration. It cannot establish universal accuracy, causal AutoCon attribution, or universal speed superiority.",
+  "execution": {
+    "authorized": false,
+    "status": "stopped_cpu_thread_reconfiguration",
+    "training_started": true,
+    "human_review_required": true,
+    "required_before_launch": [
+      "verify Electricity and Traffic fingerprints and exact 86-job expansion",
+      "confirm the stride-24 relation-auxiliary candidate, its AutoCon participation audit, and seven comparator configurations are frozen from validation",
+      "verify current default Mamba-1 stride-24 path remains semantically equivalent to the frozen validation snapshot",
+      "approve the exact plan SHA-256 in a separate launch sidecar",
+      "run all phases from one immutable source snapshot and read test metrics only after strict validation"
+    ]
+  },
+  "data_fingerprints": {
+    "electricity": {"relative_path": "dataset/electricity/electricity.csv", "format": "csv", "channels_including_target": 321, "frequency": "h", "time_column": "date", "target": "OT", "sha256": "7e45845d54c5219bad0ae6bc1b5316cf8ff9cead5d33fa998a5a51c2e4a497ad"},
+    "traffic": {"relative_path": "dataset/traffic/traffic.csv", "format": "csv", "channels_including_target": 862, "frequency": "h", "time_column": "date", "target": "OT", "sha256": "cb06463d56fa17d87f47027cd9389ceae82a69eddee51cdb61480e120dab0b16"}
+  },
+  "global": {
+    "features": "M", "seq_len": 96, "label_len": 48, "d_model": 32, "d_ff": 64, "e_layers": 1, "n_heads": 4, "d_layers": 1,
+    "factor": 1, "top_k": 5, "num_kernels": 6, "moving_avg": 25, "patch_len": 24, "patch_stride": 24, "dropout": 0.1,
+    "embed": "timeF", "activation": "gelu", "wo_freq": "", "individual": false, "mamba_d_state": 16, "mamba_d_conv": 4,
+    "mamba_expand": 2, "mamba_headdim": 16, "mamba_ts_variant": "v3", "mamba_ts_mixer_type": "mamba1", "mamba_ts_context_rank": 16,
+    "mamba_scales": [1], "mamba_token_stride": 1, "mamba_bidirectional": false, "mamba_causal_embedding": true,
+    "mamba_ts_repr_forecast_fusion": false, "mamba_ts_repr_forecast_channelwise": false, "mamba_use_acf_memory": false,
+    "mamba_acf_relation_loss": false, "autocon_scale": 96, "autocon_wnorm": "MeanStd", "autocon_warmup": 0,
+    "autocon_acf_source": "raw", "AutoCon_temperature": 0.2, "AutoCon_relation_temperature": 0.25, "AutoCon_sign_weight": 0.25,
+    "AutoCon_sign_margin": 0.1, "autocon_lambda": 0.001, "batch_size": 32, "epochs": 12, "patience": 4,
+    "learning_rate": 0.001, "lradj": "cosine", "min_learning_rate": 0.00001, "weight_decay": 0.00001,
+    "num_workers": 0, "drop_last_train": false, "train_ratio": 0.6, "use_gpu": true, "skip_test": true,
+    "save_predictions": false, "stream_metrics": false, "stream_sample_windows": 1
+  },
+  "selection_contract": {
+    "selection_seeds": [3361, 3362, 3363],
+    "confirmation_seeds": [3371, 3372, 3373, 3374, 3375],
+    "test_split_allowed": false,
+    "selection_metric": "minimum pure-forecast validation scaled MSE",
+    "freeze_rule": "Stride-24 candidate, baselines, data split, optimizer, scheduler, budget, normalization, horizon and confirmation seeds are frozen before test execution; no held-out signal may select a model or setting.",
+    "no_test_selection": true
+  },
+  "capacity_fairness_contract": {
+    "common_public_budget": "All arms share chronological split, M features, sequence length, horizon, optimizer, scheduler, batch size, epochs, patience and normalization.",
+    "candidate_boundary": "Only MambaTSv3AutoCon receives the frozen AutoCon objective with lambda=.001; its full-coverage patch_len=patch_stride=24 configuration has prediction-connected representation fusion disabled. The six validation candidates have a separate finite-loss/effective-lambda training audit.",
+    "baseline_boundary": "DLinear, NLinear, RLinear, PatchTST, TimesNet, iTransformer and Mamba2 receive no AutoCon, representation-fusion, ACF-memory or candidate-only settings.",
+    "test_read_gate": "Read test metrics only after every registered phase validator succeeds."
+  },
+  "phases": [
+    {
+      "name": "selection_stride24_relation_auxiliary_validation",
+      "purpose": "Validation reproducibility check for the frozen stride-24 relation-auxiliary candidate; test split remains disabled.",
+      "output_root": "artifacts/paper_final/mambatsv3_stride24_relation_auxiliary_highdim_test_release_20261001/selection",
+      "datasets": ["electricity", "traffic"], "models": ["MambaTSv3AutoCon"], "features": "M", "horizons": [96], "seeds": [3361, 3362, 3363],
+      "mamba_ts_variant": "v3", "mamba_ts_mixer_type": "mamba1", "mamba_ts_repr_forecast_fusion": false, "autocon_lambda": 0.001,
+      "skip_test": true, "stream_metrics": false
+    },
+    {
+      "name": "confirmatory_stride24_relation_auxiliary_candidate_test",
+      "purpose": "Frozen stride-24 relation-auxiliary MambaTSv3 candidate held-out Electricity/Traffic H96 phase.",
+      "output_root": "artifacts/paper_final/mambatsv3_stride24_relation_auxiliary_highdim_test_release_20261001/candidate",
+      "datasets": ["electricity", "traffic"], "models": ["MambaTSv3AutoCon"], "features": "M", "horizons": [96], "seeds": [3371, 3372, 3373, 3374, 3375],
+      "mamba_ts_variant": "v3", "mamba_ts_mixer_type": "mamba1", "mamba_ts_repr_forecast_fusion": false, "autocon_lambda": 0.001,
+      "skip_test": false, "stream_metrics": true
+    },
+    {
+      "name": "confirmatory_stride24_strong_baselines_test",
+      "purpose": "Frozen same-source DLinear, NLinear, RLinear, PatchTST, TimesNet, iTransformer and Mamba2 held-out comparators.",
+      "output_root": "artifacts/paper_final/mambatsv3_stride24_relation_auxiliary_highdim_test_release_20261001/baselines",
+      "datasets": ["electricity", "traffic"], "models": ["DLinear", "NLinear", "RLinear", "PatchTST", "TimesNet", "iTransformer", "Mamba2"], "features": "M", "horizons": [96], "seeds": [3371, 3372, 3373, 3374, 3375],
+      "baseline_check": true, "mamba_ts_variant": "v1", "mamba_ts_repr_forecast_fusion": false, "mamba_use_acf_memory": false,
+      "mamba_acf_relation_loss": false, "skip_test": false, "stream_metrics": true
+    }
+  ],
+  "comparison_contract": {
+    "primary_metric": "held_out_streaming_scaled_mse", "pairing_unit": ["dataset", "horizon", "seed"],
+    "primary_comparators": ["DLinear", "NLinear", "RLinear", "PatchTST", "TimesNet", "iTransformer", "Mamba2"],
+    "test_selection_allowed": false, "test_metrics_produced": true, "metric_source": "results/<setting>/stream_metrics.json",
+    "reporting_rule": "Report paired seed-level mean MSE, wins, one-sided upper ratio and all failure cells; forecast windows and channels are not independent replicates."
+  },
+  "statistical_gate": {
+    "paired_effect": "seed-level log(MSE_candidate / MSE_baseline)", "interval_alpha": 0.05, "noninferiority_margin_ratio": 1.02,
+    "interpretation": "A cell is non-inferior only if its one-sided paired upper MSE ratio is <=1.02. Five confirmation seeds are the uncertainty unit."
+  },
+  "resource_contract": {
+    "tool": "scripts/benchmark_model_resources.py", "when": "after test accuracy is frozen",
+    "comparators": ["PatchTST", "TimesNet", "Mamba2", "DLinear", "iTransformer"],
+    "same_conditions": ["same RTX 5090 D and driver", "FP32", "device-resident inputs", "same batch shape", "same warm-up", "same timed iterations"],
+    "efficiency_claim_gate": "Report prediction-only speed only for named comparators whose registered accuracy gate passes; never use training wall time as inference throughput."
+  },
+  "prelaunch_gates": [
+    "verify Electricity and Traffic fingerprints and exact 86-job expansion",
+    "confirm the stride-24 relation-auxiliary candidate, its AutoCon participation audit, and seven comparator configurations are frozen from validation",
+    "verify current default Mamba-1 stride-24 path remains semantically equivalent to the frozen validation snapshot",
+    "approve the exact plan SHA-256 in a separate launch sidecar",
+    "run all phases from one immutable source snapshot and read test metrics only after strict validation"
+  ],
+  "registered_job_counts": {
+    "selection_stride24_relation_auxiliary_validation": 6,
+    "confirmatory_stride24_relation_auxiliary_candidate_test": 10,
+    "confirmatory_stride24_strong_baselines_test": 70,
+    "selection_total": 6, "confirmation_total": 80, "training_total": 86, "total": 86, "training_started": false
+  }
+}

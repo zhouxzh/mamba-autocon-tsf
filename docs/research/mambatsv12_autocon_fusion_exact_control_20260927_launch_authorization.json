@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "kind": "training_plan_launch_authorization",
+  "authorized": true,
+  "plan_path": "docs/research/mambatsv12_autocon_fusion_exact_control_20260927.json",
+  "plan_sha256": "9c9a5ff941670a39948b3c2ab9eade7fb6e7c1de665e5c67e3ca79520fe0db15",
+  "plan_status": "exploratory_mambatsv12_autocon_fusion_exact_control",
+  "approval": {"approved": true, "approved_by": "user", "approved_at_utc": "2026-09-27T17:00:00Z"},
+  "prelaunch_gate_evidence_hashes": {
+    "verify three dataset hashes and exact 18-job expansion": {"sha256": "9c9a5ff941670a39948b3c2ab9eade7fb6e7c1de665e5c67e3ca79520fe0db15", "artifact": "docs/research/mambatsv12_autocon_fusion_exact_control_20260927.json"},
+    "freeze v12 Delta and AutoCon settings": {"sha256": "9c9a5ff941670a39948b3c2ab9eade7fb6e7c1de665e5c67e3ca79520fe0db15", "artifact": "docs/research/mambatsv12_autocon_fusion_exact_control_20260927.json"},
+    "keep test execution disabled": {"sha256": "9c9a5ff941670a39948b3c2ab9eade7fb6e7c1de665e5c67e3ca79520fe0db15", "artifact": "docs/research/mambatsv12_autocon_fusion_exact_control_20260927.json"},
+    "run all phases under the immutable launch sidecar": {"sha256": "9c9a5ff941670a39948b3c2ab9eade7fb6e7c1de665e5c67e3ca79520fe0db15", "artifact": "docs/research/mambatsv12_autocon_fusion_exact_control_20260927.json"},
+    "preserve source snapshot and output root": {"sha256": "9c9a5ff941670a39948b3c2ab9eade7fb6e7c1de665e5c67e3ca79520fe0db15", "artifact": "docs/research/mambatsv12_autocon_fusion_exact_control_20260927.json"}
+  }
+}

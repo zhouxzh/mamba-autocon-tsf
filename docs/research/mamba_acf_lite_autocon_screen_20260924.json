@@ -1,0 +1,87 @@
+{
+  "version": 1,
+  "schema_version": 1,
+  "status": "exploratory_mamba_acf_lite_autocon_screen",
+  "created_at": "2026-09-24",
+  "job_order_seed": 20260927,
+  "purpose": "Screen the fixed single-scale low-rank MambaACF Lite AutoCon recipe against the full MambaACF AutoCon reference under an identical train-only ACF and relation-loss contract.",
+  "research_question": "Can the fixed Lite AutoCon architecture retain H96 validation accuracy on low- and high-dimensional data while reducing the single-model temporal compute path?",
+  "evidence_boundary": "Exploratory validation-only screen. No test metric is generated or used for selection.",
+  "claim_boundary": "This screen may reject the Lite candidate or justify a separate confirmation plan only. It cannot establish generalization, non-inferiority against all baselines, or end-to-end training speed.",
+  "execution": {
+    "authorized": true,
+    "status": "exploratory_mamba_acf_lite_autocon_screen",
+    "training_started": false,
+    "human_review_required": true
+  },
+  "prelaunch_gates": [
+    "verify ETTh1 and Traffic data hashes and the M-feature axis contract",
+    "validate the fixed Lite alias and full-reference model contracts",
+    "verify train-only ACF sidecars and active AutoCon relation telemetry",
+    "keep skip_test=true for every job",
+    "retain the full-versus-Lite comparison as exact dataset-horizon-seed pairs"
+  ],
+  "require_acf_sidecar": true,
+  "data_fingerprints": {
+    "ETTh1": {"relative_path": "dataset/ETT-small/ETTh1.csv", "channels_including_target": 7, "frequency": "h", "time_column": "date", "target": "OT", "sha256": "f18de3ad269cef59bb07b5438d79bb3042d3be49bdeecf01c1cd6d29695ee066"},
+    "traffic": {"relative_path": "dataset/traffic/traffic.csv", "channels_including_target": 862, "frequency": "h", "time_column": "date", "target": "OT", "sha256": "cb06463d56fa17d87f47027cd9389ceae82a69eddee51cdb61480e120dab0b16"}
+  },
+  "global": {
+    "features": "M", "seq_len": 96, "label_len": 48, "d_model": 32, "d_ff": 64,
+    "e_layers": 1, "n_heads": 4, "d_layers": 1, "factor": 1, "top_k": 5,
+    "num_kernels": 6, "moving_avg": 25, "patch_len": 16, "patch_stride": 8,
+    "dropout": 0.1, "embed": "timeF", "activation": "gelu", "wo_freq": "",
+    "mamba_d_state": 16, "mamba_d_conv": 4, "mamba_expand": 2, "mamba_headdim": 16,
+    "mamba_scales": [1, 2], "mamba_token_stride": 1, "mamba_bidirectional": false,
+    "mamba_causal_embedding": true, "mamba_channel_independent": false,
+    "mamba_channel_gate": false, "mamba_variable_mixer": false,
+    "mamba_variable_mixer_depth": 1, "mamba_variable_group_size": 1,
+    "mamba_variable_permutation": false, "mamba_acf_channel_order": "input",
+    "mamba_acf_channel_conditioning": false, "mamba_acf_repr_fusion": false,
+    "mamba_patch_mixer": false, "mamba_local_mixer": false, "mamba_low_rank_head": false,
+    "mamba_temporal_rank": 16, "mamba_acf_lags": [24, 168, 336],
+    "mamba_acf_lag_mode": "fixed", "mamba_acf_max_lag": 720, "mamba_acf_top_k": 8,
+    "mamba_acf_min_lag": 2, "mamba_acf_min_abs": 0.1, "mamba_acf_confidence_z": 1.96,
+    "mamba_acf_min_separation": 2, "mamba_acf_detrend": "mean", "mamba_acf_chunk": 64,
+    "mamba_use_acf_memory": false, "mamba_dynamic_acf": false,
+    "mamba_acf_relation_loss": false, "mamba_acf_relation_batching": "lag_pairs",
+    "mamba_acf_relation_lag_balance": "random", "mamba_acf_relation_channel_reduce": "mean",
+    "mamba_acf_relation_scope": "both", "mamba_acf_relation_representation": "encoder",
+    "mamba_acf_relation_lag_mask": true, "mamba_acf_relation_lag_tolerance": 0,
+    "mamba_acf_relation_min_lag": 0, "mamba_acf_relation_target_mode": "hard_selected",
+    "mamba_acf_relation_soft_min_abs": 0.1, "mamba_acf_relation_diagnostic_min_abs": 0.1,
+    "mamba_acf_relation_selected_lag_boost": 0.0,
+    "autocon_scale": 96, "autocon_wnorm": "MeanStd", "autocon_warmup": 0,
+    "autocon_acf_source": "raw", "AutoCon_temperature": 0.2,
+    "AutoCon_relation_temperature": 0.25, "AutoCon_sign_weight": 0.25,
+    "AutoCon_sign_margin": 0.1, "batch_size": 32, "epochs": 8, "patience": 3,
+    "learning_rate": 0.001, "lradj": "cosine", "min_learning_rate": 0.00001,
+    "weight_decay": 0.00001, "num_workers": 0, "drop_last_train": false,
+    "train_ratio": 0.6, "use_gpu": true, "skip_test": true,
+    "save_predictions": false, "stream_metrics": false, "stream_sample_windows": 1
+  },
+  "phases": [
+    {
+      "name": "full_vs_lite_h96",
+      "purpose": "Exact paired full MambaACF AutoCon reference versus immutable Lite alias, with the same train-only ACF relation targets.",
+      "output_root": "artifacts/exploratory/mamba_acf_lite_autocon_screen_20260924/full_vs_lite_h96",
+      "datasets": ["ETTh1", "traffic"], "models": ["MambaACFAutoCon", "MambaACFLiteAutoCon"],
+      "features": "M", "horizons": [96], "seeds": [2021, 2022, 2023],
+      "autocon_lambda": 0.03, "mamba_acf_relation_loss": true,
+      "mamba_acf_relation_lag_mask": true, "mamba_acf_relation_target_mode": "hard_selected",
+      "mamba_use_acf_memory": false, "mamba_causal_embedding": true,
+      "mamba_scales": [1, 2], "mamba_low_rank_head": false, "mamba_temporal_rank": 16,
+      "skip_test": true, "stream_metrics": false, "stream_sample_windows": 1
+    }
+  ],
+  "comparison_contract": {
+    "primary_metric": "minimum pure-forecast validation val_loss",
+    "secondary_metrics": ["elapsed_sec", "epochs_ran", "acf_relation_global_candidate_count_mean", "acf_relation_global_contrastive_active_anchor_fraction", "acf_relation_global_degenerate_positive_anchor_fraction", "acf_relation_global_sign_accuracy"],
+    "pairing_unit": {"fields": ["dataset", "horizon", "seed"], "mode": "exact"},
+    "test_selection_allowed": false,
+    "test_metrics_produced": false,
+    "stopping_rule": "Stop Lite if it is worse in both datasets and matched resources are not lower. Do not tune its fixed rank or scale from this screen.",
+    "publication_claim_boundary": "A favorable result requires fresh seeds, longer horizons, strong same-snapshot baseline confirmation, end-to-end resource measurement, and a separately authorized test release."
+  },
+  "registered_job_counts": {"full_vs_lite_h96": 12, "exploratory_total": 12, "training_total": 12, "total": 12, "training_started": false}
+}

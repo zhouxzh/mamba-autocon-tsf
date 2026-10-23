@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "kind": "training_plan_launch_authorization",
+  "authorized": true,
+  "plan_path": "docs/research/metro_pemsbay_mambatsv3_repr_fusion_h12_baseline_confirmation_plan_20260927.json",
+  "plan_sha256": "4d7a36df4f056cda6f0f6fb38d7b7e53691f835cb5cae87ba7e830acd6a6a8c0",
+  "plan_status": "exploratory_mambatsv3_repr_fusion_h12_baseline_confirmation_authorized",
+  "approval": {"approved": true, "approved_by": "user", "approved_at_utc": "2026-09-27T11:02:00Z"},
+  "prelaunch_gate_evidence_hashes": {
+    "data_fingerprints": {"sha256": "4d7a36df4f056cda6f0f6fb38d7b7e53691f835cb5cae87ba7e830acd6a6a8c0", "artifact": "docs/research/metro_pemsbay_mambatsv3_repr_fusion_h12_baseline_confirmation_plan_20260927.json"},
+    "candidate_binding": {"sha256": "4d7a36df4f056cda6f0f6fb38d7b7e53691f835cb5cae87ba7e830acd6a6a8c0", "artifact": "docs/research/metro_pemsbay_mambatsv3_repr_fusion_h12_baseline_confirmation_plan_20260927.json"},
+    "test_withheld": {"sha256": "4d7a36df4f056cda6f0f6fb38d7b7e53691f835cb5cae87ba7e830acd6a6a8c0", "artifact": "docs/research/metro_pemsbay_mambatsv3_repr_fusion_h12_baseline_confirmation_plan_20260927.json"}
+  }
+}

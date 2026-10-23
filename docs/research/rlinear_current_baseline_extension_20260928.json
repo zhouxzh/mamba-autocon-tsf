@@ -1,0 +1,70 @@
+{
+  "version": 1,
+  "schema_version": 1,
+  "status": "exploratory_rlinear_current_baseline_extension",
+  "created_at": "2026-09-28",
+  "job_order_seed": 20261042,
+  "purpose": "Add a current-source RLinear (RevIN plus linear mapping) reference on the core long-term forecasting coordinates.",
+  "research_question": "How strong is a normalization-aware linear baseline under the current data, split, optimizer and validation contract?",
+  "evidence_boundary": "Validation-only baseline extension. Every job sets skip_test=true; no test metrics, prediction arrays, or test selection are permitted.",
+  "claim_boundary": "These RLinear records are a current-source baseline table. They cannot be paired statistically with historical candidate artifacts from another source snapshot and do not establish an AutoCon effect.",
+  "execution": {
+    "authorized": true,
+    "status": "exploratory_rlinear_current_baseline_extension",
+    "training_started": false,
+    "human_review_required": true,
+    "required_before_launch": [
+      "verify all six dataset hashes and dimensions",
+      "verify exact 18-job RLinear expansion",
+      "keep test execution disabled for every job",
+      "preserve a single source snapshot and immutable output roots"
+    ]
+  },
+  "data_fingerprints": {
+    "ETTh1": {"relative_path": "dataset/ETT-small/ETTh1.csv", "channels_including_target": 7, "frequency": "h", "time_column": "date", "target": "OT", "sha256": "f18de3ad269cef59bb07b5438d79bb3042d3be49bdeecf01c1cd6d29695ee066"},
+    "weather": {"relative_path": "dataset/weather/weather.csv", "channels_including_target": 21, "frequency": "t", "time_column": "date", "target": "OT", "sha256": "773b97c4495ed044b390241cea9a9c39b79c80b2436dbcc0fbd32e289c86abf5"},
+    "exchange_rate": {"relative_path": "dataset/exchange_rate/exchange_rate.csv", "channels_including_target": 8, "frequency": "d", "time_column": "date", "target": "OT", "sha256": "d55e7aa2641009814a18ba3279431b13f6d413b0eab195b9ff21988d8cf94e97"},
+    "national_illness": {"relative_path": "dataset/illness/national_illness.csv", "channels_including_target": 7, "frequency": "d", "time_column": "date", "target": "OT", "sha256": "8594cecb98c6f2f9dc014eca11c4d5d1e38ad5ce6ed0592d4abe65b146fce395"},
+    "electricity": {"relative_path": "dataset/electricity/electricity.csv", "channels_including_target": 321, "frequency": "h", "time_column": "date", "target": "OT", "sha256": "7e45845d54c5219bad0ae6bc1b5316cf8ff9cead5d33fa998a5a51c2e4a497ad"},
+    "traffic": {"relative_path": "dataset/traffic/traffic.csv", "channels_including_target": 862, "frequency": "h", "time_column": "date", "target": "OT", "sha256": "cb06463d56fa17d87f47027cd9389ceae82a69eddee51cdb61480e120dab0b16"}
+  },
+  "global": {
+    "features": "M", "seq_len": 96, "label_len": 48, "d_model": 32, "d_ff": 64, "e_layers": 1, "n_heads": 4, "d_layers": 1,
+    "factor": 1, "top_k": 5, "num_kernels": 6, "moving_avg": 25, "patch_len": 16, "patch_stride": 8, "dropout": 0.1,
+    "embed": "timeF", "activation": "gelu", "wo_freq": "", "individual": false,
+    "batch_size": 32, "epochs": 12, "patience": 4, "learning_rate": 0.001, "lradj": "cosine", "min_learning_rate": 0.00001,
+    "weight_decay": 0.00001, "num_workers": 0, "drop_last_train": false, "train_ratio": 0.6, "use_gpu": true,
+    "skip_test": true, "save_predictions": false, "stream_metrics": false, "stream_sample_windows": 1
+  },
+  "selection_contract": {
+    "seeds": [3131, 3132, 3133], "test_split_allowed": false, "selection_metric": "minimum pure-forecast validation scaled MSE",
+    "freeze_rule": "RLinear is fixed to per-window affine RevIN plus a shared linear time map; no post-hoc individual-channel switch, horizon-specific hyperparameter change, or test read is allowed.",
+    "no_test_selection": true
+  },
+  "phases": [
+    {
+      "name": "rlinear_core_h96_validation", "purpose": "RLinear H96 validation references across low-, medium-, and high-dimensional core datasets.",
+      "output_root": "artifacts/exploratory/rlinear_current_baseline_extension_20260928/core_h96",
+      "datasets": ["ETTh1", "weather", "exchange_rate", "electricity", "traffic"], "models": ["RLinear"], "features": "M",
+      "horizons": [96], "seeds": [3131, 3132, 3133], "skip_test": true, "stream_metrics": false
+    },
+    {
+      "name": "rlinear_ili_h24_validation", "purpose": "RLinear H24 validation reference on the short ILI coordinate.",
+      "output_root": "artifacts/exploratory/rlinear_current_baseline_extension_20260928/ili_h24",
+      "datasets": ["national_illness"], "models": ["RLinear"], "features": "M",
+      "horizons": [24], "seeds": [3131, 3132, 3133], "skip_test": true, "stream_metrics": false
+    }
+  ],
+  "comparison_contract": {
+    "primary_metric": "minimum pure-forecast validation scaled MSE", "pairing_unit": ["dataset", "horizon", "seed"],
+    "test_selection_allowed": false, "test_metrics_produced": false,
+    "reporting_rule": "Report these values as RLinear-only current-source references. Do not calculate paired candidate deltas unless a future phase trains all compared arms from one frozen source snapshot."
+  },
+  "prelaunch_gates": [
+    "verify all six dataset hashes and dimensions",
+    "verify exact 18-job RLinear expansion",
+    "keep test execution disabled for every job",
+    "preserve a single source snapshot and immutable output roots"
+  ],
+  "registered_job_counts": {"rlinear_core_h96_validation": 15, "rlinear_ili_h24_validation": 3, "exploratory_total": 18, "training_total": 18, "total": 18, "training_started": false}
+}

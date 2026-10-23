@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "kind": "training_plan_launch_authorization",
+  "plan_path": "/home/zhong/Documents/Self-Supervised-Contrastive-Forecsating/docs/research/nlinear_variable_mamba_meanstd_traffic_multihorizon_screen_20260925.json",
+  "plan_sha256": "aa1433e34224fa04a1f4c020cc24a4f43aa0acab205cd0030d946f14aff9bd3a",
+  "plan_status": "exploratory_nlinear_variable_mamba_meanstd_traffic_multihorizon_screen",
+  "authorized": true,
+  "approval": {"approved": true, "approved_by": "user continuation request and active research objective", "approved_at_utc": "2026-09-25T00:00:00Z"},
+  "prelaunch_gate_evidence_hashes": {
+    "verify Traffic source hash and channel contract": "cb06463d56fa17d87f47027cd9389ceae82a69eddee51cdb61480e120dab0b16",
+    "freeze all candidate fields except AutoCon_wnorm before running": "64c0e70d182d7fcc4419ce10d51c3057ffed00fd5f8ac90ccf5463f1e6bf432b",
+    "rerun iTransformer under the same source snapshot": "aa1433e34224fa04a1f4c020cc24a4f43aa0acab205cd0030d946f14aff9bd3a",
+    "keep skip_test=true for every job": "aa1433e34224fa04a1f4c020cc24a4f43aa0acab205cd0030d946f14aff9bd3a"
+  }
+}

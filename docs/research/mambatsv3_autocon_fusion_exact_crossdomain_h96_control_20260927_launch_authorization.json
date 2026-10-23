@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "kind": "training_plan_launch_authorization",
+  "authorized": true,
+  "plan_path": "docs/research/mambatsv3_autocon_fusion_exact_crossdomain_h96_control_20260927.json",
+  "plan_sha256": "962323cdce4e41e0e7c903ed9f026855f4b4a566715cc3104a3d543137d8160d",
+  "plan_status": "exploratory_mambatsv3_autocon_fusion_exact_crossdomain_h96_control",
+  "approval": {"approved": true, "approved_by": "user", "approved_at_utc": "2026-09-27T14:00:00Z"},
+  "prelaunch_gate_evidence_hashes": {
+    "verify four dataset hashes and exact 24-job expansion": {"sha256": "962323cdce4e41e0e7c903ed9f026855f4b4a566715cc3104a3d543137d8160d", "artifact": "docs/research/mambatsv3_autocon_fusion_exact_crossdomain_h96_control_20260927.json"},
+    "hold all candidate settings fixed except fusion flag": {"sha256": "962323cdce4e41e0e7c903ed9f026855f4b4a566715cc3104a3d543137d8160d", "artifact": "docs/research/mambatsv3_autocon_fusion_exact_crossdomain_h96_control_20260927.json"},
+    "keep test execution disabled": {"sha256": "962323cdce4e41e0e7c903ed9f026855f4b4a566715cc3104a3d543137d8160d", "artifact": "docs/research/mambatsv3_autocon_fusion_exact_crossdomain_h96_control_20260927.json"},
+    "run all phases under the immutable launch sidecar": {"sha256": "962323cdce4e41e0e7c903ed9f026855f4b4a566715cc3104a3d543137d8160d", "artifact": "docs/research/mambatsv3_autocon_fusion_exact_crossdomain_h96_control_20260927.json"},
+    "preserve source snapshot and output root": {"sha256": "962323cdce4e41e0e7c903ed9f026855f4b4a566715cc3104a3d543137d8160d", "artifact": "docs/research/mambatsv3_autocon_fusion_exact_crossdomain_h96_control_20260927.json"}
+  }
+}

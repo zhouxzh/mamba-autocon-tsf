@@ -1,0 +1,51 @@
+{
+  "version": 1,
+  "schema_version": 1,
+  "status": "exploratory_mambatsv12_multiscale_autocon_h96_validation",
+  "created_at": "2026-09-27",
+  "job_order_seed": 20261021,
+  "purpose": "Validation-only screen of an independently implemented two-Delta MambaTS architecture retaining the AutoCon representation path.",
+  "research_question": "Can a two-scale Delta-MambaTS representation improve forecasting over the current MambaTSv3 AutoCon path and strong same-source baselines on traffic, ETT, and Weather data?",
+  "architecture": "MambaTSv12 feeds the same patch-token sequence to two Mamba-1 branches with Delta initialization multipliers (1.0, 2.0), combines their states with learned softmax weights initialized equally, and sends only the fused state to both the forecast head and AutoCon representation head.",
+  "evidence_boundary": "Validation-only. No test metrics or predictions are generated. A pass permits a separately registered held-out release.",
+  "claim_boundary": "This screen cannot establish universal forecasting, causal AutoCon attribution, or speed superiority; resource measurements are reported separately.",
+  "execution": {
+    "authorized": true,
+    "status": "exploratory_mambatsv12_multiscale_autocon_h96_validation",
+    "training_started": false,
+    "human_review_required": true,
+    "required_before_launch": [
+      "verify ETTh1, Weather, and PEMS07 hashes and exact 54-job expansion",
+      "freeze v12 Delta multipliers and AutoCon settings",
+      "keep test execution disabled",
+      "run all phases under the immutable launch sidecar",
+      "preserve source snapshot and output root"
+    ]
+  },
+  "data_fingerprints": {
+    "ETTh1": {"relative_path": "dataset/ETT-small/ETTh1.csv", "channels_including_target": 7, "frequency": "h", "time_column": "date", "target": "OT", "sha256": "f18de3ad269cef59bb07b5438d79bb3042d3be49bdeecf01c1cd6d29695ee066"},
+    "weather": {"relative_path": "dataset/weather/weather.csv", "channels_including_target": 21, "frequency": "t", "time_column": "date", "target": "OT", "sha256": "773b97c4495ed044b390241cea9a9c39b79c80b2436dbcc0fbd32e289c86abf5"},
+    "pems07": {"relative_path": "dataset/PEMS07/PEMS07.npz", "format": "npz", "channels_including_target": 883, "frequency": "t", "time_column": null, "target": "channel_882", "sha256": "a07887e610aa986276209bc9384d14ed7858fdcad1ded67f53dca19eb828600b"}
+  },
+  "global": {
+    "features": "M", "seq_len": 96, "label_len": 48, "d_model": 32, "d_ff": 64, "e_layers": 1, "n_heads": 4, "d_layers": 1, "factor": 1, "top_k": 5, "num_kernels": 6, "moving_avg": 25, "patch_len": 16, "patch_stride": 8, "dropout": 0.1, "embed": "timeF", "activation": "gelu", "wo_freq": "", "individual": false,
+    "mamba_d_state": 16, "mamba_d_conv": 4, "mamba_expand": 2, "mamba_headdim": 16, "mamba_ts_context_rank": 16, "mamba_ts_delta_multipliers": [1.0, 2.0], "mamba_ts_dt_min": 0.001, "mamba_ts_dt_max": 0.1,
+    "mamba_ts_repr_forecast_fusion": true, "mamba_ts_repr_forecast_channelwise": false, "mamba_use_acf_memory": false, "mamba_acf_relation_loss": false,
+    "autocon_scale": 96, "autocon_wnorm": "MeanStd", "autocon_warmup": 0, "autocon_acf_source": "raw", "AutoCon_temperature": 0.2, "AutoCon_relation_temperature": 0.25, "AutoCon_sign_weight": 0.25, "AutoCon_sign_margin": 0.1, "autocon_lambda": 0.001,
+    "batch_size": 32, "epochs": 12, "patience": 4, "learning_rate": 0.001, "lradj": "cosine", "min_learning_rate": 0.00001, "weight_decay": 0.00001, "num_workers": 0, "drop_last_train": false, "train_ratio": 0.6, "use_gpu": true, "skip_test": true, "save_predictions": false, "stream_metrics": false, "stream_sample_windows": 1
+  },
+  "selection_contract": {"seeds": [2451, 2452, 2453], "test_split_allowed": false, "selection_metric": "best_validation_scaled_mse", "freeze_rule": "Delta multipliers, v12 architecture, AutoCon lambda, and all optimizer settings are frozen before this matrix.", "no_test_selection": true},
+  "capacity_fairness_contract": {"common_public_budget": "All arms share split, features, sequence length, horizon, optimizer, scheduler, batch, epoch budget, patience, and normalization.", "external_baseline_boundary": "External baselines receive no v12-specific flags or AutoCon objective."},
+  "phases": [
+    {"name": "v12_candidate_h96_validation", "purpose": "Two-scale Delta-MambaTSv12 AutoCon candidate on ETTh1 and Weather H96.", "output_root": "artifacts/exploratory/mambatsv12_multiscale_autocon_h96_validation_20260927/v12_candidate_h96", "datasets": ["ETTh1", "weather"], "models": ["MambaTSv12AutoCon"], "features": "M", "horizons": [96], "seeds": [2451, 2452, 2453], "mamba_ts_variant": "v12", "mamba_ts_delta_multipliers": [1.0, 2.0], "mamba_ts_dt_min": 0.001, "mamba_ts_dt_max": 0.1, "mamba_ts_repr_forecast_fusion": true, "autocon_lambda": 0.001, "skip_test": true, "stream_metrics": false},
+    {"name": "v12_candidate_pems07_h12_validation", "purpose": "Two-scale Delta-MambaTSv12 AutoCon candidate on high-dimensional PEMS07 H12.", "output_root": "artifacts/exploratory/mambatsv12_multiscale_autocon_h96_validation_20260927/v12_candidate_pems07", "datasets": ["pems07"], "models": ["MambaTSv12AutoCon"], "features": "M", "horizons": [12], "seeds": [2451, 2452, 2453], "mamba_ts_variant": "v12", "mamba_ts_delta_multipliers": [1.0, 2.0], "mamba_ts_dt_min": 0.001, "mamba_ts_dt_max": 0.1, "mamba_ts_repr_forecast_fusion": true, "autocon_lambda": 0.001, "skip_test": true, "stream_metrics": false},
+    {"name": "v3_reference_h96_h12_validation", "purpose": "Current one-scale MambaTSv3 AutoCon reference under the same budget.", "output_root": "artifacts/exploratory/mambatsv12_multiscale_autocon_h96_validation_20260927/v3_reference", "datasets": ["ETTh1", "weather"], "models": ["MambaTSv3AutoCon"], "features": "M", "horizons": [96], "seeds": [2451, 2452, 2453], "mamba_ts_variant": "v3", "mamba_ts_repr_forecast_fusion": true, "autocon_lambda": 0.001, "skip_test": true, "stream_metrics": false},
+    {"name": "v3_reference_pems07_h12_validation", "purpose": "Current one-scale MambaTSv3 AutoCon reference on PEMS07 H12.", "output_root": "artifacts/exploratory/mambatsv12_multiscale_autocon_h96_validation_20260927/v3_reference_pems07", "datasets": ["pems07"], "models": ["MambaTSv3AutoCon"], "features": "M", "horizons": [12], "seeds": [2451, 2452, 2453], "mamba_ts_variant": "v3", "mamba_ts_repr_forecast_fusion": true, "autocon_lambda": 0.001, "skip_test": true, "stream_metrics": false},
+    {"name": "strong_baselines_h96_h12_validation", "purpose": "Strong same-source baselines with candidate-only AutoCon and v12 flags disabled.", "output_root": "artifacts/exploratory/mambatsv12_multiscale_autocon_h96_validation_20260927/strong_baselines", "datasets": ["ETTh1", "weather"], "models": ["PatchTST", "TimeMixer", "iTransformer", "Mamba2"], "features": "M", "horizons": [96], "seeds": [2451, 2452, 2453], "baseline_check": true, "mamba_ts_variant": "v1", "mamba_ts_repr_forecast_fusion": false, "mamba_use_acf_memory": false, "mamba_acf_relation_loss": false, "skip_test": true, "stream_metrics": false},
+    {"name": "strong_baselines_pems07_h12_validation", "purpose": "Strong same-source baselines on PEMS07 H12.", "output_root": "artifacts/exploratory/mambatsv12_multiscale_autocon_h96_validation_20260927/strong_baselines_pems07", "datasets": ["pems07"], "models": ["PatchTST", "TimeMixer", "iTransformer", "Mamba2"], "features": "M", "horizons": [12], "seeds": [2451, 2452, 2453], "baseline_check": true, "mamba_ts_variant": "v1", "mamba_ts_repr_forecast_fusion": false, "mamba_use_acf_memory": false, "mamba_acf_relation_loss": false, "skip_test": true, "stream_metrics": false}
+  ],
+  "comparison_contract": {"primary_metric": "minimum pure-forecast validation scaled MSE", "pairing_unit": ["dataset", "horizon", "seed"], "primary_comparators": ["MambaTSv3AutoCon", "PatchTST", "TimeMixer", "iTransformer", "Mamba2"], "test_selection_allowed": false, "test_metrics_produced": false},
+  "stopping_rules": ["Stop a coordinate if v12 is more than 2% worse than the strongest registered baseline.", "Stop the architecture if v12 fails to improve or remain within 1% of v3 on at least two of three seeds for each dataset.", "Do not release held-out test from a failed coordinate.", "Do not claim speed superiority because v12 has two Mamba branches; use the independent resource benchmark."],
+  "prelaunch_gates": ["verify ETTh1, Weather, and PEMS07 hashes and exact 54-job expansion", "freeze v12 Delta multipliers and AutoCon settings", "keep test execution disabled", "run all phases under the immutable launch sidecar", "preserve source snapshot and output root"],
+  "registered_job_counts": {"v12_candidate_h96_validation": 6, "v12_candidate_pems07_h12_validation": 3, "v3_reference_h96_h12_validation": 6, "v3_reference_pems07_h12_validation": 3, "strong_baselines_h96_h12_validation": 24, "strong_baselines_pems07_h12_validation": 12, "exploratory_total": 54, "training_total": 54, "total": 54, "training_started": false}
+}

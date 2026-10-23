@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "kind": "training_plan_launch_authorization",
+  "plan_path": "/home/zhong/Documents/Self-Supervised-Contrastive-Forecsating/docs/research/mamba_ts_v3_channel_adapter_screen_20260923.json",
+  "plan_sha256": "24217c5cd4709486b01872271620290090b976e1e53c1b056d3ac7b5603da959",
+  "plan_status": "exploratory_mamba_ts_v3_channel_adapter_screen",
+  "authorized": true,
+  "approval": {"approved": true, "approved_by": "user continuation request and Codex implementation authorization", "approved_at_utc": "2026-09-23T00:00:00Z"},
+  "prelaunch_gate_evidence_hashes": {
+    "verify PEMS hashes and feature-axis contract": "24217c5cd4709486b01872271620290090b976e1e53c1b056d3ac7b5603da959",
+    "verify mamba environment and CUDA kernels": "5b8d868ec65d69a136b3ea8ce1647210a2a76d23959a5c58970d804ea8a274b4",
+    "keep null and active optimizer/data/seed settings identical": "24217c5cd4709486b01872271620290090b976e1e53c1b056d3ac7b5603da959",
+    "keep skip_test=true": "24217c5cd4709486b01872271620290090b976e1e53c1b056d3ac7b5603da959"
+  }
+}

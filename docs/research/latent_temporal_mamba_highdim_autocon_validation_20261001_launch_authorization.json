@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "kind": "training_plan_launch_authorization",
+  "authorized": true,
+  "plan_path": "docs/research/latent_temporal_mamba_highdim_autocon_validation_20261001.json",
+  "plan_sha256": "ae7a5157a82db208726612b807cba659d78cb05ae9ee3f1db460230775fe7dda",
+  "plan_status": "exploratory_latent_temporal_mamba_highdim_autocon_validation",
+  "approval": {
+    "approved": true,
+    "approved_by": "user blanket authorization for registered training with real-time GPU thermal monitoring",
+    "approved_at_utc": "2026-09-30T22:54:50Z"
+  },
+  "prelaunch_gate_evidence_hashes": {
+    "verify Electricity and Traffic fingerprints and exact 60-job expansion": {
+      "sha256": "ae7a5157a82db208726612b807cba659d78cb05ae9ee3f1db460230775fe7dda",
+      "artifact": "docs/research/latent_temporal_mamba_highdim_autocon_validation_20261001.json"
+    },
+    "verify the two latent-temporal fixed-shape resource records": {
+      "sha256": "1d059088521ddf42d50c9ec3f61671c7232a0bc10f4f78556de28c134f4f72f8",
+      "artifact": "artifacts/exploratory/latent_temporal_mamba_highdim_resource_20261001/with_representation/electricity/model_resources.json"
+    },
+    "freeze candidate, null, reference, baseline, optimizer, normalization and seed contracts": {
+      "sha256": "11566e02e94e883f73816cee0c349ebe214631a7aa588fa388cb62d19b583f76",
+      "artifact": "scripts/smoke_latent_temporal_mamba_autocon.py"
+    },
+    "keep skip_test=true and save_predictions=false for every job": {
+      "sha256": "ae7a5157a82db208726612b807cba659d78cb05ae9ee3f1db460230775fe7dda",
+      "artifact": "docs/research/latent_temporal_mamba_highdim_autocon_validation_20261001.json"
+    },
+    "create one immutable source snapshot": {
+      "sha256": "1b32dd03308ab64642fe83c16485ef0d5b2e61ff04aa4a3e050e2fae25294198",
+      "artifact": "scripts/run_training_plan.py"
+    },
+    "verify fingerprints and exact 60-job expansion": {
+      "sha256": "ae7a5157a82db208726612b807cba659d78cb05ae9ee3f1db460230775fe7dda",
+      "artifact": "docs/research/latent_temporal_mamba_highdim_autocon_validation_20261001.json"
+    },
+    "verify the registered fixed-shape resource records and latency gate": {
+      "sha256": "1d059088521ddf42d50c9ec3f61671c7232a0bc10f4f78556de28c134f4f72f8",
+      "artifact": "artifacts/exploratory/latent_temporal_mamba_highdim_resource_20261001/with_representation/electricity/model_resources.json"
+    },
+    "freeze all architecture and optimization contracts": {
+      "sha256": "11566e02e94e883f73816cee0c349ebe214631a7aa588fa388cb62d19b583f76",
+      "artifact": "scripts/smoke_latent_temporal_mamba_autocon.py"
+    },
+    "keep skip_test=true and save_predictions=false": {
+      "sha256": "ae7a5157a82db208726612b807cba659d78cb05ae9ee3f1db460230775fe7dda",
+      "artifact": "docs/research/latent_temporal_mamba_highdim_autocon_validation_20261001.json"
+    }
+  }
+}

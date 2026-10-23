@@ -1,0 +1,187 @@
+{
+  "version": 2,
+  "schema_version": 1,
+  "status": "exploratory_mamba_timemachine_baseline_screen_draft",
+  "created_at": "2026-09-07",
+  "job_order_seed": 20260907,
+  "purpose": "Add a reproducible TimeMachine-style four-path Mamba baseline and its AutoCon counterpart to a fresh multivariate screen without mixing historical artifacts.",
+  "research_question": "Does a four-path multi-direction Mamba improve or preserve the plain Mamba accuracy/speed trade-off, and does the AutoCon representation objective remain useful with the same forecasting path?",
+  "evidence_boundary": "Unauthorized exploratory screen. It is not a paper result and cannot be concatenated with historical corrected, high-dimensional, or fair-screen artifacts.",
+  "claim_boundary": "Report paired validation metrics, parameter counts, and resource smoke only. Do not claim universal accuracy, non-inferiority, or end-to-end speed before a fresh confirmation matrix.",
+  "execution": {
+    "authorized": false,
+    "status": "exploratory_mamba_timemachine_baseline_screen_draft",
+    "training_started": false,
+    "human_review_required": true,
+    "required_before_launch": [
+      "human review of the TimeMachine implementation and 165-job budget",
+      "verify all dataset fingerprints and the active mamba environment",
+      "run matched parameter, prediction-only, and train-step resource smoke for every model family",
+      "freeze this JSON, create an approved launch sidecar, and use a fresh output root",
+      "confirm that test metrics are withheld until model selection is frozen"
+    ]
+  },
+  "prelaunch_gates": [
+    "human review of the TimeMachine implementation and 165-job budget",
+    "verify all dataset fingerprints and the active mamba environment",
+    "run matched parameter, prediction-only, and train-step resource smoke for every model family",
+    "freeze this JSON, create an approved launch sidecar, and use a fresh output root",
+    "confirm that test metrics are withheld until model selection is frozen"
+  ],
+  "data_fingerprints": {
+    "ETTh1": {
+      "relative_path": "dataset/ETT-small/ETTh1.csv",
+      "channels_including_target": 7,
+      "frequency": "h",
+      "time_column": "date",
+      "target": "OT",
+      "sha256": "f18de3ad269cef59bb07b5438d79bb3042d3be49bdeecf01c1cd6d29695ee066"
+    },
+    "ETTm1": {
+      "relative_path": "dataset/ETT-small/ETTm1.csv",
+      "channels_including_target": 7,
+      "frequency": "t",
+      "time_column": "date",
+      "target": "OT",
+      "sha256": "6ce1759b1a18e3328421d5d75fadcb316c449fcd7cec32820c8dafda71986c9e"
+    },
+    "electricity": {
+      "relative_path": "dataset/electricity/electricity.csv",
+      "channels_including_target": 321,
+      "frequency": "h",
+      "time_column": "date",
+      "target": "OT",
+      "sha256": "7e45845d54c5219bad0ae6bc1b5316cf8ff9cead5d33fa998a5a51c2e4a497ad"
+    },
+    "traffic": {
+      "relative_path": "dataset/traffic/traffic.csv",
+      "channels_including_target": 862,
+      "frequency": "h",
+      "time_column": "date",
+      "target": "OT",
+      "sha256": "cb06463d56fa17d87f47027cd9389ceae82a69eddee51cdb61480e120dab0b16"
+    },
+    "weather": {
+      "relative_path": "dataset/weather/weather.csv",
+      "channels_including_target": 21,
+      "frequency": "t",
+      "time_column": "date",
+      "target": "OT",
+      "sha256": "773b97c4495ed044b390241cea9a9c39b79c80b2436dbcc0fbd32e289c86abf5"
+    }
+  },
+  "global": {
+    "features": "M",
+    "seq_len": 96,
+    "label_len": 48,
+    "d_model": 64,
+    "d_ff": 128,
+    "e_layers": 1,
+    "n_heads": 4,
+    "d_layers": 1,
+    "factor": 1,
+    "top_k": 5,
+    "num_kernels": 6,
+    "moving_avg": 25,
+    "patch_len": 16,
+    "patch_stride": 8,
+    "dropout": 0.1,
+    "embed": "timeF",
+    "activation": "gelu",
+    "wo_freq": "",
+    "individual": false,
+    "use_amp": false,
+    "mamba_d_state": 16,
+    "mamba_d_conv": 4,
+    "mamba_expand": 2,
+    "mamba_headdim": 16,
+    "mamba_tm_n1": 64,
+    "mamba_tm_n2": 128,
+    "mamba_tm_repr_width": 64,
+    "mamba_tm_channel_independent": false,
+    "mamba_tm_residual": true,
+    "mamba_causal_embedding": true,
+    "mamba_scales": [1],
+    "mamba_acf_relation_loss": false,
+    "autocon_scale": 96,
+    "autocon_wnorm": "MeanStd",
+    "autocon_warmup": 0,
+    "autocon_acf_source": "raw",
+    "AutoCon_temperature": 0.2,
+    "AutoCon_relation_temperature": 0.25,
+    "AutoCon_sign_weight": 0.25,
+    "AutoCon_sign_margin": 0.1,
+    "batch_size": 32,
+    "epochs": 8,
+    "patience": 3,
+    "learning_rate": 0.001,
+    "lradj": "cosine",
+    "min_learning_rate": 0.00001,
+    "weight_decay": 0.00001,
+    "num_workers": 0,
+    "drop_last_train": false,
+    "train_ratio": 0.6,
+    "use_gpu": true,
+    "skip_test": true,
+    "save_predictions": false,
+    "stream_metrics": false,
+    "stream_sample_windows": 1
+  },
+  "phases": [
+    {
+      "name": "timemachine_plain_and_autocon_h96",
+      "purpose": "Fresh H96 multivariate screen for modern plain baselines, single-path Mamba, four-path TimeMachine Mamba, and matched AutoCon arms.",
+      "output_root": "artifacts/exploratory/mamba_timemachine_baseline_screen_20260907/timemachine_plain_and_autocon_h96",
+      "datasets": ["ETTh1", "ETTm1", "electricity", "traffic", "weather"],
+      "models": [
+        "DLinear", "NLinear", "PatchTST", "TimesNet", "iTransformer",
+        "Mamba1", "Mamba2", "MambaTM1", "MambaTM2",
+        "MambaTM1AutoCon", "MambaTM2AutoCon"
+      ],
+      "features": "M",
+      "horizons": [96],
+      "seeds": [2021, 2022, 2023],
+      "autocon_lambda": 0.03,
+      "baseline_check": true,
+      "mamba_acf_relation_loss": false,
+      "mamba_use_acf_memory": false,
+      "mamba_causal_embedding": true,
+      "skip_test": true,
+      "stream_metrics": false,
+      "stream_sample_windows": 1
+    }
+  ],
+  "comparison_contract": {
+    "primary_metric": "validation_scaled_mse",
+    "secondary_metrics": [
+      "validation_scaled_mae",
+      "validation_scaled_rmse",
+      "elapsed_sec",
+      "active_trainable_parameters",
+      "peak_gpu_memory"
+    ],
+    "pairing_unit": {
+      "fields": ["dataset", "horizon", "seed"],
+      "mode": "exact"
+    },
+    "test_selection_allowed": false,
+    "test_metrics_produced": false,
+    "required_artifacts": [
+      "training_complete.json",
+      "config.json and config hash",
+      "manifest record",
+      "phase_validation.json",
+      "immutable provenance"
+    ],
+    "interpretation": "Use paired seed deltas within each dataset. Sliding windows and channels are not independent replicates. Plain and AutoCon rows are separate estimands.",
+    "publication_claim_boundary": "This screen can select a candidate and expose dataset dependence; it cannot establish a final accuracy or speed claim. A fresh multi-horizon five-seed confirmation plan is required."
+  },
+  "registered_job_counts": {
+    "timemachine_plain_and_autocon_h96": 165,
+    "exploratory_total": 165,
+    "training_total": 165,
+    "total": 165,
+    "training_started": false,
+    "resource_runs_not_in_training_matrix": true
+  }
+}

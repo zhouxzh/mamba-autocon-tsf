@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "kind": "training_plan_launch_authorization",
+  "plan_path": "/home/zhong/Documents/Self-Supervised-Contrastive-Forecsating/docs/research/bipatchmamba_autocon_transfer_h12_screen_20260927.json",
+  "plan_sha256": "9ff2a9e881d7ac280810fc8bc03b6cec3fe51a86a9f2e603b04cec0f1b127115",
+  "plan_status": "exploratory_bipatchmamba_transfer_h12",
+  "authorized": true,
+  "approval": {"approved": true, "approved_by": "user continuation request and active research objective", "approved_at_utc": "2026-09-27T00:00:00Z"},
+  "prelaunch_gate_evidence_hashes": {
+    "verify all four dataset SHA256 fingerprints and registered multivariate dimensions": "b1c3849bddf7d4c3fe232ce2200a08656601619ec67aebf8eab22376183ef46a",
+    "verify exact BiPatch plain/null/active graph pairing with fresh seeds": "9ff2a9e881d7ac280810fc8bc03b6cec3fe51a86a9f2e603b04cec0f1b127115",
+    "verify AutoCon representation and zero-initialized forecast correction share encoded states": "9ff2a9e881d7ac280810fc8bc03b6cec3fe51a86a9f2e603b04cec0f1b127115",
+    "verify six external baselines disable all candidate-only options": "9ff2a9e881d7ac280810fc8bc03b6cec3fe51a86a9f2e603b04cec0f1b127115",
+    "verify exact-shape prediction-only resource preflights before launch": "87ae0b1f9723b76d301fc00121f3658a78a35abfa64f0ff540f76e8214837306",
+    "keep skip_test=true and save_predictions=false for every job": "9ff2a9e881d7ac280810fc8bc03b6cec3fe51a86a9f2e603b04cec0f1b127115"
+  }
+}

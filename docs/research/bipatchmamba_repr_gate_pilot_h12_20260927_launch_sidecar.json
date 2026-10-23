@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "kind": "training_plan_launch_authorization",
+  "plan_path": "/home/zhong/Documents/Self-Supervised-Contrastive-Forecsating/docs/research/bipatchmamba_repr_gate_pilot_h12_20260927.json",
+  "plan_sha256": "8e31f348bc92bc7cf15839702915c83950928a2e7459560ca65cd7c16f5c58d6",
+  "plan_status": "exploratory_bipatchmamba_repr_gate_pilot_h12",
+  "authorized": true,
+  "approval": {"approved": true, "approved_by": "user continuation request and active research objective", "approved_at_utc": "2026-09-27T00:00:00Z"},
+  "prelaunch_gate_evidence_hashes": {
+    "verify all four registered dataset fingerprints and multivariate dimensions": "b1c3849bddf7d4c3fe232ce2200a08656601619ec67aebf8eab22376183ef46a",
+    "verify exact plan pairing and fresh seeds": "8e31f348bc92bc7cf15839702915c83950928a2e7459560ca65cd7c16f5c58d6",
+    "verify representation gate is enabled only for null and active arms": "8e31f348bc92bc7cf15839702915c83950928a2e7459560ca65cd7c16f5c58d6",
+    "verify same-shape prediction-only resource preflights": "87ae0b1f9723b76d301fc00121f3658a78a35abfa64f0ff540f76e8214837306",
+    "keep skip_test=true and save_predictions=false for every job": "8e31f348bc92bc7cf15839702915c83950928a2e7459560ca65cd7c16f5c58d6",
+    "verify plain, exact lambda-zero null, and active AutoCon graph pairing with fresh seeds": "8e31f348bc92bc7cf15839702915c83950928a2e7459560ca65cd7c16f5c58d6",
+    "verify the representation gate is disabled for plain and enabled only for null/active arms": "8e31f348bc92bc7cf15839702915c83950928a2e7459560ca65cd7c16f5c58d6",
+    "do not mix pilot validation rows with the earlier additive-correction screen as a confirmatory estimate": "8e31f348bc92bc7cf15839702915c83950928a2e7459560ca65cd7c16f5c58d6"
+  }
+}

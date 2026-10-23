@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "kind": "training_plan_launch_authorization",
+  "authorized": true,
+  "plan_path": "docs/research/mambatsv13_lite_multiscale_autocon_h96_validation_20260928.json",
+  "plan_sha256": "0dace3425f13bd59f3c9dfd901bce834586ad4854ac81a3b4eaae9b5dea4ed3a",
+  "plan_status": "exploratory_mambatsv13_lite_multiscale_autocon_h96_validation_rerun",
+  "approval": {"approved": true, "approved_by": "user", "approved_at_utc": "2026-09-28T00:00:00Z"},
+  "prelaunch_gate_evidence_hashes": {
+    "verify ETTh1, Weather, and PEMS07 hashes and exact 54-job expansion": {"sha256": "0dace3425f13bd59f3c9dfd901bce834586ad4854ac81a3b4eaae9b5dea4ed3a", "artifact": "docs/research/mambatsv13_lite_multiscale_autocon_h96_validation_20260928.json"},
+    "freeze v13 filters, ReZero initialization, AutoCon settings, and training budget": {"sha256": "0dace3425f13bd59f3c9dfd901bce834586ad4854ac81a3b4eaae9b5dea4ed3a", "artifact": "docs/research/mambatsv13_lite_multiscale_autocon_h96_validation_20260928.json"},
+    "keep test execution disabled": {"sha256": "0dace3425f13bd59f3c9dfd901bce834586ad4854ac81a3b4eaae9b5dea4ed3a", "artifact": "docs/research/mambatsv13_lite_multiscale_autocon_h96_validation_20260928.json"},
+    "run all phases under the immutable launch sidecar": {"sha256": "0dace3425f13bd59f3c9dfd901bce834586ad4854ac81a3b4eaae9b5dea4ed3a", "artifact": "docs/research/mambatsv13_lite_multiscale_autocon_h96_validation_20260928.json"},
+    "preserve source snapshot and output roots": {"sha256": "0dace3425f13bd59f3c9dfd901bce834586ad4854ac81a3b4eaae9b5dea4ed3a", "artifact": "docs/research/mambatsv13_lite_multiscale_autocon_h96_validation_20260928.json"}
+  }
+}

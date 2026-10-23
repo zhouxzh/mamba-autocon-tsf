@@ -1,0 +1,197 @@
+{
+  "version": 2,
+  "schema_version": 1,
+  "status": "exploratory_multidataset_plain_baseline_expansion_draft",
+  "created_at": "2026-09-03",
+  "job_order_seed": 20260937,
+  "purpose": "Register one fresh provenance matrix that adds ETTm1 to the existing ETTh1/high-dimensional coverage and reruns six plain forecasting baselines under one explicit contract.",
+  "research_question": "Across ETTh1, ETTm1, Electricity, and Traffic, how do DLinear, NLinear, PatchTST, TimesNet, Mamba1, and Mamba2 compare under the same M-feature, horizon, seed, normalization, and optimizer contract?",
+  "evidence_boundary": "Unauthorized exploratory baseline expansion only. It is a new matrix and cannot be concatenated with historical corrected, fair-screen, or high-dimensional artifacts that use another source snapshot or training contract.",
+  "claim_boundary": "Report dataset-by-horizon descriptive metrics and paired seed deltas only. This plan does not establish a universal Mamba advantage, AutoCon/ACF gain, efficiency claim, or publication result.",
+  "execution": {
+    "authorized": false,
+    "status": "exploratory_multidataset_plain_baseline_expansion_draft",
+    "training_started": false,
+    "human_review_required": true,
+    "required_before_launch": [
+      "human review of the fresh provenance matrix and 216-job runtime budget",
+      "verify all four dataset fingerprints and the current source/environment snapshot",
+      "run matched parameter, prediction-only, and train-step resource smoke for every model family",
+      "freeze this JSON, create an approved launch sidecar, and use a fresh output root",
+      "confirm that test metrics are withheld until the matrix and selection rules are frozen"
+    ]
+  },
+  "prelaunch_gates": [
+    "human review of the fresh provenance matrix and 216-job runtime budget",
+    "verify all four dataset fingerprints and the current source/environment snapshot",
+    "run matched parameter, prediction-only, and train-step resource smoke for every model family",
+    "freeze this JSON, create an approved launch sidecar, and use a fresh output root",
+    "confirm that test metrics are withheld until the matrix and selection rules are frozen"
+  ],
+  "data_fingerprints": {
+    "ETTh1": {
+      "relative_path": "dataset/ETT-small/ETTh1.csv",
+      "channels_including_target": 7,
+      "frequency": "h",
+      "time_column": "date",
+      "target": "OT",
+      "sha256": "f18de3ad269cef59bb07b5438d79bb3042d3be49bdeecf01c1cd6d29695ee066"
+    },
+    "ETTm1": {
+      "relative_path": "dataset/ETT-small/ETTm1.csv",
+      "channels_including_target": 7,
+      "frequency": "t",
+      "time_column": "date",
+      "target": "OT",
+      "sha256": "6ce1759b1a18e3328421d5d75fadcb316c449fcd7cec32820c8dafda71986c9e"
+    },
+    "electricity": {
+      "relative_path": "dataset/electricity/electricity.csv",
+      "channels_including_target": 321,
+      "frequency": "h",
+      "time_column": "date",
+      "target": "OT",
+      "sha256": "7e45845d54c5219bad0ae6bc1b5316cf8ff9cead5d33fa998a5a51c2e4a497ad"
+    },
+    "traffic": {
+      "relative_path": "dataset/traffic/traffic.csv",
+      "channels_including_target": 862,
+      "frequency": "h",
+      "time_column": "date",
+      "target": "OT",
+      "sha256": "cb06463d56fa17d87f47027cd9389ceae82a69eddee51cdb61480e120dab0b16"
+    }
+  },
+  "seed_policy": {
+    "seeds": [2021, 2022, 2023],
+    "reporting_unit": "dataset, horizon, model, and seed",
+    "pairing_unit": {
+      "fields": ["dataset", "horizon", "seed"],
+      "mode": "exact"
+    },
+    "artifact_policy": "Use only the fresh output root. Retain source snapshot, environment record, dataset hashes, plan hash, config hashes, manifest, validation trajectory, and phase validation. Never copy historical metrics into this matrix."
+  },
+  "global": {
+    "features": "M",
+    "seq_len": 96,
+    "label_len": 48,
+    "d_model": 32,
+    "d_ff": 64,
+    "e_layers": 1,
+    "n_heads": 4,
+    "d_layers": 1,
+    "factor": 1,
+    "top_k": 5,
+    "num_kernels": 6,
+    "moving_avg": 25,
+    "patch_len": 16,
+    "patch_stride": 8,
+    "dropout": 0.1,
+    "embed": "timeF",
+    "activation": "gelu",
+    "wo_freq": "",
+    "individual": false,
+    "use_amp": false,
+    "mamba_d_state": 16,
+    "mamba_d_conv": 4,
+    "mamba_expand": 2,
+    "mamba_headdim": 16,
+    "mamba_scales": [1],
+    "mamba_token_stride": 1,
+    "mamba_bidirectional": false,
+    "mamba_causal_embedding": true,
+    "mamba_channel_independent": false,
+    "mamba_channel_gate": false,
+    "mamba_variable_mixer": false,
+    "mamba_acf_channel_order": "input",
+    "mamba_acf_channel_conditioning": false,
+    "mamba_acf_repr_fusion": false,
+    "mamba_acf_relation_loss": false,
+    "mamba_use_acf_memory": false,
+    "mamba_dynamic_acf": false,
+    "mamba_acf_memory_gate_mode": "hidden",
+    "mamba_patch_mixer": false,
+    "mamba_local_mixer": false,
+    "mamba_low_rank_head": false,
+    "mamba_temporal_rank": 16,
+    "autocon_scale": 96,
+    "autocon_wnorm": "MeanStd",
+    "autocon_warmup": 0,
+    "autocon_acf_source": "raw",
+    "AutoCon_temperature": 0.2,
+    "AutoCon_relation_temperature": 0.25,
+    "AutoCon_sign_weight": 0.25,
+    "AutoCon_sign_margin": 0.1,
+    "batch_size": 32,
+    "epochs": 8,
+    "patience": 3,
+    "learning_rate": 0.001,
+    "lradj": "cosine",
+    "min_learning_rate": 0.00001,
+    "weight_decay": 0.00001,
+    "num_workers": 0,
+    "drop_last_train": false,
+    "train_ratio": 0.6,
+    "use_gpu": true,
+    "skip_test": true,
+    "save_predictions": false,
+    "stream_metrics": false,
+    "stream_sample_windows": 1
+  },
+  "phases": [
+    {
+      "name": "plain_baselines_multidataset_horizons",
+      "purpose": "Fresh, same-provenance plain baseline matrix; all six models receive the same datasets, horizons, seeds, optimizer, normalization declaration, and short validation-only budget.",
+      "output_root": "artifacts/exploratory/mamba_multidataset_plain_baseline_expansion_20260903/plain_baselines",
+      "datasets": ["ETTh1", "ETTm1", "electricity", "traffic"],
+      "models": ["DLinear", "NLinear", "PatchTST", "TimesNet", "Mamba1", "Mamba2"],
+      "features": "M",
+      "horizons": [96, 336, 720],
+      "seeds": [2021, 2022, 2023],
+      "baseline_check": true,
+      "mamba_use_acf_memory": false,
+      "mamba_acf_relation_loss": false,
+      "mamba_acf_relation_min_lag": 0,
+      "mamba_acf_horizon_calibration": false,
+      "mamba_acf_channel_order": "input",
+      "mamba_variable_mixer": false,
+      "skip_test": true,
+      "stream_metrics": false,
+      "stream_sample_windows": 1
+    }
+  ],
+  "comparison_contract": {
+    "primary_metric": "validation_scaled_mse",
+    "secondary_metrics": ["validation_scaled_mae", "validation_scaled_rmse", "elapsed_sec", "active_trainable_parameters", "peak_gpu_memory"],
+    "pairing_unit": {
+      "fields": ["dataset", "horizon", "seed"],
+      "mode": "exact"
+    },
+    "test_selection_allowed": false,
+    "test_metrics_produced": false,
+    "required_artifacts": ["metrics.npy", "original_metrics.npy", "config.json and config hash", "manifest record", "phase_validation.json", "immutable provenance"],
+    "interpretation": "Use paired seed deltas/log-ratios within each dataset and horizon. Windows and channels are not independent replicates. Mamba1 and Mamba2 remain separate model families; do not pool them as one Mamba result.",
+    "historical_comparison_rule": "Do not append these rows to corrected/highdim/fair historical tables. A publication matrix must rerun all intended baselines under one frozen source, data, normalization, optimizer, and test-release contract.",
+    "publication_claim_boundary": "This validation-only expansion can identify missing baselines and dataset-dependent patterns, but cannot support a final ranking, non-inferiority, universal accuracy, or speed claim."
+  },
+  "resource_contract": {
+    "prediction_only": "Same GPU, PyTorch/mamba_ssm versions, batch=8, fixed warmup and synchronized p50/p95 latency; report active/total parameters and peak allocated/reserved memory.",
+    "train_step": "Before launch, measure forward+backward+optimizer with identical FP32/AMP, effective batch, loader workers, and synchronization for every model family; synthetic forward alone is insufficient for a speed claim.",
+    "capacity_note": "The plain Mamba1/2 rows use the repository-compatible forecasting head and are external architecture baselines, not exact parameter-matched controls for MambaACF. A common-head control is required before claiming a causal architectural advantage."
+  },
+  "stopping_rules": [
+    "Do not launch while execution.authorized is false; validate-only and dry-run are the only permitted actions.",
+    "If any dataset hash, source snapshot, config hash, or phase artifact is missing or changed, stop the matrix rather than impute or copy a row.",
+    "Do not use test metrics to choose a model, normalization, horizon, or follow-up AutoCon/ACF candidate.",
+    "If a model family fails shape, memory, or train-step resource smoke, retain an explicit missing row and investigate; do not silently drop it from the denominator.",
+    "A favorable validation pattern is descriptive and must be replicated with fresh seeds and a separately reviewed confirmation plan."
+  ],
+  "registered_job_counts": {
+    "plain_baselines_multidataset_horizons": 216,
+    "exploratory_total": 216,
+    "training_total": 216,
+    "total": 216,
+    "training_started": false,
+    "resource_runs_not_in_training_matrix": true
+  }
+}

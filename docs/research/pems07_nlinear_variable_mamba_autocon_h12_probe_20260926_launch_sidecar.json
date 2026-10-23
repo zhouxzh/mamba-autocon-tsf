@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "kind": "training_plan_launch_authorization",
+  "plan_path": "/home/zhong/Documents/Self-Supervised-Contrastive-Forecsating/docs/research/pems07_nlinear_variable_mamba_autocon_h12_probe_20260926.json",
+  "plan_sha256": "2014807d39d6dbb8aa0a58593bf8f4c228a93760aecf4c99979c06b1017e07b3",
+  "plan_status": "exploratory_pems07_nlinear_variable_mamba_autocon_relation_train_peaks_h12_probe",
+  "authorized": true,
+  "approval": {"approved": true, "approved_by": "user continuation request and active research objective", "approved_at_utc": "2026-09-26T00:00:00Z"},
+  "prelaunch_gate_evidence_hashes": {
+    "verify PEMS07 fingerprint and train-only normalization": "a07887e610aa986276209bc9384d14ed7858fdcad1ded67f53dca19eb828600b",
+    "freeze the variable-token active/null graph": "2014807d39d6dbb8aa0a58593bf8f4c228a93760aecf4c99979c06b1017e07b3",
+    "use fresh exact paired seeds": "2014807d39d6dbb8aa0a58593bf8f4c228a93760aecf4c99979c06b1017e07b3",
+    "keep skip_test=true": "2014807d39d6dbb8aa0a58593bf8f4c228a93760aecf4c99979c06b1017e07b3",
+    "measure the fusion-enabled prediction path before accuracy interpretation": "2014807d39d6dbb8aa0a58593bf8f4c228a93760aecf4c99979c06b1017e07b3"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "kind": "training_plan_launch_authorization",
+  "plan_path": "/home/zhong/Documents/Self-Supervised-Contrastive-Forecsating/docs/research/timemixer_pems_baseline_extension_20260923.json",
+  "plan_sha256": "1d7672833baa71f291b9a1dee5accc1707349b66b1147038f5e385bd34904f9c",
+  "plan_status": "exploratory_timemixer_pems_baseline_extension",
+  "authorized": true,
+  "approval": {"approved": true, "approved_by": "user continuation request and Codex implementation authorization", "approved_at_utc": "2026-09-23T01:15:00Z"},
+  "prelaunch_gate_evidence_hashes": {
+    "recheck all PEMS data hashes and axis contracts": "1d7672833baa71f291b9a1dee5accc1707349b66b1147038f5e385bd34904f9c",
+    "freeze source snapshot after TimeMixer contract tests pass": "c98d24ae98cb5c97e56784ebf54f6422d390bc9b36ca7bbb8c3a54fb62a4b7f6",
+    "keep skip_test=true for every job": "1d7672833baa71f291b9a1dee5accc1707349b66b1147038f5e385bd34904f9c",
+    "verify the 40 coordinates use the same seeds and budget as the completed matrix": "1d7672833baa71f291b9a1dee5accc1707349b66b1147038f5e385bd34904f9c"
+  }
+}

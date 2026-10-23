@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "kind": "training_plan_launch_authorization",
+  "authorized": true,
+  "plan_path": "docs/research/mambatsv3_ett2_ettm2_strong_baseline_h96_20260928.json",
+  "plan_sha256": "c364d5b3af3c249b9bd45fb55c40126560602a62aa93d91505dadd9ebd9d36c1",
+  "plan_status": "exploratory_mambatsv3_ett2_ettm2_strong_baseline_h96_validation",
+  "approval": {
+    "approved": true,
+    "approved_by": "user persistent objective: increase datasets and baseline evidence",
+    "approved_at_utc": "2026-09-28T09:05:00Z"
+  },
+  "prelaunch_gate_evidence_hashes": {
+    "verify two ETT fingerprints and exact 36-job expansion": {"sha256": "c364d5b3af3c249b9bd45fb55c40126560602a62aa93d91505dadd9ebd9d36c1", "artifact": "docs/research/mambatsv3_ett2_ettm2_strong_baseline_h96_20260928.json"},
+    "freeze candidate and baseline contracts": {"sha256": "c364d5b3af3c249b9bd45fb55c40126560602a62aa93d91505dadd9ebd9d36c1", "artifact": "docs/research/mambatsv3_ett2_ettm2_strong_baseline_h96_20260928.json"},
+    "keep test execution disabled for every job": {"sha256": "c364d5b3af3c249b9bd45fb55c40126560602a62aa93d91505dadd9ebd9d36c1", "artifact": "docs/research/mambatsv3_ett2_ettm2_strong_baseline_h96_20260928.json"},
+    "preserve one source snapshot and output root": {"sha256": "c364d5b3af3c249b9bd45fb55c40126560602a62aa93d91505dadd9ebd9d36c1", "artifact": "docs/research/mambatsv3_ett2_ettm2_strong_baseline_h96_20260928.json"}
+  }
+}

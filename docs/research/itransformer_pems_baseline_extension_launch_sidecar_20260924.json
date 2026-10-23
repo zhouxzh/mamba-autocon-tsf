@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "kind": "training_plan_launch_authorization",
+  "plan_path": "/home/zhong/Documents/Self-Supervised-Contrastive-Forecsating/docs/research/itransformer_pems_baseline_extension_20260924.json",
+  "plan_sha256": "b19d50479800e691bcfdf0fec3291a82164cd1c1d9436db90fe213111c1ea486",
+  "plan_status": "exploratory_itransformer_pems_baseline_extension",
+  "authorized": true,
+  "approval": {
+    "approved": true,
+    "approved_by": "user continuation request and Codex implementation authorization",
+    "approved_at_utc": "2026-09-24T14:20:00Z"
+  },
+  "prelaunch_gate_evidence_hashes": {
+    "recheck all PEMS data hashes and axis contracts": "b19d50479800e691bcfdf0fec3291a82164cd1c1d9436db90fe213111c1ea486",
+    "verify iTransformer model and runner contracts pass": "743c503a5b82f85f39c4e19868f266ccc8672b65893f4f2876c01267742363b3",
+    "keep skip_test=true for every job": "b19d50479800e691bcfdf0fec3291a82164cd1c1d9436db90fe213111c1ea486",
+    "verify the 40 coordinates use the same seeds and budget as the completed matrix": "b19d50479800e691bcfdf0fec3291a82164cd1c1d9436db90fe213111c1ea486"
+  }
+}

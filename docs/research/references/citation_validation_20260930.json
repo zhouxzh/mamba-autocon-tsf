@@ -1,0 +1,25 @@
+{
+  "filepath": "docs/research/references/mamba_autocon_references.bib",
+  "total_entries": 5,
+  "valid_entries": 5,
+  "errors": [],
+  "warnings": [
+    {
+      "type": "missing_recommended_field",
+      "field": "pages",
+      "severity": "medium",
+      "message": "Entry park2024self: Missing recommended field \"pages\"",
+      "entry": "park2024self"
+    }
+  ],
+  "duplicates": [],
+  "venue_standard_checked": null,
+  "min_count_checked": null,
+  "manuscript_results": {
+    "checked": false,
+    "manuscript_filepath": null,
+    "cited_keys": [],
+    "missing_keys": [],
+    "unused_keys": []
+  }
+}

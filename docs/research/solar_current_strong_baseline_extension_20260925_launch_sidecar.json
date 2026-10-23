@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "kind": "training_plan_launch_authorization",
+  "plan_path": "/home/zhong/Documents/Self-Supervised-Contrastive-Forecsating/docs/research/solar_current_strong_baseline_extension_20260925.json",
+  "plan_sha256": "820e62e45332f4af1f58af08c11a8a32d28fea0bca729108510cc61ec93fd88e",
+  "plan_status": "exploratory_solar_current_strong_baseline_extension",
+  "authorized": true,
+  "approval": {
+    "approved": true,
+    "approved_by": "user continuation request and active research objective",
+    "approved_at_utc": "2026-09-25T00:00:00Z"
+  },
+  "prelaunch_gate_evidence_hashes": {
+    "verify SolarEnergy source hash and 52,560x137 numeric schema": "230327ef72d2abb387939d4a35d6fd34f1066071bc7c40ce7ecf5531a0122ac2",
+    "verify every baseline runtime contract": "f0c45a935a8eb1cd89c6e533d1ff2b1ce9352764263bdfba1ed3eabc5285f536",
+    "keep skip_test=true for every job": "c11c79260ef0cf503e953da4c8c5ce90126294b5192591b93d55465c9d4b17f7",
+    "require all dataset-horizon-seed-model coordinates": "820e62e45332f4af1f58af08c11a8a32d28fea0bca729108510cc61ec93fd88e"
+  }
+}

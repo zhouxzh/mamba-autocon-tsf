@@ -1,0 +1,138 @@
+{
+  "version": 1,
+  "schema_version": 1,
+  "status": "exploratory_mambatsv3_d24_highdim_h12_transfer",
+  "created_at": "2026-09-27",
+  "job_order_seed": 20260992,
+  "purpose": "Fresh validation-only transfer of the frozen PEMS H12 MambaTSv3 d24 graph to Electricity and Traffic, with seven external baselines and an exact AutoCon relation null.",
+  "research_question": "Does the frozen four-token d24 MambaTSv3 graph that passed the five-seed PEMS H12 release retain high-dimensional short-horizon non-inferiority on Electricity and Traffic without architecture, training-budget, or AutoCon hyperparameter changes?",
+  "architecture": "MambaTSv3AutoCon uses four non-overlapping full-history patches, one causal shared Mamba-1 scan, a low-rank shared cross-variable context, and a prediction-connected AutoCon representation. The active and null graphs are identical; only AutoCon lambda is .001 versus zero. Prediction-only evaluation does not return the auxiliary representation or execute the contrastive loss.",
+  "evidence_boundary": "Validation-only transfer screen. No held-out test metric is generated, inspected, or used for selection.",
+  "claim_boundary": "A pass establishes only high-dimensional H12 validation transfer and permits a separately registered held-out test protocol. It does not establish general time-series performance, long-horizon performance, graph-aware traffic forecasting, or speed superiority over DLinear/NLinear/iTransformer.",
+  "execution": {
+    "authorized": true,
+    "status": "exploratory_mambatsv3_d24_highdim_h12_transfer",
+    "training_started": false,
+    "human_review_required": true
+  },
+  "prelaunch_gates": [
+    "verify Electricity and Traffic SHA256 fingerprints and registered multivariate dimensions",
+    "verify exact active/null graph pairing with fresh seeds",
+    "verify prediction-connected AutoCon representation and lambda-only treatment contrast",
+    "verify seven external baselines disable all candidate-only AutoCon and Mamba options",
+    "verify d24 exact-shape prediction-only resource preflights before launch",
+    "keep skip_test=true and save_predictions=false for every job"
+  ],
+  "data_fingerprints": {
+    "electricity": {
+      "relative_path": "dataset/electricity/electricity.csv",
+      "format": "csv",
+      "channels_including_target": 321,
+      "frequency": "h",
+      "time_column": "date",
+      "target": "OT",
+      "sha256": "7e45845d54c5219bad0ae6bc1b5316cf8ff9cead5d33fa998a5a51c2e4a497ad"
+    },
+    "traffic": {
+      "relative_path": "dataset/traffic/traffic.csv",
+      "format": "csv",
+      "channels_including_target": 862,
+      "frequency": "h",
+      "time_column": "date",
+      "target": "OT",
+      "sha256": "cb06463d56fa17d87f47027cd9389ceae82a69eddee51cdb61480e120dab0b16"
+    }
+  },
+  "resource_preflight": {
+    "protocol": "RTX 5090 D, FP32, device-resident B=32/L=96/H=12, 50 warm-up and 200 timed prediction-only forwards; auxiliary representation disabled.",
+    "electricity": {
+      "candidate_ms": 0.2858079969882965,
+      "PatchTST_ms": 0.5005280077457428,
+      "TimeMixer_ms": 1.3192479610443115,
+      "Mamba2_ms": 0.6811039745807648,
+      "iTransformer_ms": 0.327455997467041,
+      "candidate_resource_json": "artifacts/exploratory/mambatsv3_d24_highdim_h12_transfer_20260927/resources/electricity/MambaTSv3AutoCon/model_resources.json"
+    },
+    "traffic": {
+      "candidate_ms": 0.5277439951896667,
+      "PatchTST_ms": 1.1740320324897766,
+      "TimeMixer_ms": 2.794719934463501,
+      "Mamba2_ms": 0.7075839936733246,
+      "iTransformer_ms": 1.4791040420532227,
+      "candidate_resource_json": "artifacts/exploratory/mambatsv3_d24_highdim_h12_transfer_20260927/resources/traffic/MambaTSv3AutoCon/model_resources.json"
+    },
+    "interpretation": "The candidate is faster than the four named nonlinear comparators in both exact shapes. DLinear and NLinear are excluded from any speed-superiority wording."
+  },
+  "global": {
+    "features": "M", "seq_len": 96, "label_len": 48,
+    "d_model": 24, "d_ff": 48, "e_layers": 1, "n_heads": 4, "d_layers": 1,
+    "factor": 1, "top_k": 5, "num_kernels": 6, "moving_avg": 25,
+    "patch_len": 24, "patch_stride": 24, "dropout": 0.1,
+    "embed": "timeF", "activation": "gelu", "wo_freq": "", "individual": false,
+    "mamba_d_state": 8, "mamba_d_conv": 2, "mamba_expand": 1, "mamba_headdim": 24,
+    "mamba_ts_variant": "v3", "mamba_ts_context_rank": 8,
+    "mamba_scales": [1], "mamba_token_stride": 1, "mamba_bidirectional": false,
+    "mamba_causal_embedding": true, "mamba_channel_independent": false,
+    "mamba_use_acf_memory": false, "mamba_dynamic_acf": false,
+    "mamba_acf_relation_loss": false,
+    "autocon_scale": 96, "autocon_wnorm": "MeanStd", "autocon_warmup": 0,
+    "autocon_acf_source": "raw", "AutoCon_temperature": 0.2,
+    "AutoCon_relation_temperature": 0.25, "AutoCon_sign_weight": 0.25,
+    "AutoCon_sign_margin": 0.1,
+    "batch_size": 32, "epochs": 20, "patience": 5,
+    "learning_rate": 0.001, "lradj": "cosine", "min_learning_rate": 0.00001,
+    "weight_decay": 0.00001, "num_workers": 0, "drop_last_train": false,
+    "train_ratio": 0.6, "use_gpu": true, "skip_test": true,
+    "save_predictions": false, "stream_metrics": false, "stream_sample_windows": 1
+  },
+  "phases": [
+    {
+      "name": "strong_baselines_h12",
+      "purpose": "Same-budget external references with candidate-only options disabled.",
+      "output_root": "artifacts/exploratory/mambatsv3_d24_highdim_h12_transfer_20260927/baselines",
+      "datasets": ["electricity", "traffic"],
+      "models": ["DLinear", "NLinear", "PatchTST", "TimesNet", "TimeMixer", "iTransformer", "Mamba2"],
+      "features": "M", "horizons": [12], "seeds": [2301, 2302, 2303],
+      "mamba_acf_relation_loss": false, "skip_test": true, "stream_metrics": false
+    },
+    {
+      "name": "d24_autocon_null_h12",
+      "purpose": "Exact d24 AutoCon-capable graph with relation weight zero.",
+      "output_root": "artifacts/exploratory/mambatsv3_d24_highdim_h12_transfer_20260927/null",
+      "datasets": ["electricity", "traffic"], "models": ["MambaTSv3AutoCon"],
+      "features": "M", "horizons": [12], "seeds": [2301, 2302, 2303],
+      "mamba_ts_variant": "v3", "autocon_lambda": 0.0,
+      "allow_zero_autocon_lambda": true, "skip_test": true, "stream_metrics": false
+    },
+    {
+      "name": "d24_autocon_active_h12",
+      "purpose": "Frozen d24 MambaTSv3 AutoCon graph with lambda .001.",
+      "output_root": "artifacts/exploratory/mambatsv3_d24_highdim_h12_transfer_20260927/active",
+      "datasets": ["electricity", "traffic"], "models": ["MambaTSv3AutoCon"],
+      "features": "M", "horizons": [12], "seeds": [2301, 2302, 2303],
+      "mamba_ts_variant": "v3", "autocon_lambda": 0.001,
+      "skip_test": true, "stream_metrics": false
+    }
+  ],
+  "comparison_contract": {
+    "primary_metric": "minimum pure-forecast validation val_loss",
+    "pairing_unit": {"fields": ["dataset", "horizon", "seed"], "mode": "exact"},
+    "primary_candidate": "d24_autocon_active_h12",
+    "primary_contrasts": ["active versus exact lambda-zero null", "active versus each external baseline"],
+    "accuracy_gate": "For each dataset, active must be within 2% of the strongest external baseline mean; the high-dimensional transfer branch passes only if both datasets meet this rule.",
+    "autocon_gate": "Active must be within 1% of its exact null. A relation-improvement claim additionally requires lower mean MSE and at least two of three paired seed wins.",
+    "resource_gate": "Report exact-shape prediction-only latency against TimeMixer, PatchTST, Mamba2, and iTransformer. No universal speed claim or DLinear/NLinear comparison is permitted.",
+    "test_selection_allowed": false, "test_metrics_produced": false
+  },
+  "stopping_rules": [
+    "Do not alter d24 capacity, patching, Mamba settings, lambda, optimizer, split, seeds, or epoch budget after launch.",
+    "Stop high-dimensional transfer and do not release tests if either dataset fails the external-baseline gate.",
+    "Do not claim a standalone AutoCon accuracy gain if its exact null contrast fails.",
+    "Do not remove or replace a baseline after launch."
+  ],
+  "registered_job_counts": {
+    "strong_baselines_h12": 42, "d24_autocon_null_h12": 6,
+    "d24_autocon_active_h12": 6, "exploratory_total": 54,
+    "training_total": 54, "total": 54, "training_started": false
+  }
+}

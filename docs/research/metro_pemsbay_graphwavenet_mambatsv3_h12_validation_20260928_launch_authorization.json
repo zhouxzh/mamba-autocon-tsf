@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "kind": "training_plan_launch_authorization",
+  "authorized": true,
+  "plan_path": "docs/research/metro_pemsbay_graphwavenet_mambatsv3_h12_validation_20260928.json",
+  "plan_sha256": "f7619110af912de8256f6b12c7fa6d4e671a0fcf88235ea64c482f77e9a58c91",
+  "plan_status": "exploratory_metro_pemsbay_graphwavenet_mambatsv3_h12_validation",
+  "approval": {
+    "approved": true,
+    "approved_by": "user_request_scope",
+    "approved_at_utc": "2026-09-28T00:00:00Z"
+  },
+  "prelaunch_gate_evidence_hashes": {
+    "verify speed CSV and adjacency NPZ fingerprints": {
+      "sha256": "f7619110af912de8256f6b12c7fa6d4e671a0fcf88235ea64c482f77e9a58c91",
+      "artifact": "docs/research/metro_pemsbay_graphwavenet_mambatsv3_h12_validation_20260928.json"
+    },
+    "freeze candidate, GraphWaveNet configuration, and common training budget": {
+      "sha256": "f7619110af912de8256f6b12c7fa6d4e671a0fcf88235ea64c482f77e9a58c91",
+      "artifact": "docs/research/metro_pemsbay_graphwavenet_mambatsv3_h12_validation_20260928.json"
+    },
+    "keep all test execution disabled": {
+      "sha256": "f7619110af912de8256f6b12c7fa6d4e671a0fcf88235ea64c482f77e9a58c91",
+      "artifact": "docs/research/metro_pemsbay_graphwavenet_mambatsv3_h12_validation_20260928.json"
+    },
+    "preserve one source snapshot and immutable launch sidecar": {
+      "sha256": "f7619110af912de8256f6b12c7fa6d4e671a0fcf88235ea64c482f77e9a58c91",
+      "artifact": "docs/research/metro_pemsbay_graphwavenet_mambatsv3_h12_validation_20260928.json"
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "kind": "training_plan_launch_authorization",
+  "plan_path": "/home/zhong/Documents/Self-Supervised-Contrastive-Forecsating/docs/research/mamba_acf_channel_order_conditioning_screen_plan.json",
+  "plan_sha256": "106a563e86836d06f071a1fba82f2fababa628afcc3d1abd5ad51b1906e9c0ad",
+  "plan_status": "exploratory_mamba_acf_channel_order_conditioning_screen_not_confirmatory",
+  "authorized": true,
+  "approval": {
+    "approved": true,
+    "approved_by": "user continuation request and parent-agent authorization recorded by Codex",
+    "approved_at_utc": "2026-09-02T06:39:42Z"
+  },
+  "prelaunch_gate_evidence_hashes": {
+    "human review of the one-factor channel-order/conditioning design": "77a72677cb679e7441b6c2f50e52d7fd6559dad509a10e7ce8db0e1bddcdf5ea",
+    "confirm train-only ACF sidecar identity and dataset fingerprints": "0175ace7fc673a76a7803b2be0ab70146190e2f731dd069941348d86f6c220b9",
+    "explicit exploratory launch authorization and fresh output root": "0175ace7fc673a76a7803b2be0ab70146190e2f731dd069941348d86f6c220b9"
+  },
+  "evidence_files": [
+    "docs/research/mamba_acf_channel_order_conditioning_screen_launch_review_20260902.md",
+    "docs/research/mamba_acf_channel_order_conditioning_screen_gate_evidence_20260902.md"
+  ]
+}

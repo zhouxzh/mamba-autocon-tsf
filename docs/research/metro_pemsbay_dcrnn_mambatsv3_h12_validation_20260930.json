@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "schema_version": 1,
+  "status": "exploratory_metro_pemsbay_dcrnn_mambatsv3_h12_validation",
+  "created_at": "2026-09-30",
+  "job_order_seed": 20261203,
+  "purpose": "Validation-only completion of the METR-LA/PEMS-BAY H12 traffic matrix with the optimized canonical-style DCRNN baseline.",
+  "research_question": "Does the frozen MambaTSv3 AutoCon fusion candidate remain competitive with a forward/reverse diffusion recurrent graph baseline after the baseline's semantics-preserving input-diffusion optimization?",
+  "evidence_boundary": "All jobs are validation-only. No held-out test metrics, predictions, or streaming artifacts are generated or read.",
+  "claim_boundary": "DCRNN is a local canonical-style implementation using the hashed traffic graph contract. The matrix cannot establish external-code reproduction, held-out superiority, or an independent AutoCon causal effect.",
+  "execution": {"authorized": false, "training_started": false, "human_review_required": true, "required_before_launch": ["verify traffic and adjacency fingerprints", "freeze candidate, optimized DCRNN, optimizer and seed contracts", "keep test execution disabled", "preserve one immutable source snapshot"]},
+  "data_fingerprints": {
+    "metr_la": {"relative_path": "dataset/METR-LA/METR-LA.csv", "format": "csv_numeric", "channels_including_target": 207, "frequency": "t", "target_index": 206, "data_interval_minutes": 5, "sha256": "5fa498de0c90f5ff9b67e7cf9654bec031a803b320a8eb13d48021b9983bec82", "adjacency_relative_path": "dataset/METR-LA/adjacency.npz", "adjacency_sha256": "97cfc5c63ab90bc6517108881f1aa3c26c62fbc548584b4ec76b28b0e16eac89"},
+    "pems_bay": {"relative_path": "dataset/PEMS-BAY/PEMS-BAY.csv", "format": "csv_numeric", "channels_including_target": 325, "frequency": "t", "target_index": 324, "data_interval_minutes": 5, "sha256": "c39dc8f5f3a7f1e9e9deeab1f3fdfa7b87d2b4e45b4075d4c3bd3c62c3051ef2", "adjacency_relative_path": "dataset/PEMS-BAY/adjacency.npz", "adjacency_sha256": "3567957c59f994a678526725b810cf29031affe03dca99c72d0c4eba9e8761c7"}
+  },
+  "global": {
+    "features": "M", "seq_len": 96, "label_len": 48, "d_model": 24, "d_ff": 48, "e_layers": 1, "n_heads": 4, "d_layers": 1, "factor": 1, "top_k": 5, "num_kernels": 6, "moving_avg": 25, "patch_len": 24, "patch_stride": 24, "dropout": 0.1, "embed": "timeF", "activation": "gelu", "wo_freq": "", "individual": false,
+    "mamba_d_state": 8, "mamba_d_conv": 2, "mamba_expand": 1, "mamba_headdim": 8, "mamba_ts_context_rank": 16, "mamba_ts_variant": "v3", "mamba_ts_repr_forecast_fusion": true, "mamba_use_acf_memory": false, "mamba_acf_relation_loss": false, "autocon_scale": 96, "autocon_wnorm": "LastVal", "autocon_warmup": 2, "autocon_acf_source": "raw", "autocon_lambda": 0.001,
+    "batch_size": 32, "epochs": 20, "patience": 5, "learning_rate": 0.001, "lradj": "cosine", "min_learning_rate": 0.00001, "weight_decay": 0.00001, "num_workers": 0, "drop_last_train": false, "train_ratio": 0.6, "use_gpu": true, "skip_test": true, "save_predictions": false, "stream_metrics": false, "stream_sample_windows": 1
+  },
+  "selection_contract": {"seeds": [3601, 3602, 3603], "test_split_allowed": false, "selection_metric": "best_validation_scaled_mse", "freeze_rule": "Candidate and DCRNN are compared descriptively; no candidate setting is selected from this matrix.", "no_test_selection": true},
+  "capacity_fairness_contract": {"common_public_budget": "Both arms share loader, chronological split, features, sequence length, horizon, optimizer, scheduler, batch, epoch budget, patience and normalization.", "baseline_boundary": "DCRNN receives only the fixed forward/reverse graph contract and no AutoCon, relation, Mamba, or candidate-only representation setting.", "implementation_note": "The DCRNN input diffusion cache and batched matrix multiplication preserve the previous first-order forward/reverse diffusion GRU formula while removing duplicate input propagation."},
+  "phases": [
+    {"name": "candidate_h12_validation", "purpose": "Frozen MambaTSv3 AutoCon prediction-connected fusion candidate.", "output_root": "artifacts/exploratory/metro_pemsbay_dcrnn_mambatsv3_h12_validation_20260930/candidate", "datasets": ["metr_la", "pems_bay"], "models": ["MambaTSv3AutoCon"], "features": "M", "horizons": [12], "seeds": [3601, 3602, 3603], "mamba_ts_variant": "v3", "mamba_ts_repr_forecast_fusion": true, "autocon_lambda": 0.001, "skip_test": true, "stream_metrics": false},
+    {"name": "dcrnn_h12_validation", "purpose": "Optimized canonical-style DCRNN direct multi-horizon diffusion recurrent baseline using fixed forward/reverse graph supports.", "output_root": "artifacts/exploratory/metro_pemsbay_dcrnn_mambatsv3_h12_validation_20260930/dcrnn", "datasets": ["metr_la", "pems_bay"], "models": ["DCRNN"], "features": "M", "horizons": [12], "seeds": [3601, 3602, 3603], "baseline_check": true, "mamba_ts_graph_spatial": true, "mamba_ts_repr_forecast_fusion": false, "mamba_use_acf_memory": false, "mamba_acf_relation_loss": false, "skip_test": true, "stream_metrics": false}
+  ],
+  "comparison_contract": {"primary_metric": "minimum pure-forecast validation scaled MSE", "pairing_unit": ["dataset", "horizon", "seed"], "primary_comparators": ["DCRNN"], "test_selection_allowed": false, "test_metrics_produced": false, "reporting_rule": "Report both datasets and all paired seeds, including failures."},
+  "stopping_rules": ["Reject readout if any job is incomplete, sources drift, or test artifacts exist.", "Do not alter the frozen candidate in response to this baseline matrix.", "Do not run held-out tests from this expansion.", "Report DCRNN as a local canonical-style implementation, not an external bitwise reproduction."],
+  "registered_job_counts": {"candidate_h12_validation": 6, "dcrnn_h12_validation": 6, "exploratory_total": 12, "training_total": 12, "total": 12, "training_started": false}
+}

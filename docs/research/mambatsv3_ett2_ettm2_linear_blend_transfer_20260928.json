@@ -1,0 +1,93 @@
+{
+  "version": 1,
+  "schema_version": 1,
+  "status": "exploratory_mambatsv3_ett2_ettm2_linear_blend_transfer_validation",
+  "created_at": "2026-09-28",
+  "job_order_seed": 20261047,
+  "purpose": "Fixed-configuration transfer check of the ETTh1-passing AutoCon representation-gated Mamba/persistence blend on ETTh2 and ETTm2.",
+  "research_question": "Does the frozen AutoCon representation-gated blend improve exact MambaTSv3 on ETTh2/ETTm2 and approach the strongest linear/patch baseline without any retuning?",
+  "evidence_boundary": "Validation-only transfer screen. No test metrics or predictions are generated. No blend bias, AutoCon lambda, or capacity search is permitted.",
+  "claim_boundary": "A pass is only transfer evidence on two ETT variants; it cannot establish universal accuracy, a causal AutoCon effect, or an efficiency advantage.",
+  "execution": {
+    "authorized": true,
+    "status": "exploratory_mambatsv3_ett2_ettm2_linear_blend_transfer_validation",
+    "training_started": false,
+    "human_review_required": true,
+    "required_before_launch": [
+      "verify two ETT fingerprints and exact 24-job expansion",
+      "freeze blend bias=-4, AutoCon lambda and baseline contracts",
+      "keep test execution disabled for every job",
+      "preserve one source snapshot and output root"
+    ]
+  },
+  "data_fingerprints": {
+    "ETTh2": {"relative_path": "dataset/ETT-small/ETTh2.csv", "channels_including_target": 7, "frequency": "h", "time_column": "date", "target": "OT", "sha256": "a3dc2c597b9218c7ce1cd55eb77b283fd459a1d09d753063f944967dd6b9218b"},
+    "ETTm2": {"relative_path": "dataset/ETT-small/ETTm2.csv", "channels_including_target": 7, "frequency": "t", "time_column": "date", "target": "OT", "sha256": "db973ca252c6410a30d0469b13d696cf919648d0f3fd588c60f03fdbdbadd1fd"}
+  },
+  "global": {
+    "features": "M", "seq_len": 96, "label_len": 48, "d_model": 32, "d_ff": 64, "e_layers": 1, "n_heads": 4, "d_layers": 1,
+    "factor": 1, "top_k": 5, "num_kernels": 6, "moving_avg": 25, "patch_len": 16, "patch_stride": 8, "dropout": 0.1,
+    "embed": "timeF", "activation": "gelu", "wo_freq": "", "individual": false,
+    "mamba_d_state": 16, "mamba_d_conv": 4, "mamba_expand": 2, "mamba_headdim": 16, "mamba_ts_variant": "v3", "mamba_ts_context_rank": 16,
+    "mamba_scales": [1], "mamba_token_stride": 1, "mamba_bidirectional": false, "mamba_causal_embedding": true,
+    "mamba_ts_repr_forecast_fusion": false, "mamba_ts_repr_forecast_channelwise": false, "mamba_ts_repr_linear_expert": false,
+    "mamba_ts_repr_linear_expert_mode": "residual", "mamba_ts_repr_linear_blend_bias": -4.0, "mamba_ts_repr_linear_expert_rank": 16,
+    "mamba_use_acf_memory": false, "mamba_acf_relation_loss": false,
+    "autocon_scale": 96, "autocon_wnorm": "MeanStd", "autocon_warmup": 0, "autocon_acf_source": "raw", "AutoCon_temperature": 0.2,
+    "AutoCon_relation_temperature": 0.25, "AutoCon_sign_weight": 0.25, "AutoCon_sign_margin": 0.1, "autocon_lambda": 0.001,
+    "batch_size": 32, "epochs": 12, "patience": 4, "learning_rate": 0.001, "lradj": "cosine", "min_learning_rate": 0.00001,
+    "weight_decay": 0.00001, "num_workers": 0, "drop_last_train": false, "train_ratio": 0.6, "use_gpu": true,
+    "skip_test": true, "save_predictions": false, "stream_metrics": false, "stream_sample_windows": 1
+  },
+  "selection_contract": {
+    "seeds": [3201, 3202, 3203], "test_split_allowed": false, "selection_metric": "minimum pure-forecast validation scaled MSE",
+    "freeze_rule": "The blend mode, bias=-4, AutoCon lambda=.001, baseline set, optimizer and budget are copied unchanged from the ETTh1 transfer source; no post-hoc retuning is allowed.",
+    "no_test_selection": true
+  },
+  "capacity_fairness_contract": {
+    "common_public_budget": "All arms share split, features, sequence length, horizon, optimizer, scheduler, batch, epoch budget, patience and normalization.",
+    "candidate_boundary": "Only the blend arm enables mamba_ts_repr_linear_expert=true; it uses the same AutoCon representation as prediction-connected fusion and adds no second Mamba scan.",
+    "efficiency_boundary": "A pass does not establish speed; any efficiency claim needs an independent fixed-shape resource measurement."
+  },
+  "phases": [
+    {
+      "name": "blend_h96_validation", "purpose": "Frozen AutoCon representation-gated Mamba/persistence blend transfer arm.",
+      "output_root": "artifacts/exploratory/mambatsv3_ett2_ettm2_linear_blend_transfer_20260928/blend_h96",
+      "datasets": ["ETTh2", "ETTm2"], "models": ["MambaTSv3AutoCon"], "features": "M", "horizons": [96], "seeds": [3201, 3202, 3203],
+      "mamba_ts_variant": "v3", "mamba_ts_repr_forecast_fusion": true, "mamba_ts_repr_linear_expert": true, "mamba_ts_repr_linear_expert_mode": "blend", "mamba_ts_repr_linear_blend_bias": -4.0,
+      "autocon_lambda": 0.001, "skip_test": true, "stream_metrics": false
+    },
+    {
+      "name": "control_h96_validation", "purpose": "Exact current-source MambaTSv3 AutoCon control without linear blend.",
+      "output_root": "artifacts/exploratory/mambatsv3_ett2_ettm2_linear_blend_transfer_20260928/control_h96",
+      "datasets": ["ETTh2", "ETTm2"], "models": ["MambaTSv3AutoCon"], "features": "M", "horizons": [96], "seeds": [3201, 3202, 3203],
+      "mamba_ts_variant": "v3", "mamba_ts_repr_forecast_fusion": true, "mamba_ts_repr_linear_expert": false, "mamba_ts_repr_linear_expert_mode": "residual",
+      "autocon_lambda": 0.001, "skip_test": true, "stream_metrics": false
+    },
+    {
+      "name": "baselines_h96_validation", "purpose": "Current-source RLinear and PatchTST references without candidate-specific switches.",
+      "output_root": "artifacts/exploratory/mambatsv3_ett2_ettm2_linear_blend_transfer_20260928/baselines_h96",
+      "datasets": ["ETTh2", "ETTm2"], "models": ["RLinear", "PatchTST"], "features": "M", "horizons": [96], "seeds": [3201, 3202, 3203],
+      "baseline_check": true, "mamba_ts_variant": "v1", "mamba_ts_repr_forecast_fusion": false, "mamba_ts_repr_linear_expert": false, "mamba_ts_repr_linear_expert_mode": "residual",
+      "mamba_use_acf_memory": false, "mamba_acf_relation_loss": false, "skip_test": true, "stream_metrics": false
+    }
+  ],
+  "comparison_contract": {
+    "primary_metric": "minimum pure-forecast validation scaled MSE", "pairing_unit": ["dataset", "horizon", "seed"],
+    "primary_contrast": "blend candidate minus exact MambaTSv3AutoCon control", "external_comparators": ["RLinear", "PatchTST"],
+    "pass_rule": "For each dataset, blend must improve exact control in at least 2/3 seeds and have mean validation MSE no worse than 2% above the strongest external baseline.",
+    "test_selection_allowed": false, "test_metrics_produced": false
+  },
+  "stopping_rules": [
+    "If either dataset fails either gate, stop blend transfer claims for that dataset with no held-out release or bias retuning.",
+    "Do not call the blend an AutoCon causal effect because representation and blend change jointly.",
+    "Report both ETT variants and all arms, including failures."
+  ],
+  "prelaunch_gates": [
+    "verify two ETT fingerprints and exact 24-job expansion",
+    "freeze blend bias=-4, AutoCon lambda and baseline contracts",
+    "keep test execution disabled for every job",
+    "preserve one source snapshot and output root"
+  ],
+  "registered_job_counts": {"blend_h96_validation": 6, "control_h96_validation": 6, "baselines_h96_validation": 12, "exploratory_total": 24, "training_total": 24, "total": 24, "training_started": false}
+}

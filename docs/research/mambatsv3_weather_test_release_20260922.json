@@ -1,0 +1,68 @@
+{
+  "version": 2,
+  "schema_version": 1,
+  "status": "launch_authorized",
+  "created_at": "2026-09-22",
+  "job_order_seed": 20260942,
+  "purpose": "Frozen held-out Weather confirmation for the selected MambaTS v3 AutoCon candidate and fixed strong baselines.",
+  "research_question": "On fresh seeds and a held-out Weather test split, is the preselected MambaTS v3 AutoCon forecaster non-inferior to registered nonlinear baselines?",
+  "evidence_boundary": "This is a single-dataset held-out confirmation. It may support Weather-specific claims under this frozen budget, but cannot establish cross-dataset generalization, universal Mamba superiority, or a standalone AutoCon gain.",
+  "claim_boundary": "Validation loss restores the best epoch only. Test metrics are read once after all registered jobs finish and cannot select a model, lambda, horizon, or subsequent architecture.",
+  "execution": {
+    "authorized": true,
+    "status": "launch_authorized",
+    "training_started": false,
+    "required_before_launch": [
+      "verify the immutable Weather data fingerprint and exact 75-job expansion",
+      "freeze active AutoCon lambda=0.001 without test-based tuning",
+      "record that held-out test metrics are read once and never used for architecture selection",
+      "reserve a matched post-training resource protocol for all claimed nonlinear comparators"
+    ]
+  },
+  "data_fingerprints": {
+    "weather": {
+      "relative_path": "dataset/weather/weather.csv",
+      "channels_including_target": 21,
+      "frequency": "t",
+      "time_column": "date",
+      "target": "OT",
+      "sha256": "773b97c4495ed044b390241cea9a9c39b79c80b2436dbcc0fbd32e289c86abf5"
+    }
+  },
+  "global": {
+    "features": "M", "seq_len": 96, "label_len": 48,
+    "d_model": 32, "d_ff": 64, "e_layers": 1, "n_heads": 4, "d_layers": 1,
+    "factor": 1, "top_k": 5, "num_kernels": 6, "moving_avg": 25,
+    "patch_len": 16, "patch_stride": 8, "dropout": 0.1, "embed": "timeF",
+    "activation": "gelu", "wo_freq": "", "use_amp": false,
+    "mamba_d_state": 16, "mamba_d_conv": 4, "mamba_expand": 2,
+    "mamba_ts_variant": "v3", "mamba_ts_context_rank": 16,
+    "mamba_scales": [1], "mamba_token_stride": 1, "mamba_bidirectional": false,
+    "mamba_causal_embedding": true, "mamba_use_acf_memory": false,
+    "mamba_acf_relation_loss": false, "mamba_acf_repr_fusion": false,
+    "autocon_scale": 96, "autocon_wnorm": "MeanStd", "autocon_warmup": 0,
+    "autocon_acf_source": "raw", "batch_size": 32, "epochs": 20, "patience": 5,
+    "learning_rate": 0.001, "lradj": "cosine", "min_learning_rate": 0.00001,
+    "weight_decay": 0.00001, "num_workers": 0, "drop_last_train": false,
+    "train_ratio": 0.6, "use_gpu": true, "skip_test": false,
+    "save_predictions": false, "stream_metrics": true, "stream_sample_windows": 1
+  },
+  "confirmation_contract": {
+    "confirmation_seeds": [2031, 2032, 2033, 2034, 2035],
+    "horizons": [96, 336, 720],
+    "pairing_unit": "same dataset, horizon, and seed",
+    "selection_metric": "best validation scaled MSE for checkpoint restoration only",
+    "primary_metric": "held-out streaming scaled MSE",
+    "secondary_metrics": ["held-out streaming scaled MAE", "held-out streaming original MSE", "held-out streaming original MAE"],
+    "test_read_gate": "Aggregate results only after every phase validator succeeds and no test metric may change the registered matrix.",
+    "independence_note": "Forecast windows are not inferential replicates; paired seed-level contrasts are the unit of uncertainty reporting."
+  },
+  "phases": [
+    {"name": "weather_selection_confirmatory_active_test", "purpose": "Preselected MambaTS v3 AutoCon candidate with fixed lambda=0.001.", "output_root": "artifacts/paper_final/mambatsv3_weather_test_release_20260922/weather_selection_confirmatory_active_test", "datasets": ["weather"], "models": ["MambaTSv3AutoCon"], "features": "M", "horizons": [96, 336, 720], "seeds": [2031, 2032, 2033, 2034, 2035], "autocon_lambda": 0.001, "baseline_check": false, "skip_test": false, "stream_metrics": true},
+    {"name": "weather_confirmatory_strong_baselines_test", "purpose": "Fixed strong nonlinear baseline reference under the identical Weather contract.", "output_root": "artifacts/paper_final/mambatsv3_weather_test_release_20260922/weather_confirmatory_strong_baselines_test", "datasets": ["weather"], "models": ["PatchTST", "TimesNet", "iTransformer", "Mamba2"], "features": "M", "horizons": [96, 336, 720], "seeds": [2031, 2032, 2033, 2034, 2035], "autocon_lambda": 0.001, "baseline_check": true, "skip_test": false, "stream_metrics": true}
+  ],
+  "comparison_contract": {"primary_contrast": "MambaTSv3AutoCon lambda=0.001 versus each registered external baseline", "mechanism_evidence_boundary": "The exact lambda-zero null is validation-only mechanism evidence and is excluded from this strict test confirmation because it was not promoted as a stable long-horizon treatment.", "pairing_unit": "same horizon and seed", "test_selection_allowed": false, "test_metrics_produced": true, "metric_source": "results/<setting>/stream_metrics.json"},
+  "statistical_gate": {"primary_comparisons": ["weather_selection_confirmatory_active_test:MambaTSv3AutoCon::weather_confirmatory_strong_baselines_test:PatchTST", "weather_selection_confirmatory_active_test:MambaTSv3AutoCon::weather_confirmatory_strong_baselines_test:TimesNet", "weather_selection_confirmatory_active_test:MambaTSv3AutoCon::weather_confirmatory_strong_baselines_test:iTransformer", "weather_selection_confirmatory_active_test:MambaTSv3AutoCon::weather_confirmatory_strong_baselines_test:Mamba2"], "paired_effect": "seed-level log(MSE_candidate / MSE_reference) and raw scaled-MSE delta", "noninferiority_margin_ratio": 1.02, "interpretation": "For a claimed Weather cell, the one-sided 95 percent paired-t upper confidence bound for candidate/reference MSE must be at most 1.02. Failure is inconclusive or unfavorable, not evidence of equivalence.", "small_n_warning": "Five seeds support uncertainty reporting but do not justify a universal or cross-dataset conclusion."},
+  "resource_contract": {"required_after_training": ["prediction-only device-resident forward", "matched end-to-end training wall-time from manifests"], "comparators": ["PatchTST", "TimesNet", "iTransformer", "Mamba2"], "efficiency_boundary": "Do not claim a universal speed advantage. Report each comparator separately; a speed statement requires no worse confirmed Weather accuracy in that cell and matched settings."},
+  "registered_job_counts": {"weather_selection_confirmatory_active_test": 15, "weather_confirmatory_strong_baselines_test": 60, "selection_total": 15, "confirmation_total": 75, "training_total": 75, "total": 75, "training_started": false}
+}

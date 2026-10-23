@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "kind": "training_plan_launch_authorization",
+  "plan_path": "/home/zhong/Documents/Self-Supervised-Contrastive-Forecsating/docs/research/mamba_acf_channel_mixer_etth1_h96_20260927.json",
+  "plan_sha256": "70e684ccfbad43097ee27fd85b148e5472204d8d1e3c414c76f141c4d64330fc",
+  "plan_status": "exploratory_mamba_acf_channel_mixer_etth1_h96",
+  "authorized": true,
+  "approval": {
+    "approved": true,
+    "approved_by": "user continuation request and active research objective",
+    "approved_at_utc": "2026-09-27T00:00:00Z"
+  },
+  "prelaunch_gate_evidence_hashes": {
+    "verify ETTh1 SHA256 fingerprint and 7-channel multivariate contract": "f18de3ad269cef59bb07b5438d79bb3042d3be49bdeecf01c1cd6d29695ee066",
+    "verify exact 2x2 mixer-by-relation factorial pairing with fresh seeds": "70e684ccfbad43097ee27fd85b148e5472204d8d1e3c414c76f141c4d64330fc",
+    "verify MambaACF uses train-only raw ACF memory and a prediction-connected AutoCon representation": "49e406a144f1f4f12ce543283b9a0d5c199b3dca2b46c7ea8c194ea944fbd11b",
+    "verify the rank-4 mixer has a shared-state resource preflight and no extra Mamba scan": "aa9a5822312b15866b515a6a54ced0e3f5866d6a876e2392af9f5b31384cbfdd",
+    "verify all external baselines disable candidate-only ACF and relation settings": "70e684ccfbad43097ee27fd85b148e5472204d8d1e3c414c76f141c4d64330fc",
+    "keep skip_test=true and save_predictions=false for every job": "70e684ccfbad43097ee27fd85b148e5472204d8d1e3c414c76f141c4d64330fc"
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "version": 1,
+  "schema_version": 1,
+  "status": "exploratory_bipatchmamba_repr_gate_pilot_h12",
+  "created_at": "2026-09-27",
+  "job_order_seed": 20260994,
+  "purpose": "A bounded follow-up pilot testing whether a multiplicative AutoCon representation gate preserves the short-horizon forecast while retaining the contrastive representation objective.",
+  "research_question": "Does bounded representation-conditioned modulation outperform the prior additive AutoCon correction and remain competitive with the plain BiPatchMamba control?",
+  "architecture": "BiPatchMamba uses bidirectional Mamba-1 over patch/variable tokens. The pilot enables mamba_bipatch_repr_gate only for the AutoCon null and active arms; the gate is a bounded multiplicative modulation initialized at the supervised forecast.",
+  "evidence_boundary": "Validation-only exploratory pilot. No held-out test metric is generated, inspected, or used for selection.",
+  "claim_boundary": "A pilot pass licenses a frozen confirmation protocol only; it does not establish universal superiority or general speed claims.",
+  "execution": {"authorized": true, "status": "exploratory_bipatchmamba_repr_gate_pilot_h12", "training_started": false, "human_review_required": true},
+  "prelaunch_gates": [
+    "verify all four registered dataset fingerprints and multivariate dimensions",
+    "verify plain, exact lambda-zero null, and active AutoCon graph pairing with fresh seeds",
+    "verify the representation gate is disabled for plain and enabled only for null/active arms",
+    "keep skip_test=true and save_predictions=false for every job",
+    "do not mix pilot validation rows with the earlier additive-correction screen as a confirmatory estimate"
+  ],
+  "data_fingerprints": {
+    "ETTh1": {"relative_path": "dataset/ETT-small/ETTh1.csv", "format": "csv", "channels_including_target": 7, "frequency": "h", "time_column": "date", "target": "OT", "sha256": "f18de3ad269cef59bb07b5438d79bb3042d3be49bdeecf01c1cd6d29695ee066"},
+    "electricity": {"relative_path": "dataset/electricity/electricity.csv", "format": "csv", "channels_including_target": 321, "frequency": "h", "time_column": "date", "target": "OT", "sha256": "7e45845d54c5219bad0ae6bc1b5316cf8ff9cead5d33fa998a5a51c2e4a497ad"},
+    "traffic": {"relative_path": "dataset/traffic/traffic.csv", "format": "csv", "channels_including_target": 862, "frequency": "h", "time_column": "date", "target": "OT", "sha256": "cb06463d56fa17d87f47027cd9389ceae82a69eddee51cdb61480e120dab0b16"},
+    "weather": {"relative_path": "dataset/weather/weather.csv", "format": "csv", "channels_including_target": 21, "frequency": "t", "time_column": "date", "target": "OT", "sha256": "773b97c4495ed044b390241cea9a9c39b79c80b2436dbcc0fbd32e289c86abf5"}
+  },
+  "global": {
+    "features": "M", "seq_len": 96, "label_len": 48, "d_model": 24, "d_ff": 48, "e_layers": 1, "n_heads": 4, "d_layers": 1,
+    "factor": 1, "top_k": 5, "num_kernels": 6, "moving_avg": 25, "patch_len": 24, "patch_stride": 24, "dropout": 0.1,
+    "embed": "timeF", "activation": "gelu", "wo_freq": "", "individual": false,
+    "mamba_d_state": 8, "mamba_d_conv": 2, "mamba_expand": 1, "mamba_headdim": 24, "mamba_bipatch_token_mode": "mixing",
+    "autocon_scale": 96, "autocon_wnorm": "MeanStd", "autocon_warmup": 0, "autocon_acf_source": "raw",
+    "AutoCon_temperature": 0.2, "AutoCon_relation_temperature": 0.25, "AutoCon_sign_weight": 0.25, "AutoCon_sign_margin": 0.1,
+    "batch_size": 32, "epochs": 20, "patience": 5, "learning_rate": 0.001, "lradj": "cosine", "min_learning_rate": 0.00001,
+    "weight_decay": 0.00001, "num_workers": 0, "train_ratio": 0.6, "use_gpu": true, "skip_test": true,
+    "save_predictions": false, "stream_metrics": false, "stream_sample_windows": 1
+  },
+  "phases": [
+    {"name": "bipatch_plain_gate_pilot_h12", "purpose": "Fresh plain BiPatchMamba control.", "output_root": "artifacts/exploratory/bipatchmamba_repr_gate_pilot_h12_20260927/plain", "datasets": ["ETTh1", "electricity", "traffic", "weather"], "models": ["BiPatchMamba"], "features": "M", "horizons": [12], "seeds": [2411, 2412], "skip_test": true, "stream_metrics": false},
+    {"name": "bipatch_autocon_null_gate_pilot_h12", "purpose": "Exact AutoCon graph with lambda zero and bounded representation gate enabled.", "output_root": "artifacts/exploratory/bipatchmamba_repr_gate_pilot_h12_20260927/null_gate", "datasets": ["ETTh1", "electricity", "traffic", "weather"], "models": ["BiPatchMambaAutoCon"], "features": "M", "horizons": [12], "seeds": [2411, 2412], "autocon_lambda": 0.0, "allow_zero_autocon_lambda": true, "mamba_bipatch_repr_gate": true, "skip_test": true, "stream_metrics": false},
+    {"name": "bipatch_autocon_active_gate_pilot_h12", "purpose": "Active AutoCon objective with bounded representation gate enabled.", "output_root": "artifacts/exploratory/bipatchmamba_repr_gate_pilot_h12_20260927/active_gate", "datasets": ["ETTh1", "electricity", "traffic", "weather"], "models": ["BiPatchMambaAutoCon"], "features": "M", "horizons": [12], "seeds": [2411, 2412], "autocon_lambda": 0.001, "mamba_bipatch_repr_gate": true, "skip_test": true, "stream_metrics": false}
+  ],
+  "comparison_contract": {
+    "primary_metric": "minimum pure-forecast validation val_loss",
+    "pairing_unit": {"fields": ["dataset", "horizon", "seed"], "mode": "exact"},
+    "primary_candidate": "bipatch_autocon_active_gate_pilot_h12",
+    "primary_contrasts": ["active gate versus null gate", "active gate versus fresh plain BiPatch", "null gate versus fresh plain BiPatch"],
+    "autocon_gate": "Active gate must be within 1% of null gate; an improvement claim additionally requires lower mean MSE and both paired seed wins.",
+    "gate_gate": "A structural gate pass requires active gate to improve over the prior additive active arm on the same dataset only as contextual evidence; this is not a paired confirmatory comparison because source snapshots differ.",
+    "test_selection_allowed": false,
+    "test_metrics_produced": false
+  },
+  "stopping_rules": [
+    "Do not alter architecture, patching, Mamba settings, lambda, optimizer, split, seeds, or epoch budget after launch.",
+    "Do not claim a standalone AutoCon gain if active gate fails the exact null contrast.",
+    "Do not release held-out test metrics from this pilot."
+  ],
+  "registered_job_counts": {"bipatch_plain_gate_pilot_h12": 8, "bipatch_autocon_null_gate_pilot_h12": 8, "bipatch_autocon_active_gate_pilot_h12": 8, "exploratory_total": 24, "training_total": 24, "total": 24, "training_started": false}
+}

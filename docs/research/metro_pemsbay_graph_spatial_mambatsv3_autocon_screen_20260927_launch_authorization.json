@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "kind": "training_plan_launch_authorization",
+  "authorized": true,
+  "plan_path": "docs/research/metro_pemsbay_graph_spatial_mambatsv3_autocon_screen_plan_20260927.json",
+  "plan_sha256": "23e7038994d720cfe8394d451314d6f4ef0c6865c7d52b440fb6c40cc7141d7b",
+  "plan_status": "exploratory_graph_spatial_validation_screen_authorized",
+  "approval": {
+    "approved": true,
+    "approved_by": "user",
+    "approved_at_utc": "2026-09-27T09:54:26Z"
+  },
+  "prelaunch_gate_evidence_hashes": {
+    "verify speed CSV hashes, graph NPZ hashes, and CSV-to-sensor order contracts": {
+      "sha256": "9976b6bf5292779e32e52107614ae335b962311a2b32e8f1662b1795c3ecec5c",
+      "artifact": "docs/research/metro_pemsbay_graph_spatial_mambatsv3_autocon_screen_protocol_20260927.md"
+    },
+    "freeze the exact graph-off/on contrast and graph-only baseline before any training": {
+      "sha256": "23e7038994d720cfe8394d451314d6f4ef0c6865c7d52b440fb6c40cc7141d7b",
+      "artifact": "docs/research/metro_pemsbay_graph_spatial_mambatsv3_autocon_screen_plan_20260927.json"
+    },
+    "preserve skip_test=true for every job": {
+      "sha256": "23e7038994d720cfe8394d451314d6f4ef0c6865c7d52b440fb6c40cc7141d7b",
+      "artifact": "docs/research/metro_pemsbay_graph_spatial_mambatsv3_autocon_screen_plan_20260927.json"
+    },
+    "require exact paired validation coverage and report iTransformer latency even if the candidate is slower": {
+      "sha256": "72223313ae9ea572ce803f695bcc60751e48ce6da12f775b87d7038719f69bbb",
+      "artifact": "artifacts/exploratory/metro_pemsbay_graph_spatial_preflight_20260927/mambatsv3_graph_pems_bay/model_resources.json"
+    }
+  }
+}

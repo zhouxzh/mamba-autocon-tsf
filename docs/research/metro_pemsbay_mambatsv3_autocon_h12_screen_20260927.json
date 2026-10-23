@@ -1,0 +1,64 @@
+{
+  "version": 1,
+  "schema_version": 1,
+  "status": "exploratory_metro_pemsbay_mambatsv3_autocon_h12",
+  "created_at": "2026-09-27",
+  "job_order_seed": 20260995,
+  "purpose": "Validation-only transfer screen of the frozen fast MambaTSv3 AutoCon H12 configuration on two independent timestamped traffic-speed benchmarks.",
+  "research_question": "Can the PEMS-qualified MambaTSv3 AutoCon configuration remain competitive on METR-LA and PEMS-BAY while retaining named nonlinear forward-latency advantages?",
+  "architecture": "One causal temporal Mamba-1 scan with d_model=24, full-coverage patch_len=stride=24, and the prediction-connected AutoCon representation objective. The active and exact lambda-zero null arms share the same graph.",
+  "evidence_boundary": "Validation-only exploratory screen. No held-out test metric is generated, inspected, or used for selection.",
+  "claim_boundary": "This screen can only decide whether an independently registered confirmation is justified. It cannot establish graph-aware, long-horizon, universal, or AutoCon-causal superiority.",
+  "execution": {"authorized": true, "status": "exploratory_metro_pemsbay_mambatsv3_autocon_h12", "training_started": false, "human_review_required": true},
+  "prelaunch_gates": [
+    "verify METR-LA and PEMS-BAY source hashes, timestamp-first CSV numeric schema, cadence and channel dimensions",
+    "verify exact MambaTSv3 plain/null/active graph pairing with fresh seeds",
+    "verify all external baselines disable AutoCon and candidate-only options",
+    "verify same-shape prediction-only resource rows before launch",
+    "keep skip_test=true and save_predictions=false for every job"
+  ],
+  "data_fingerprints": {
+    "metr_la": {"relative_path": "dataset/METR-LA/METR-LA.csv", "format": "csv_numeric", "channels_including_target": 207, "frequency": "t", "time_column": null, "target_index": 206, "data_interval_minutes": 5, "sha256": "5fa498de0c90f5ff9b67e7cf9654bec031a803b320a8eb13d48021b9983bec82"},
+    "pems_bay": {"relative_path": "dataset/PEMS-BAY/PEMS-BAY.csv", "format": "csv_numeric", "channels_including_target": 325, "frequency": "t", "time_column": null, "target_index": 324, "data_interval_minutes": 5, "sha256": "c39dc8f5f3a7f1e9e9deeab1f3fdfa7b87d2b4e45b4075d4c3bd3c62c3051ef2"}
+  },
+  "resource_preflight": {
+    "records_root": "artifacts/exploratory/metro_pemsbay_resource_preflight_20260927",
+    "protocol": "RTX 5090 D, FP32, device-resident B=32/L=96/H=12, 50 warm-up and 200 timed prediction-only forwards; auxiliary representation disabled.",
+    "interpretation": "Latency is only reportable against an explicitly measured comparator after its validation accuracy condition passes."
+  },
+  "global": {
+    "features": "M", "seq_len": 96, "label_len": 48, "d_model": 24, "d_ff": 48, "e_layers": 1, "n_heads": 4, "d_layers": 1,
+    "factor": 1, "top_k": 5, "num_kernels": 6, "moving_avg": 25, "patch_len": 24, "patch_stride": 24, "dropout": 0.1,
+    "embed": "timeF", "activation": "gelu", "wo_freq": "", "individual": false,
+    "mamba_d_state": 8, "mamba_d_conv": 2, "mamba_expand": 1, "mamba_headdim": 24, "mamba_ts_variant": "v3", "mamba_ts_context_rank": 8,
+    "mamba_scales": [1], "mamba_token_stride": 1, "mamba_bidirectional": false, "mamba_causal_embedding": true, "mamba_channel_independent": false,
+    "mamba_use_acf_memory": false, "mamba_acf_relation_loss": false,
+    "autocon_scale": 96, "autocon_wnorm": "MeanStd", "autocon_warmup": 0, "autocon_acf_source": "raw",
+    "AutoCon_temperature": 0.2, "AutoCon_relation_temperature": 0.25, "AutoCon_sign_weight": 0.25, "AutoCon_sign_margin": 0.1,
+    "batch_size": 32, "epochs": 20, "patience": 5, "learning_rate": 0.001, "lradj": "cosine", "min_learning_rate": 0.00001,
+    "weight_decay": 0.00001, "num_workers": 0, "drop_last_train": false, "train_ratio": 0.6, "use_gpu": true,
+    "skip_test": true, "save_predictions": false, "stream_metrics": false, "stream_sample_windows": 1
+  },
+  "phases": [
+    {"name": "metro_pemsbay_strong_baselines_h12", "purpose": "Same-budget external and plain-Mamba references.", "output_root": "artifacts/exploratory/metro_pemsbay_mambatsv3_autocon_h12_screen_20260927/baselines", "datasets": ["metr_la", "pems_bay"], "models": ["DLinear", "NLinear", "PatchTST", "TimeMixer", "iTransformer", "MambaTSv3"], "features": "M", "horizons": [12], "seeds": [2501, 2502], "mamba_ts_variant": "v3", "skip_test": true, "stream_metrics": false},
+    {"name": "metro_pemsbay_autocon_null_h12", "purpose": "Exact AutoCon-capable MambaTSv3 graph with lambda zero.", "output_root": "artifacts/exploratory/metro_pemsbay_mambatsv3_autocon_h12_screen_20260927/null", "datasets": ["metr_la", "pems_bay"], "models": ["MambaTSv3AutoCon"], "features": "M", "horizons": [12], "seeds": [2501, 2502], "mamba_ts_variant": "v3", "autocon_lambda": 0.0, "allow_zero_autocon_lambda": true, "skip_test": true, "stream_metrics": false},
+    {"name": "metro_pemsbay_autocon_active_h12", "purpose": "Active AutoCon representation objective with frozen lambda 0.001.", "output_root": "artifacts/exploratory/metro_pemsbay_mambatsv3_autocon_h12_screen_20260927/active", "datasets": ["metr_la", "pems_bay"], "models": ["MambaTSv3AutoCon"], "features": "M", "horizons": [12], "seeds": [2501, 2502], "mamba_ts_variant": "v3", "autocon_lambda": 0.001, "skip_test": true, "stream_metrics": false}
+  ],
+  "comparison_contract": {
+    "primary_metric": "minimum pure-forecast validation val_loss",
+    "pairing_unit": {"fields": ["dataset", "horizon", "seed"], "mode": "exact"},
+    "primary_candidate": "metro_pemsbay_autocon_active_h12",
+    "primary_contrasts": ["active versus exact lambda-zero null", "active versus MambaTSv3 plain", "active versus each external baseline"],
+    "accuracy_gate": "For each dataset, active must be within 2% of the strongest measured external baseline; an extension pass requires both datasets.",
+    "autocon_gate": "Active must be within 1% of exact null. An independent AutoCon improvement requires lower mean MSE and both paired seed wins.",
+    "speed_gate": "Named latency wording is allowed only for a measured nonlinear comparator when active passes that dataset's accuracy gate; DLinear and NLinear remain mandatory speed controls.",
+    "test_selection_allowed": false, "test_metrics_produced": false
+  },
+  "stopping_rules": [
+    "Do not alter architecture, lambda, optimizer, split, seeds, or epoch budget after launch.",
+    "Stop transfer and do not release tests if either dataset fails the external-baseline gate.",
+    "Do not claim an AutoCon gain if active fails its exact null contrast.",
+    "Do not compare these non-graph inputs to graph-aware traffic methods without a separately matched graph protocol."
+  ],
+  "registered_job_counts": {"metro_pemsbay_strong_baselines_h12": 24, "metro_pemsbay_autocon_null_h12": 4, "metro_pemsbay_autocon_active_h12": 4, "exploratory_total": 32, "training_total": 32, "total": 32, "training_started": false}
+}

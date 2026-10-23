@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "kind": "training_plan_launch_authorization",
+  "plan_path": "/home/zhong/Documents/Self-Supervised-Contrastive-Forecsating/docs/research/nlinear_variable_mamba_acf_selector_etth1_h96_strong_baseline_confirmation_20260927.json",
+  "plan_sha256": "4bb6b969757c1381b5b2ee574ffea85c19dbc7b85a8937909d8e84ef3f4b10c7",
+  "plan_status": "exploratory_nlinear_variable_mamba_acf_selector_etth1_h96_strong_baseline_confirmation",
+  "authorized": true,
+  "approval": {
+    "approved": true,
+    "approved_by": "user continuation request and active research objective",
+    "approved_at_utc": "2026-09-27T00:00:00Z"
+  },
+  "prelaunch_gate_evidence_hashes": {
+    "verify ETTh1 SHA256 fingerprint and multivariate feature dimensions": "4bb6b969757c1381b5b2ee574ffea85c19dbc7b85a8937909d8e84ef3f4b10c7",
+    "verify prediction-connected AutoCon representation, train-only ACF memory, and legal observed lags": "4bb6b969757c1381b5b2ee574ffea85c19dbc7b85a8937909d8e84ef3f4b10c7",
+    "verify exact selector-on/off pairing and fresh seeds": "4bb6b969757c1381b5b2ee574ffea85c19dbc7b85a8937909d8e84ef3f4b10c7",
+    "verify external baselines have relation loss and relation-lag options disabled": "4bb6b969757c1381b5b2ee574ffea85c19dbc7b85a8937909d8e84ef3f4b10c7",
+    "keep skip_test=true for every job": "4bb6b969757c1381b5b2ee574ffea85c19dbc7b85a8937909d8e84ef3f4b10c7"
+  }
+}

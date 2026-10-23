@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "schema_version": 1,
+  "status": "exploratory_mambatsv3_weather_multihorizon_confirmation_screen",
+  "created_at": "2026-09-22",
+  "job_order_seed": 20260932,
+  "purpose": "Pre-registered Weather multi-horizon validation screen for the MambaTS v3 backbone, AutoCon null control, active AutoCon objective, and strong baselines.",
+  "research_question": "Does the Weather/H96 MambaTS v3 AutoCon signal persist at H336/H720, and is the incremental AutoCon objective better than the exact lambda=0 architecture?",
+  "evidence_boundary": "Validation-only exploratory confirmation screen. Test metrics are withheld. This screen can reject the candidate but cannot establish a paper-level test or speed claim.",
+  "claim_boundary": "Only active versus exact AutoCon null identifies the incremental AutoCon objective. Baseline comparisons are exact-source descriptive validation comparisons; no test selection is allowed.",
+  "data_fingerprints": {"weather": {"relative_path": "dataset/weather/weather.csv", "channels_including_target": 21, "frequency": "t", "time_column": "date", "target": "OT", "sha256": "773b97c4495ed044b390241cea9a9c39b79c80b2436dbcc0fbd32e289c86abf5"}},
+  "global": {
+    "features": "M", "seq_len": 96, "label_len": 48, "d_model": 32, "d_ff": 64, "e_layers": 1, "n_heads": 4, "d_layers": 1, "factor": 1, "top_k": 5, "num_kernels": 6, "moving_avg": 25, "patch_len": 16, "patch_stride": 8, "dropout": 0.1, "embed": "timeF", "activation": "gelu", "wo_freq": "",
+    "mamba_d_state": 16, "mamba_d_conv": 4, "mamba_expand": 2, "mamba_ts_variant": "v3", "mamba_ts_context_rank": 16, "mamba_scales": [1], "mamba_token_stride": 1, "mamba_bidirectional": false, "mamba_causal_embedding": true, "mamba_use_acf_memory": false, "mamba_acf_relation_loss": false, "mamba_acf_repr_fusion": false,
+    "autocon_scale": 96, "autocon_wnorm": "MeanStd", "autocon_warmup": 0, "autocon_acf_source": "raw", "batch_size": 32, "epochs": 8, "patience": 3, "learning_rate": 0.001, "lradj": "cosine", "min_learning_rate": 0.00001, "weight_decay": 0.00001, "num_workers": 0, "drop_last_train": false, "train_ratio": 0.6, "use_gpu": true, "skip_test": true, "save_predictions": false, "stream_metrics": false
+  },
+  "phases": [
+    {"name": "weather_mambatsv3_plain_h96_h336_h720", "purpose": "Plain MambaTS v3 backbone control.", "output_root": "artifacts/exploratory/mambatsv3_weather_multihorizon_confirmation_screen_20260922/weather_mambatsv3_plain_h96_h336_h720", "datasets": ["weather"], "models": ["MambaTSv3"], "features": "M", "horizons": [96, 336, 720], "seeds": [2021, 2022, 2023], "autocon_lambda": 0.001, "baseline_check": false, "skip_test": true, "stream_metrics": false},
+    {"name": "weather_mambatsv3_autocon_null_h96_h336_h720", "purpose": "Exact AutoCon architecture with objective disabled.", "output_root": "artifacts/exploratory/mambatsv3_weather_multihorizon_confirmation_screen_20260922/weather_mambatsv3_autocon_null_h96_h336_h720", "datasets": ["weather"], "models": ["MambaTSv3AutoCon"], "features": "M", "horizons": [96, 336, 720], "seeds": [2021, 2022, 2023], "autocon_lambda": 0.0, "allow_zero_autocon_lambda": true, "baseline_check": false, "skip_test": true, "stream_metrics": false},
+    {"name": "weather_mambatsv3_autocon_active_h96_h336_h720", "purpose": "Exact AutoCon architecture with active representation objective.", "output_root": "artifacts/exploratory/mambatsv3_weather_multihorizon_confirmation_screen_20260922/weather_mambatsv3_autocon_active_h96_h336_h720", "datasets": ["weather"], "models": ["MambaTSv3AutoCon"], "features": "M", "horizons": [96, 336, 720], "seeds": [2021, 2022, 2023], "autocon_lambda": 0.001, "baseline_check": false, "skip_test": true, "stream_metrics": false},
+    {"name": "weather_strong_baselines_h96_h336_h720", "purpose": "Strong baseline reference under the identical Weather contract.", "output_root": "artifacts/exploratory/mambatsv3_weather_multihorizon_confirmation_screen_20260922/weather_strong_baselines_h96_h336_h720", "datasets": ["weather"], "models": ["PatchTST", "TimesNet", "iTransformer", "Mamba2"], "features": "M", "horizons": [96, 336, 720], "seeds": [2021, 2022, 2023], "autocon_lambda": 0.001, "baseline_check": true, "skip_test": true, "stream_metrics": false}
+  ],
+  "comparison_contract": {"primary_metric": "minimum pure-forecast validation scaled MSE", "pairing_unit": "same horizon and seed", "primary_contrast": "MambaTSv3AutoCon lambda=0.001 versus MambaTSv3AutoCon lambda=0", "secondary_contrasts": ["active versus MambaTSv3 plain", "active versus PatchTST", "active versus TimesNet", "active versus iTransformer", "active versus Mamba2"], "test_selection_allowed": false, "test_metrics_produced": false},
+  "registered_job_counts": {"weather_mambatsv3_plain_h96_h336_h720": 9, "weather_mambatsv3_autocon_null_h96_h336_h720": 9, "weather_mambatsv3_autocon_active_h96_h336_h720": 9, "weather_strong_baselines_h96_h336_h720": 36, "exploratory_total": 63, "training_total": 63, "total": 63, "training_started": false}
+}

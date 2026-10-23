@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "kind": "training_plan_launch_authorization",
+  "plan_path": "/home/zhong/Documents/Self-Supervised-Contrastive-Forecsating/docs/research/mamba_acf_lite_autocon_screen_20260924.json",
+  "plan_sha256": "c5a8444bce096db1e4666f417406807152b960cd26978958ae408f4c6384ef99",
+  "plan_status": "exploratory_mamba_acf_lite_autocon_screen",
+  "authorized": true,
+  "approval": {
+    "approved": true,
+    "approved_by": "user continuation request and Codex implementation authorization",
+    "approved_at_utc": "2026-09-24T14:48:00Z"
+  },
+  "prelaunch_gate_evidence_hashes": {
+    "verify ETTh1 and Traffic data hashes and the M-feature axis contract": "c5a8444bce096db1e4666f417406807152b960cd26978958ae408f4c6384ef99",
+    "validate the fixed Lite alias and full-reference model contracts": "ae9312442d72985bbcd0eead1482d30f3df9df21e046f2d522253a1d12c099eb",
+    "verify train-only ACF sidecars and active AutoCon relation telemetry": "c5a8444bce096db1e4666f417406807152b960cd26978958ae408f4c6384ef99",
+    "keep skip_test=true for every job": "c5a8444bce096db1e4666f417406807152b960cd26978958ae408f4c6384ef99",
+    "retain the full-versus-Lite comparison as exact dataset-horizon-seed pairs": "c5a8444bce096db1e4666f417406807152b960cd26978958ae408f4c6384ef99"
+  }
+}

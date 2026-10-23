@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "kind": "training_plan_launch_authorization",
+  "plan_path": "/home/zhong/Documents/Self-Supervised-Contrastive-Forecsating/docs/research/mambatm_h96_baseline_extension_20260922.json",
+  "plan_sha256": "6e37de6602aac2cfdb4f22fac629b957402fb9969e9fdd0f82b824bf8d5f065d",
+  "plan_status": "exploratory_mambatm_h96_baseline_extension",
+  "authorized": true,
+  "approval": {"approved": true, "approved_by": "user continuation request and Codex implementation authorization", "approved_at_utc": "2026-09-22T16:00:00Z"},
+  "prelaunch_gate_evidence_hashes": {
+    "verify ETTh1, Weather, Exchange-Rate and ILI fingerprints": "f18de3ad269cef59bb07b5438d79bb3042d3be49bdeecf01c1cd6d29695ee066",
+    "retain all nine model arms at identical coordinates": "6e37de6602aac2cfdb4f22fac629b957402fb9969e9fdd0f82b824bf8d5f065d",
+    "keep test execution disabled": "6e37de6602aac2cfdb4f22fac629b957402fb9969e9fdd0f82b824bf8d5f065d",
+    "freeze source snapshot and output root": "6e37de6602aac2cfdb4f22fac629b957402fb9969e9fdd0f82b824bf8d5f065d"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "kind": "training_plan_launch_authorization",
+  "plan_path": "/home/zhong/Documents/Self-Supervised-Contrastive-Forecsating/docs/research/mamba_acf_variable_token_fair_screen_plan.json",
+  "plan_sha256": "5d5eac1e5c26d769f1ce17f43b83d05cd7685f66177d60ab262553e33b9f2167",
+  "plan_status": "exploratory_variable_token_fair_screen_not_confirmatory",
+  "authorized": true,
+  "approval": {
+    "approved": true,
+    "approved_by": "user continuation request recorded by Codex",
+    "approved_at_utc": "2026-09-01T03:53:00Z"
+  },
+  "prelaunch_gate_evidence_hashes": {
+    "human review of the variable-token null-control comparison": "ee242c245e4ce9c34a7c6f8f7498b3bf737f531f5ba100fcec515e3c858ae9ab",
+    "human review of dataset fingerprints and train-only sidecar policy": "0da771aa61b6cca57522ef64e1c09d5761d4004ad963d8766684949dcbd887a2",
+    "explicit launch authorization and a fresh output root": "ee242c245e4ce9c34a7c6f8f7498b3bf737f531f5ba100fcec515e3c858ae9ab"
+  }
+}

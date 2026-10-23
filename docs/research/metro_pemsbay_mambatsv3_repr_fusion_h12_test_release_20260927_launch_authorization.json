@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "kind": "training_plan_launch_authorization",
+  "authorized": true,
+  "plan_path": "docs/research/metro_pemsbay_mambatsv3_repr_fusion_h12_test_release_plan_20260927.json",
+  "plan_sha256": "3ed33df4f8f9f086b082713a57c8d71c523e1e3a8398a677c4c810dd5e4d93b1",
+  "plan_status": "launch_authorized",
+  "approval": {
+    "approved": true,
+    "approved_by": "user",
+    "approved_at_utc": "2026-09-27T12:00:00Z"
+  },
+  "prelaunch_gate_evidence_hashes": {
+    "verify data hashes and exact 76-job expansion": {
+      "sha256": "3ed33df4f8f9f086b082713a57c8d71c523e1e3a8398a677c4c810dd5e4d93b1",
+      "artifact": "docs/research/metro_pemsbay_mambatsv3_repr_fusion_h12_test_release_plan_20260927.json"
+    },
+    "freeze candidate and baseline contracts": {
+      "sha256": "3ed33df4f8f9f086b082713a57c8d71c523e1e3a8398a677c4c810dd5e4d93b1",
+      "artifact": "docs/research/metro_pemsbay_mambatsv3_repr_fusion_h12_test_release_plan_20260927.json"
+    },
+    "keep test metrics out of selection": {
+      "sha256": "3ed33df4f8f9f086b082713a57c8d71c523e1e3a8398a677c4c810dd5e4d93b1",
+      "artifact": "docs/research/metro_pemsbay_mambatsv3_repr_fusion_h12_test_release_plan_20260927.json"
+    },
+    "run all phases under immutable launch sidecar": {
+      "sha256": "3ed33df4f8f9f086b082713a57c8d71c523e1e3a8398a677c4c810dd5e4d93b1",
+      "artifact": "docs/research/metro_pemsbay_mambatsv3_repr_fusion_h12_test_release_plan_20260927.json"
+    },
+    "read test metrics only after all strict validators pass": {
+      "sha256": "3ed33df4f8f9f086b082713a57c8d71c523e1e3a8398a677c4c810dd5e4d93b1",
+      "artifact": "docs/research/metro_pemsbay_mambatsv3_repr_fusion_h12_test_release_plan_20260927.json"
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "kind": "training_plan_launch_authorization",
+  "plan_path": "/home/zhong/Documents/Self-Supervised-Contrastive-Forecsating/docs/research/mambatsv3_lowdim_budget_resolution_20260922.json",
+  "plan_sha256": "1dce790dffbe80163393ced73faf50fe1910546eaab9f7d9a8fd4796e1037e48",
+  "plan_status": "exploratory_mambatsv3_lowdim_budget_resolution",
+  "authorized": true,
+  "approval": {"approved": true, "approved_by": "user continuation request and Codex implementation authorization", "approved_at_utc": "2026-09-22T14:00:00Z"},
+  "prelaunch_gate_evidence_hashes": {
+    "verify Exchange-Rate and ILI fingerprints": "d55e7aa2641009814a18ba3279431b13f6d413b0eab195b9ff21988d8cf94e97",
+    "retain exact candidate and two winning baselines at each coordinate": "1dce790dffbe80163393ced73faf50fe1910546eaab9f7d9a8fd4796e1037e48",
+    "keep test execution disabled": "1dce790dffbe80163393ced73faf50fe1910546eaab9f7d9a8fd4796e1037e48",
+    "freeze the source snapshot and output root": "b0b959a36dae5f83885f5bec419d494e5b993451dd5946b6c9a6f448e5d9cf16"
+  }
+}

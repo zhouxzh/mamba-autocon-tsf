@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "kind": "training_plan_launch_authorization",
+  "plan_path": "/home/zhong/Documents/Self-Supervised-Contrastive-Forecsating/docs/research/nlinear_variable_mamba_acf_selector_traffic_h96_strong_baseline_retry_20260927.json",
+  "plan_sha256": "5b85ea05e1718b221f35e43302b87f826bd5bbc235898142d06f9a714815de76",
+  "plan_status": "exploratory_nlinear_variable_mamba_acf_selector_traffic_h96_strong_baseline_retry",
+  "authorized": true,
+  "approval": {
+    "approved": true,
+    "approved_by": "user continuation request and active research objective",
+    "approved_at_utc": "2026-09-27T00:00:00Z"
+  },
+  "prelaunch_gate_evidence_hashes": {
+    "verify Traffic SHA256 fingerprint and multivariate feature dimensions": "5b85ea05e1718b221f35e43302b87f826bd5bbc235898142d06f9a714815de76",
+    "verify prediction-connected AutoCon representation, train-only ACF memory, and legal observed lags": "5b85ea05e1718b221f35e43302b87f826bd5bbc235898142d06f9a714815de76",
+    "verify exact selector-on/off pairing and fresh seeds": "5b85ea05e1718b221f35e43302b87f826bd5bbc235898142d06f9a714815de76",
+    "verify external baselines have relation loss and relation-lag options disabled": "5b85ea05e1718b221f35e43302b87f826bd5bbc235898142d06f9a714815de76",
+    "keep skip_test=true for every job": "5b85ea05e1718b221f35e43302b87f826bd5bbc235898142d06f9a714815de76"
+  }
+}

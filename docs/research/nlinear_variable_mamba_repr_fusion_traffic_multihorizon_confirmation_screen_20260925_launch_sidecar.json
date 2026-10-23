@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "kind": "training_plan_launch_authorization",
+  "plan_path": "/home/zhong/Documents/Self-Supervised-Contrastive-Forecsating/docs/research/nlinear_variable_mamba_repr_fusion_traffic_multihorizon_confirmation_screen_20260925.json",
+  "plan_sha256": "7bbf1f8f3f22571f8a88b8c0ac7c1fb910b12742718e592a1073b0d4a6dafef1",
+  "plan_status": "exploratory_nlinear_variable_mamba_repr_fusion_traffic_multihorizon_screen",
+  "authorized": true,
+  "approval": {"approved": true, "approved_by": "user continuation request and active research objective", "approved_at_utc": "2026-09-25T00:00:00Z"},
+  "prelaunch_gate_evidence_hashes": {
+    "verify Traffic source hash and channel contract": "cb06463d56fa17d87f47027cd9389ceae82a69eddee51cdb61480e120dab0b16",
+    "freeze the candidate architecture and all training hyperparameters before fresh seeds run": "022503d92fee0dff98f105fff9ec38ea66bd6558d5fb1072a4a020eb569d51a3",
+    "use DLinear, iTransformer, and PatchTST for every horizon-seed baseline coordinate": "7bbf1f8f3f22571f8a88b8c0ac7c1fb910b12742718e592a1073b0d4a6dafef1",
+    "keep skip_test=true for every job": "7bbf1f8f3f22571f8a88b8c0ac7c1fb910b12742718e592a1073b0d4a6dafef1"
+  }
+}

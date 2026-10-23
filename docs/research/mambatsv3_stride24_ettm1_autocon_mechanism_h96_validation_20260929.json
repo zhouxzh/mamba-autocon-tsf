@@ -1,0 +1,109 @@
+{
+  "version": 1,
+  "schema_version": 1,
+  "status": "exploratory_mambatsv3_stride24_ettm1_autocon_mechanism_h96_validation",
+  "created_at": "2026-09-29",
+  "job_order_seed": 20261150,
+  "purpose": "Exact validation-only ETTm1 H96 AutoCon lambda control for the frozen stride-24 MambaTSv3 candidate.",
+  "research_question": "Holding the stride-24 MambaTSv3 architecture fixed and prediction fusion disabled, does AutoCon lambda=.001 improve ETTm1 H96 validation MSE relative to the exact lambda-zero control?",
+  "architecture": "Both arms use one MambaTSv3 Mamba-1 patch scan, low-rank context, stride-24 patching, and the same train-time representation interface. Only the contrastive AutoCon weight changes from .001 to 0; prediction-connected fusion stays disabled in both arms.",
+  "evidence_boundary": "Validation-only exact paired mechanism matrix. All jobs skip the test loader and save no predictions, test metrics, or streaming artifacts.",
+  "claim_boundary": "A favorable contrast supports only the named train-time AutoCon objective on ETTm1 H96. It does not establish held-out accuracy, universal AutoCon causality, or universal generalization.",
+  "execution": {
+    "authorized": false,
+    "training_started": false,
+    "human_review_required": true,
+    "required_before_launch": [
+      "verify the ETTm1 fingerprint and exact six-job expansion",
+      "freeze architecture, split, optimizer, scheduler, budget, and seeds except AutoCon lambda",
+      "keep skip_test=true and save_predictions=false for every job",
+      "create one immutable source snapshot"
+    ]
+  },
+  "data_fingerprints": {
+    "ETTm1": {
+      "relative_path": "dataset/ETT-small/ETTm1.csv",
+      "channels_including_target": 7,
+      "frequency": "t",
+      "time_column": "date",
+      "target": "OT",
+      "sha256": "6ce1759b1a18e3328421d5d75fadcb316c449fcd7cec32820c8dafda71986c9e"
+    }
+  },
+  "global": {
+    "features": "M", "seq_len": 96, "label_len": 48, "d_model": 32, "d_ff": 64,
+    "e_layers": 1, "n_heads": 4, "d_layers": 1, "factor": 1, "top_k": 5,
+    "num_kernels": 6, "moving_avg": 25, "patch_len": 24, "patch_stride": 24,
+    "dropout": 0.1, "embed": "timeF", "activation": "gelu", "wo_freq": "",
+    "individual": false, "mamba_d_state": 16, "mamba_d_conv": 4, "mamba_expand": 2,
+    "mamba_headdim": 16, "mamba_ts_variant": "v3", "mamba_ts_context_rank": 16,
+    "mamba_scales": [1], "mamba_token_stride": 1, "mamba_bidirectional": false,
+    "mamba_causal_embedding": true, "mamba_ts_repr_forecast_fusion": false,
+    "mamba_ts_repr_forecast_channelwise": false, "mamba_use_acf_memory": false,
+    "mamba_acf_relation_loss": false, "autocon_scale": 96, "autocon_wnorm": "MeanStd",
+    "autocon_warmup": 0, "autocon_acf_source": "raw", "AutoCon_temperature": 0.2,
+    "AutoCon_relation_temperature": 0.25, "AutoCon_sign_weight": 0.25,
+    "AutoCon_sign_margin": 0.1, "autocon_lambda": 0.001, "batch_size": 32,
+    "epochs": 12, "patience": 4, "learning_rate": 0.001, "lradj": "cosine",
+    "min_learning_rate": 0.00001, "weight_decay": 0.00001, "num_workers": 0,
+    "drop_last_train": false, "train_ratio": 0.6, "use_gpu": true,
+    "skip_test": true, "save_predictions": false, "stream_metrics": false,
+    "stream_sample_windows": 1
+  },
+  "selection_contract": {
+    "seeds": [3401, 3402, 3403],
+    "selection_metric": "minimum pure-forecast validation scaled MSE",
+    "test_split_allowed": false,
+    "freeze_rule": "Architecture, split, optimizer, scheduler, budget, normalization, and seeds are fixed. Only AutoCon lambda changes between phases; the test split cannot be used for selection.",
+    "no_test_selection": true
+  },
+  "capacity_fairness_contract": {
+    "common_public_budget": "Both arms share chronological split, features, input/output lengths, MambaTSv3 width, patching, optimizer, scheduler, batch, epoch budget, patience, and normalization.",
+    "active_difference": "AutoCon lambda=.001 with train-time representation returned to the existing AutoCon trainer.",
+    "null_difference": "Only AutoCon lambda=0; AutoCon-capable MambaTSv3 graph and prediction path remain otherwise identical."
+  },
+  "phases": [
+    {
+      "name": "autocon_active_h96",
+      "purpose": "Active train-time AutoCon objective, lambda=.001.",
+      "output_root": "artifacts/exploratory/mambatsv3_stride24_ettm1_autocon_mechanism_h96_validation_20260929/active",
+      "datasets": ["ETTm1"], "models": ["MambaTSv3AutoCon"], "features": "M",
+      "horizons": [96], "seeds": [3401, 3402, 3403],
+      "mamba_ts_variant": "v3", "mamba_ts_repr_forecast_fusion": false,
+      "autocon_lambda": 0.001, "skip_test": true, "stream_metrics": false
+    },
+    {
+      "name": "autocon_lambda_zero_h96",
+      "purpose": "Exact contrastive-objective null control, lambda=0.",
+      "output_root": "artifacts/exploratory/mambatsv3_stride24_ettm1_autocon_mechanism_h96_validation_20260929/lambda_zero",
+      "datasets": ["ETTm1"], "models": ["MambaTSv3AutoCon"], "features": "M",
+      "horizons": [96], "seeds": [3401, 3402, 3403],
+      "mamba_ts_variant": "v3", "mamba_ts_repr_forecast_fusion": false,
+      "autocon_lambda": 0.0, "allow_zero_autocon_lambda": true,
+      "skip_test": true, "stream_metrics": false
+    }
+  ],
+  "comparison_contract": {
+    "primary_metric": "minimum pure-forecast validation scaled MSE",
+    "pairing_unit": ["dataset", "horizon", "seed"],
+    "primary_contrast": "autocon_active_h96 versus autocon_lambda_zero_h96",
+    "test_selection_allowed": false, "test_metrics_produced": false,
+    "local_gate": "Mean active/control ratio < 1, at least 2/3 active wins, and no individual active degradation above 2%; failure is a negative result and does not license retuning."
+  },
+  "stopping_rules": [
+    "Do not tune lambda, architecture, width, patching, or epochs after observing this matrix.",
+    "Do not promote a causal AutoCon claim if the predeclared local gate fails.",
+    "Do not produce or inspect held-out artifacts."
+  ],
+  "prelaunch_gates": [
+    "verify ETTm1 fingerprint and exact six-job expansion",
+    "freeze all contracts except lambda",
+    "keep skip_test=true and save_predictions=false",
+    "create one immutable source snapshot"
+  ],
+  "registered_job_counts": {
+    "autocon_active_h96": 3, "autocon_lambda_zero_h96": 3,
+    "exploratory_total": 6, "training_total": 6, "total": 6,
+    "training_started": false
+  }
+}

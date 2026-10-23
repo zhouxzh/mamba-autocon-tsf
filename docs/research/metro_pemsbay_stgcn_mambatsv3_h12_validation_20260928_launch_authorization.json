@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "kind": "training_plan_launch_authorization",
+  "authorized": true,
+  "plan_path": "docs/research/metro_pemsbay_stgcn_mambatsv3_h12_validation_20260928.json",
+  "plan_sha256": "84d32425e6760cba1094cc58d21cd70798517396d64f30813ab9d2074a4595ca",
+  "plan_status": "exploratory_metro_pemsbay_stgcn_mambatsv3_h12_validation",
+  "approval": {
+    "approved": true,
+    "approved_by": "user_request_scope",
+    "approved_at_utc": "2026-09-28T00:00:00Z"
+  },
+  "prelaunch_gate_evidence_hashes": {
+    "verify speed CSV and adjacency NPZ fingerprints": {
+      "sha256": "84d32425e6760cba1094cc58d21cd70798517396d64f30813ab9d2074a4595ca",
+      "artifact": "docs/research/metro_pemsbay_stgcn_mambatsv3_h12_validation_20260928.json"
+    },
+    "freeze candidate, STGCN configuration, and common training budget": {
+      "sha256": "84d32425e6760cba1094cc58d21cd70798517396d64f30813ab9d2074a4595ca",
+      "artifact": "docs/research/metro_pemsbay_stgcn_mambatsv3_h12_validation_20260928.json"
+    },
+    "keep all test execution disabled": {
+      "sha256": "84d32425e6760cba1094cc58d21cd70798517396d64f30813ab9d2074a4595ca",
+      "artifact": "docs/research/metro_pemsbay_stgcn_mambatsv3_h12_validation_20260928.json"
+    },
+    "preserve one source snapshot and immutable launch sidecar": {
+      "sha256": "84d32425e6760cba1094cc58d21cd70798517396d64f30813ab9d2074a4595ca",
+      "artifact": "docs/research/metro_pemsbay_stgcn_mambatsv3_h12_validation_20260928.json"
+    }
+  }
+}

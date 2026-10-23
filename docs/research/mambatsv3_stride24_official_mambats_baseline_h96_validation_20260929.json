@@ -1,0 +1,82 @@
+{
+  "version": 1,
+  "schema_version": 1,
+  "status": "exploratory_stride24_official_mambats_baseline_h96_validation",
+  "created_at": "2026-09-29",
+  "job_order_seed": 20261148,
+  "purpose": "Compare the stride-24 AutoCon candidate with the local plain MambaTS baseline inspired by the official MambaTS public architecture.",
+  "research_question": "Does the stride-24 relation-auxiliary MambaTSv3 candidate retain an advantage over a plain MambaTS patch/variable-scan baseline across low- and high-dimensional H96 datasets?",
+  "architecture_boundary": "MambaTS is a local reproducible implementation of public patch-token and variable-aware scan ideas, not a bitwise reproduction of the official VAST/VPT code. The candidate adds only the local v3 shared-context/persistence path and train-time AutoCon relation objective; prediction fusion is disabled.",
+  "evidence_boundary": "Validation-only exploratory matrix. Every job skips the test loader; no test metric, prediction, streaming metric, or held-out release may be generated or inspected.",
+  "claim_boundary": "This matrix can compare the registered local architectures on validation data only. It cannot establish held-out accuracy, a causal AutoCon effect, official MambaTS reproduction, universal speed, or universal generalization.",
+  "execution": {
+    "authorized": false,
+    "training_started": false,
+    "human_review_required": true,
+    "required_before_launch": [
+      "verify four dataset fingerprints and exact 24-job expansion",
+      "freeze candidate, MambaTS baseline, optimizer, normalization, and seed contracts",
+      "keep skip_test=true and save_predictions=false",
+      "create one immutable source snapshot"
+    ]
+  },
+  "data_fingerprints": {
+    "ETTh1": {"relative_path": "dataset/ETT-small/ETTh1.csv", "channels_including_target": 7, "frequency": "h", "time_column": "date", "target": "OT", "sha256": "f18de3ad269cef59bb07b5438d79bb3042d3be49bdeecf01c1cd6d29695ee066"},
+    "weather": {"relative_path": "dataset/weather/weather.csv", "channels_including_target": 21, "frequency": "t", "time_column": "date", "target": "OT", "sha256": "773b97c4495ed044b390241cea9a9c39b79c80b2436dbcc0fbd32e289c86abf5"},
+    "electricity": {"relative_path": "dataset/electricity/electricity.csv", "channels_including_target": 321, "frequency": "h", "time_column": "date", "target": "OT", "sha256": "7e45845d54c5219bad0ae6bc1b5316cf8ff9cead5d33fa998a5a51c2e4a497ad"},
+    "traffic": {"relative_path": "dataset/traffic/traffic.csv", "channels_including_target": 862, "frequency": "h", "time_column": "date", "target": "OT", "sha256": "cb06463d56fa17d87f47027cd9389ceae82a69eddee51cdb61480e120dab0b16"}
+  },
+  "global": {
+    "features": "M", "seq_len": 96, "label_len": 48, "d_model": 32, "d_ff": 64, "e_layers": 1, "n_heads": 4, "d_layers": 1,
+    "factor": 1, "top_k": 5, "num_kernels": 6, "moving_avg": 25, "patch_len": 24, "patch_stride": 24, "dropout": 0.1,
+    "embed": "timeF", "activation": "gelu", "wo_freq": "", "individual": false,
+    "mamba_d_state": 16, "mamba_d_conv": 4, "mamba_expand": 2, "mamba_headdim": 16, "mamba_ts_variant": "v3", "mamba_ts_context_rank": 16,
+    "mamba_scales": [1], "mamba_token_stride": 1, "mamba_bidirectional": false, "mamba_causal_embedding": true,
+    "mamba_ts_repr_forecast_fusion": false, "mamba_ts_repr_forecast_channelwise": false, "mamba_use_acf_memory": false, "mamba_acf_relation_loss": false,
+    "autocon_scale": 96, "autocon_wnorm": "MeanStd", "autocon_warmup": 0, "autocon_acf_source": "raw", "AutoCon_temperature": 0.2,
+    "AutoCon_relation_temperature": 0.25, "AutoCon_sign_weight": 0.25, "AutoCon_sign_margin": 0.1, "autocon_lambda": 0.001,
+    "batch_size": 32, "epochs": 12, "patience": 4, "learning_rate": 0.001, "lradj": "cosine", "min_learning_rate": 0.00001,
+    "weight_decay": 0.00001, "num_workers": 0, "drop_last_train": false, "train_ratio": 0.6, "use_gpu": true,
+    "skip_test": true, "save_predictions": false, "stream_metrics": false, "stream_sample_windows": 1
+  },
+  "selection_contract": {
+    "seeds": [3381, 3382, 3383], "selection_metric": "minimum pure-forecast validation scaled MSE", "test_split_allowed": false,
+    "freeze_rule": "Architecture, AutoCon coefficient, patching, data split, optimizer, scheduler, budget, normalization, datasets, and seeds are fixed before launch. No held-out signal or dataset-specific retuning is allowed.",
+    "no_test_selection": true
+  },
+  "capacity_fairness_contract": {
+    "common_public_budget": "Both arms share chronological split, M features, sequence length, horizon, patch geometry, optimizer, scheduler, batch size, epochs, patience, and normalization.",
+    "candidate_boundary": "MambaTSv3AutoCon uses v3 shared context/persistence and AutoCon lambda=.001. Prediction-connected fusion, ACF memory, and every optional candidate route are disabled.",
+    "baseline_boundary": "MambaTS uses the v1 patch/variable-scan backbone with AutoCon, representation fusion, ACF memory, and candidate-only routes disabled."
+  },
+  "phases": [
+    {
+      "name": "stride24_candidate_h96_validation",
+      "purpose": "Stride-24 relation-auxiliary MambaTSv3 candidate.",
+      "output_root": "artifacts/exploratory/mambatsv3_stride24_official_mambats_baseline_h96_validation_20260929/candidate",
+      "datasets": ["ETTh1", "weather", "electricity", "traffic"], "models": ["MambaTSv3AutoCon"], "features": "M", "horizons": [96], "seeds": [3381, 3382, 3383],
+      "mamba_ts_variant": "v3", "mamba_ts_repr_forecast_fusion": false, "autocon_lambda": 0.001, "skip_test": true, "stream_metrics": false
+    },
+    {
+      "name": "stride24_plain_mambats_h96_validation",
+      "purpose": "Plain local MambaTS v1 patch/variable-scan baseline.",
+      "output_root": "artifacts/exploratory/mambatsv3_stride24_official_mambats_baseline_h96_validation_20260929/plain_mambats",
+      "datasets": ["ETTh1", "weather", "electricity", "traffic"], "models": ["MambaTS"], "features": "M", "horizons": [96], "seeds": [3381, 3382, 3383],
+      "baseline_check": true, "mamba_ts_variant": "v1", "mamba_ts_repr_forecast_fusion": false, "mamba_use_acf_memory": false, "mamba_acf_relation_loss": false, "skip_test": true, "stream_metrics": false
+    }
+  ],
+  "comparison_contract": {
+    "primary_metric": "minimum pure-forecast validation scaled MSE", "pairing_unit": ["dataset", "horizon", "seed"],
+    "primary_comparators": ["MambaTS"], "test_selection_allowed": false, "test_metrics_produced": false,
+    "reporting_rule": "Report every paired cell. Fixed-shape GPU resources are measured separately and may not be substituted for training throughput."
+  },
+  "stopping_rules": [
+    "Keep ETTh1 as a mandatory failure-boundary cell even if high-dimensional datasets pass.",
+    "Do not claim a causal AutoCon benefit from this architecture comparison.",
+    "Do not promote any result to a held-out release or run a test loader."
+  ],
+  "prelaunch_gates": [
+    "verify fingerprints and exact 24-job expansion", "freeze contracts", "keep skip_test=true and save_predictions=false", "create one immutable source snapshot"
+  ],
+  "registered_job_counts": {"stride24_candidate_h96_validation": 12, "stride24_plain_mambats_h96_validation": 12, "exploratory_total": 24, "training_total": 24, "total": 24, "training_started": false}
+}

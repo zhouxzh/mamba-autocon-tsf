@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "kind": "training_plan_launch_authorization",
+  "plan_path": "/home/zhong/Documents/Self-Supervised-Contrastive-Forecsating/docs/research/mambatsv7_multihorizon_fresh_seed_confirmation_20260925.json",
+  "plan_sha256": "8941066a3537d2b985f20e322ca7ff40a77ea8903e07ca9e92e372b920bb1fa2",
+  "plan_status": "exploratory_mambatsv7_multihorizon_fresh_seed_confirmation",
+  "authorized": true,
+  "approval": {"approved": true, "approved_by": "user continuation request and Codex implementation authorization", "approved_at_utc": "2026-09-25T08:00:00Z"},
+  "prelaunch_gate_evidence_hashes": {
+    "verify four dataset hashes and M-feature dimensions": "8941066a3537d2b985f20e322ca7ff40a77ea8903e07ca9e92e372b920bb1fa2",
+    "verify frozen v7 and baseline runtime contracts": "e4a34dc887b9598e06edbbc882f3a657c7dff80f33e62e93856d934c5dccb030",
+    "verify v7 train-only ACF sidecars and finite AutoCon/ACF telemetry": "cb5039ff61ae125ebadb8e107d5caff1a5c02bced5e4f6518cc217f22c2a2353",
+    "keep skip_test=true for every job": "8941066a3537d2b985f20e322ca7ff40a77ea8903e07ca9e92e372b920bb1fa2",
+    "use fresh seeds only and pair exact dataset-horizon-seed coordinates": "8941066a3537d2b985f20e322ca7ff40a77ea8903e07ca9e92e372b920bb1fa2"
+  }
+}

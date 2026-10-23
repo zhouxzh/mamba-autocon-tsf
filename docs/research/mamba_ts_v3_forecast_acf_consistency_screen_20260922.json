@@ -1,0 +1,61 @@
+{
+  "version": 2,
+  "schema_version": 1,
+  "status": "exploratory_mamba_ts_v3_forecast_acf_consistency_screen_clean_rerun",
+  "created_at": "2026-09-22",
+  "purpose": "Test whether a train-only signed ACF prior applied directly to the predicted temporal sequence improves MambaTS v3 AutoCon forecasting.",
+  "evidence_boundary": "Validation-only exploratory screen; test metrics are withheld and no hyperparameter is selected for a paper claim.",
+  "data_fingerprints": {
+    "ETTh1": {"relative_path": "dataset/ETT-small/ETTh1.csv", "channels_including_target": 7, "frequency": "h"},
+    "ETTm1": {"relative_path": "dataset/ETT-small/ETTm1.csv", "channels_including_target": 7, "frequency": "t"},
+    "electricity": {"relative_path": "dataset/electricity/electricity.csv", "channels_including_target": 321, "frequency": "h"},
+    "traffic": {"relative_path": "dataset/traffic/traffic.csv", "channels_including_target": 862, "frequency": "h"}
+  },
+  "global": {
+    "features": "M", "seq_len": 96, "label_len": 48, "d_model": 32, "d_ff": 64,
+    "e_layers": 1, "n_heads": 4, "d_layers": 1, "patch_len": 16, "patch_stride": 8,
+    "dropout": 0.1, "embed": "timeF", "activation": "gelu", "mamba_ts_context_rank": 16,
+    "mamba_ts_repr_forecast_fusion": false, "mamba_ts_variable_permutation": false,
+    "mamba_ts_forecast_acf_top_k": 2, "mamba_ts_forecast_acf_min_lag": 2,
+    "mamba_ts_forecast_acf_min_abs": 0.10, "mamba_d_state": 16, "mamba_d_conv": 4,
+    "mamba_expand": 2, "mamba_scales": [1], "mamba_token_stride": 1,
+    "mamba_bidirectional": false, "mamba_causal_embedding": true,
+    "mamba_use_acf_memory": false, "mamba_acf_relation_loss": false,
+    "autocon_scale": 96, "autocon_wnorm": "MeanStd", "autocon_warmup": 0,
+    "autocon_acf_source": "raw", "batch_size": 32, "epochs": 8, "patience": 3,
+    "learning_rate": 0.001, "lradj": "cosine", "min_learning_rate": 0.00001,
+    "weight_decay": 0.00001, "num_workers": 0, "drop_last_train": false,
+    "train_ratio": 0.6, "use_gpu": true, "skip_test": true, "save_predictions": false,
+    "stream_metrics": false
+  },
+  "phases": [
+    {
+      "name": "forecast_acf_null_h96",
+      "purpose": "Exact MambaTS v3 AutoCon architecture with direct forecast ACF objective disabled.",
+      "output_root": "artifacts/exploratory/mamba_ts_v3_forecast_acf_consistency_screen_clean_rerun_20260922/forecast_acf_null_h96",
+      "datasets": ["ETTh1", "ETTm1", "electricity", "traffic"],
+      "models": ["MambaTSv3AutoCon"], "features": "M", "horizons": [96],
+      "seeds": [2021, 2022, 2023], "autocon_lambda": 0.003,
+      "mamba_ts_forecast_acf_consistency": false, "mamba_ts_forecast_acf_weight": 0.0,
+      "baseline_check": false, "skip_test": true, "stream_metrics": false
+    },
+    {
+      "name": "forecast_acf_active_h96",
+      "purpose": "Exact architecture with train-only forecast temporal ACF consistency enabled.",
+      "output_root": "artifacts/exploratory/mamba_ts_v3_forecast_acf_consistency_screen_clean_rerun_20260922/forecast_acf_active_h96",
+      "datasets": ["ETTh1", "ETTm1", "electricity", "traffic"],
+      "models": ["MambaTSv3AutoCon"], "features": "M", "horizons": [96],
+      "seeds": [2021, 2022, 2023], "autocon_lambda": 0.003,
+      "mamba_ts_forecast_acf_consistency": true, "mamba_ts_forecast_acf_weight": 0.01,
+      "baseline_check": false, "skip_test": true, "stream_metrics": false
+    }
+  ],
+  "comparison_contract": {
+    "primary_metric": "minimum pure-forecast validation val_loss",
+    "pairing_unit": "same dataset, horizon, seed",
+    "primary_contrast": "MambaTSv3AutoCon with forecast ACF consistency versus exact null",
+    "test_selection_allowed": false,
+    "test_metrics_produced": false
+  },
+  "registered_job_counts": {"forecast_acf_null_h96": 12, "forecast_acf_active_h96": 12, "exploratory_total": 24, "training_total": 24, "total": 24, "training_started": false}
+}

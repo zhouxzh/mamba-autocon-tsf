@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "kind": "training_plan_launch_authorization",
+  "plan_path": "/home/zhong/Documents/Self-Supervised-Contrastive-Forecsating/docs/research/mambatsv9_decomposition_etth1_h336_preflight_20260927.json",
+  "plan_sha256": "842674fbb030b4ca0add348a1ce41698fa60d48b7451293ee8f344383d5eeec8",
+  "plan_status": "exploratory_mambatsv9_decomposition_etth1_h336_preflight",
+  "authorized": true,
+  "approval": {
+    "approved": true,
+    "approved_by": "user continuation request and active research objective",
+    "approved_at_utc": "2026-09-27T00:00:00Z"
+  },
+  "prelaunch_gate_evidence_hashes": {
+    "verify ETTh1 SHA256 and multivariate dimensions": "842674fbb030b4ca0add348a1ce41698fa60d48b7451293ee8f344383d5eeec8",
+    "verify MambaTSv9 v9 contract and direct AutoCon forecast connection": "842674fbb030b4ca0add348a1ce41698fa60d48b7451293ee8f344383d5eeec8",
+    "retain exactly one Mamba scan": "842674fbb030b4ca0add348a1ce41698fa60d48b7451293ee8f344383d5eeec8",
+    "use fresh paired seeds": "842674fbb030b4ca0add348a1ce41698fa60d48b7451293ee8f344383d5eeec8",
+    "keep skip_test=true for all phases": "842674fbb030b4ca0add348a1ce41698fa60d48b7451293ee8f344383d5eeec8"
+  }
+}

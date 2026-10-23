@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "kind": "training_plan_launch_authorization",
+  "plan_path": "/home/zhong/Documents/Self-Supervised-Contrastive-Forecsating/docs/research/mambatsv3_weather_test_release_20260922.json",
+  "plan_sha256": "074ef19f2a6c82ae5863185dc5c23093356b0c16b146f8b30196f5060900da41",
+  "plan_status": "launch_authorized",
+  "authorized": true,
+  "approval": {"approved": true, "approved_by": "user continuation request and Codex implementation authorization", "approved_at_utc": "2026-09-22T12:00:00Z"},
+  "prelaunch_gate_evidence_hashes": {
+    "verify the immutable Weather data fingerprint and exact 75-job expansion": "773b97c4495ed044b390241cea9a9c39b79c80b2436dbcc0fbd32e289c86abf5",
+    "freeze active AutoCon lambda=0.001 without test-based tuning": "074ef19f2a6c82ae5863185dc5c23093356b0c16b146f8b30196f5060900da41",
+    "record that held-out test metrics are read once and never used for architecture selection": "1e81417540d9879dc0822b36e9f331839b78daa8e784b3959305029fe00d51bc",
+    "reserve a matched post-training resource protocol for all claimed nonlinear comparators": "b0b959a36dae5f83885f5bec419d494e5b993451dd5946b6c9a6f448e5d9cf16"
+  },
+  "evidence_files": [
+    "docs/research/mambatsv3_weather_test_release_launch_review_20260922.md",
+    "docs/research/mambatsv3_weather_test_release_20260922.json"
+  ],
+  "evidence_hashes": {
+    "launch_review": "1e81417540d9879dc0822b36e9f331839b78daa8e784b3959305029fe00d51bc",
+    "runner": "b0b959a36dae5f83885f5bec419d494e5b993451dd5946b6c9a6f448e5d9cf16",
+    "weather": "773b97c4495ed044b390241cea9a9c39b79c80b2436dbcc0fbd32e289c86abf5"
+  }
+}

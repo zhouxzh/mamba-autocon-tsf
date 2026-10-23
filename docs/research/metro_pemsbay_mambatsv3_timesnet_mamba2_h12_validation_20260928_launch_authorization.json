@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "kind": "training_plan_launch_authorization",
+  "authorized": true,
+  "plan_path": "docs/research/metro_pemsbay_mambatsv3_timesnet_mamba2_h12_validation_20260928.json",
+  "plan_sha256": "1567c6159e86b34ae418be9301ddc5fa7beed3a90d99d4b8610f3793d2d5a077",
+  "plan_status": "exploratory_metro_pemsbay_mambatsv3_timesnet_mamba2_h12_validation",
+  "approval": {"approved": true, "approved_by": "user", "approved_at_utc": "2026-09-28T00:00:00Z"},
+  "prelaunch_gate_evidence_hashes": {
+    "verify METR-LA and PEMS-BAY fingerprints and exact 18-job expansion": {"sha256": "1567c6159e86b34ae418be9301ddc5fa7beed3a90d99d4b8610f3793d2d5a077", "artifact": "docs/research/metro_pemsbay_mambatsv3_timesnet_mamba2_h12_validation_20260928.json"},
+    "freeze candidate, AutoCon setting, baseline configurations, and budget": {"sha256": "1567c6159e86b34ae418be9301ddc5fa7beed3a90d99d4b8610f3793d2d5a077", "artifact": "docs/research/metro_pemsbay_mambatsv3_timesnet_mamba2_h12_validation_20260928.json"},
+    "keep all test execution disabled": {"sha256": "1567c6159e86b34ae418be9301ddc5fa7beed3a90d99d4b8610f3793d2d5a077", "artifact": "docs/research/metro_pemsbay_mambatsv3_timesnet_mamba2_h12_validation_20260928.json"},
+    "preserve a single source snapshot and immutable launch sidecar": {"sha256": "1567c6159e86b34ae418be9301ddc5fa7beed3a90d99d4b8610f3793d2d5a077", "artifact": "docs/research/metro_pemsbay_mambatsv3_timesnet_mamba2_h12_validation_20260928.json"}
+  }
+}

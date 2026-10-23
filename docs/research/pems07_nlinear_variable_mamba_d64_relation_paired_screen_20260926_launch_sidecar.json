@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "kind": "training_plan_launch_authorization",
+  "plan_path": "/home/zhong/Documents/Self-Supervised-Contrastive-Forecsating/docs/research/pems07_nlinear_variable_mamba_d64_relation_paired_screen_20260926.json",
+  "plan_sha256": "2c2fc86fe0ae14a167ce8003d7357191a5926318e370e4954fba024f65e418f2",
+  "plan_status": "exploratory_pems07_nlinear_variable_mamba_d64_relation_paired_screen",
+  "authorized": true,
+  "approval": {"approved": true, "approved_by": "user continuation request and active research objective", "approved_at_utc": "2026-09-26T00:00:00Z"},
+  "prelaunch_gate_evidence_hashes": {
+    "verify PEMS07 fingerprint and multivariate geometry": "a07887e610aa986276209bc9384d14ed7858fdcad1ded67f53dca19eb828600b",
+    "freeze width-64 active/null graphs and fresh paired seeds": "2c2fc86fe0ae14a167ce8003d7357191a5926318e370e4954fba024f65e418f2",
+    "verify the pre-training fusion-enabled GPU forward measurement": "0ec5e8b49c4a61a1baf302ec0a1a394d9b01e3d3ec090861bd347428334b15f1",
+    "require selected-lag masking so relation positives retain denominator negatives": "2c2fc86fe0ae14a167ce8003d7357191a5926318e370e4954fba024f65e418f2",
+    "keep skip_test=true for every job": "2c2fc86fe0ae14a167ce8003d7357191a5926318e370e4954fba024f65e418f2"
+  }
+}

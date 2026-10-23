@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0",
+  "purpose": "file-level locks for post-release official-model adapter extensions",
+  "sources": {
+    "patchtst": {
+      "repository": "https://github.com/yuqinie98/PatchTST",
+      "commit": "204c21efe0b39603ad6e2ca640ef5896646ab1a9",
+      "archive_sha256": "1107abb451cd2a244973409421a6856874b4d8c1b6a13d38c5ccf9349d5dcebf",
+      "model_path": "PatchTST_supervised/models/PatchTST.py",
+      "model_sha256": "49d8bb865e1226d6338842f4b33c4bc6992cefb048dc2a4a5a8c410ca708586b",
+      "requirements_path": "PatchTST_supervised/requirements.txt",
+      "requirements_sha256": "72753f868c28ce139b3bcb4e0633cdbe2c5e19fbc1f27e3bb82470acfe5df25a"
+    },
+    "itransformer": {
+      "repository": "https://github.com/thuml/iTransformer",
+      "commit": "c2426e68ca13f74aaec08045c5c724d8ad328124",
+      "archive_sha256": "9ce8898fbc1a8ab88f7d9c1c7650caa223b3ad2a362e7441cc636049551ab6e1",
+      "model_path": "model/iTransformer.py",
+      "model_sha256": "6f34777a5a12c253a293f79e7e1fd5b6f79ac100b443951e051e269e7e2542db",
+      "requirements_path": "requirements.txt",
+      "requirements_sha256": "c537d7154b0e27442d695788439482a1f4768722762e8504e980374a8b7929c1"
+    },
+    "timesnet": {
+      "repository": "https://github.com/thuml/Time-Series-Library",
+      "commit": "4e938a1767106324dd753b2a44832bf870a0252e",
+      "archive_sha256": "8ad00c38d00baa6b4a17df2a688a96c945a0c005b6caceca0e932e6f5ac6edaa",
+      "model_path": "models/TimesNet.py",
+      "model_sha256": "f64c4bed1fd7347090044a0163bd4209c9f9ec1c1b19ceff47842df36b64bba7",
+      "requirements_path": "requirements.txt",
+      "requirements_sha256": "1467f08eca3f4b749addf69042955eeb547dfb13a8a569e7e881b545c696df9f"
+    },
+    "timemixer": {
+      "repository": "https://github.com/kwuking/TimeMixer",
+      "commit": "e24610583b36fdd8c76cc17a8df4e65759a5f460",
+      "archive_sha256": "33c6ec0c938667f0ef98ced89389f69b1fcca682efa6ccf88547617d3c310794",
+      "model_path": "models/TimeMixer.py",
+      "model_sha256": "817d62f4aac54c8566e560f6d3785856e31c8ee51460279ee3d0a4823f11d4be",
+      "requirements_path": "requirements.txt",
+      "requirements_sha256": "2b7b6434c94f0e74d68ce788eb0ec25a7eb8581991f167f379558a10f21171b9"
+    }
+  }
+}

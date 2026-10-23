@@ -1,0 +1,27 @@
+#!/usr/bin/env python3
+"""Read-only mechanism test-extension audit with explicit access caveat."""
+
+from __future__ import annotations
+import json, math
+from pathlib import Path
+import numpy as np
+
+ROOT=Path(__file__).resolve().parents[1];OUTPUT=ROOT/"artifacts/paper_final/channel_patch_frozen_test_extension_20261006"
+SEEDS={"pems_bay":(6026,6027,6028),"metr_la":(6029,6030,6031),"weather":(5991,5992,5993,5994,5995)}
+def load(path):return json.loads(Path(path).read_text(encoding="utf-8"))
+def summary(left,right):
+ ratio=left/right;return {"left_mean_mse":float(left.mean()),"right_mean_mse":float(right.mean()),"percent":float((left.mean()/right.mean()-1)*100),"wins":int((left<right).sum()),"ratio_upper_1se":float(ratio.mean()+ratio.std(ddof=1)/math.sqrt(len(ratio))),"noninferior_at_one_se":bool(ratio.mean()+ratio.std(ddof=1)/math.sqrt(len(ratio))<=1)}
+def main():
+ manifest=load(OUTPUT/"manifest_before_test.json")
+ if manifest.get("status")!="frozen_before_test" or not manifest.get("historical_public_test_access_caveat"):raise ValueError("invalid release manifest")
+ result={"historical_public_test_access_caveat":True,"post_validation_mechanism_extension":True,"training_performed":False,"targets":{},"submission_ready":False}
+ for target,seeds in SEEDS.items():
+  rows=[]
+  for seed in seeds:
+   values={arm:load(OUTPUT/target/f"s{seed}_{arm}_test.json") for arm in ("channel_patch","forecast","null","official_patchtst")}
+   if any(item.get("training_performed",True) or not item.get("test_metrics_produced") for item in values.values()):raise ValueError("test reader contract violation")
+   rows.append({"seed":seed,**{arm:float(item["test_mse"]) for arm,item in values.items()}})
+  values={arm:np.asarray([row[arm] for row in rows]) for arm in ("channel_patch","forecast","null","official_patchtst")}
+  result["targets"][target]={"rows":rows,"channel_patch_vs_forecast":summary(values["channel_patch"],values["forecast"]),"channel_patch_vs_null":summary(values["channel_patch"],values["null"]),"channel_patch_vs_official_patchtst":summary(values["channel_patch"],values["official_patchtst"])}
+ (OUTPUT/"audit.json").write_text(json.dumps(result,indent=2)+"\n",encoding="utf-8");print(json.dumps(result,sort_keys=True))
+if __name__=="__main__":main()

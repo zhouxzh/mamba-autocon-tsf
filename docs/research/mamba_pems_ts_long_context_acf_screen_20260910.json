@@ -1,0 +1,95 @@
+{
+  "version": 2,
+  "schema_version": 1,
+  "status": "exploratory_pems_ts_long_context_acf_screen",
+  "created_at": "2026-09-10",
+  "job_order_seed": 20261007,
+  "purpose": "Test whether a longer causal context makes the train-only ACF daily-cycle memory usable for H=96 PEMS forecasting.",
+  "research_question": "With the same 384-step context and AutoCon objective, does MambaTS v4 with ACF memory improve H=96 validation over the nested MambaTS v3 control?",
+  "evidence_boundary": "Exploratory validation-only paired screen. The long-context candidate is not compared with short-context rows as if they were the same estimator.",
+  "claim_boundary": "Do not claim confirmation, statistical significance, universal superiority, generalization, or speed. Test metrics are withheld.",
+  "execution": {
+    "authorized": false,
+    "status": "exploratory_pems_ts_long_context_acf_screen",
+    "training_started": false,
+    "human_review_required": true,
+    "required_before_launch": [
+      "review the PEMS array hash and feature-axis contract",
+      "confirm both arms use seq_len=384 and the same train/validation split",
+      "confirm v4 fits ACF only on the train split",
+      "keep test metrics withheld during screening"
+    ]
+  },
+  "prelaunch_gates": [
+    "review the PEMS array hash and feature-axis contract",
+    "confirm both arms use seq_len=384 and the same train/validation split",
+    "confirm v4 fits ACF only on the train split",
+    "keep test metrics withheld during screening"
+  ],
+  "data_fingerprints": {
+    "pems03": {"relative_path": "dataset/PEMS03/PEMS03.npz", "format": "npz", "data_key": "data", "data_feature_index": 0, "channels_including_target": 358, "frequency": "t", "time_column": null, "data_interval_minutes": 5, "target_index": 357, "sha256": "34859517425eded66a0014db63de54b95d0428c38890741a1710ed4d3b043de8"},
+    "pems04": {"relative_path": "dataset/PEMS04/PEMS04.npz", "format": "npz", "data_key": "data", "data_feature_index": 0, "channels_including_target": 307, "frequency": "t", "time_column": null, "data_interval_minutes": 5, "target_index": 306, "sha256": "95a3c9b720fffdb85f0330d09bfab41b0b3cad0ca86c0d7d5f3accacb4ac999a"},
+    "pems07": {"relative_path": "dataset/PEMS07/PEMS07.npz", "format": "npz", "data_key": "data", "data_feature_index": 0, "channels_including_target": 883, "frequency": "t", "time_column": null, "data_interval_minutes": 5, "target_index": 882, "sha256": "a07887e610aa986276209bc9384d14ed7858fdcad1ded67f53dca19eb828600b"},
+    "pems08": {"relative_path": "dataset/PEMS08/PEMS08.npz", "format": "npz", "data_key": "data", "data_feature_index": 0, "channels_including_target": 170, "frequency": "t", "time_column": null, "data_interval_minutes": 5, "target_index": 169, "sha256": "e1d03ce74e9fb79149e6e7c37c680214822c4a285baa2f42278cacabcd25c075"}
+  },
+  "seed_policy": {
+    "seeds": [2022],
+    "reporting_unit": "dataset, horizon, model arm, and seed",
+    "pairing_unit": {"fields": ["dataset", "horizon", "seed"], "mode": "exact"},
+    "artifact_policy": "Retain source hashes, plan/config hashes, validation trajectories, AutoCon loss, elapsed time, and train-only ACF metadata. Test metrics remain withheld."
+  },
+  "global": {
+    "features": "M", "seq_len": 384, "label_len": 48,
+    "d_model": 32, "d_ff": 64, "e_layers": 1, "n_heads": 4,
+    "d_layers": 1, "factor": 1, "top_k": 5, "num_kernels": 6,
+    "moving_avg": 25, "patch_len": 16, "patch_stride": 8, "dropout": 0.1,
+    "embed": "timeF", "activation": "gelu", "wo_freq": "", "individual": false,
+    "use_amp": false, "mamba_d_state": 16, "mamba_d_conv": 4, "mamba_expand": 2,
+    "mamba_ts_context_rank": 16, "mamba_headdim": 16, "mamba_scales": [1],
+    "mamba_token_stride": 1, "mamba_bidirectional": false, "mamba_causal_embedding": true,
+    "mamba_channel_independent": false, "mamba_acf_channel_order": "input",
+    "mamba_acf_lags": [24, 168, 288], "mamba_acf_lag_mode": "fixed", "mamba_acf_max_lag": 720,
+    "mamba_acf_top_k": 8, "mamba_acf_min_lag": 2, "mamba_acf_min_abs": 0.1,
+    "mamba_acf_confidence_z": 1.96, "mamba_acf_min_separation": 2, "mamba_acf_detrend": "mean",
+    "mamba_acf_chunk": 64, "mamba_use_acf_memory": true, "mamba_dynamic_acf": false,
+    "mamba_acf_temperature": 4.0, "mamba_acf_relation_loss": false,
+    "mamba_acf_relation_representation": "encoder", "mamba_acf_relation_lag_mask": false,
+    "autocon_scale": 96, "autocon_wnorm": "MeanStd", "autocon_warmup": 0,
+    "autocon_acf_source": "raw", "AutoCon_temperature": 0.2,
+    "AutoCon_relation_temperature": 0.25, "AutoCon_sign_weight": 0.25, "AutoCon_sign_margin": 0.1,
+    "batch_size": 8, "epochs": 4, "patience": 2, "learning_rate": 0.001,
+    "lradj": "cosine", "min_learning_rate": 0.00001, "weight_decay": 0.00001,
+    "num_workers": 0, "drop_last_train": false, "train_ratio": 0.6, "use_gpu": true,
+    "skip_test": true, "save_predictions": false, "stream_metrics": false, "stream_sample_windows": 1
+  },
+  "phases": [
+    {
+      "name": "pems_mamba_ts_long_context_acf_h96",
+      "purpose": "Paired long-context H=96 control/candidate screen.",
+      "output_root": "artifacts/exploratory/mamba_pems_ts_long_context_acf_screen_20260910/pems_mamba_ts_long_context_acf_h96",
+      "datasets": ["pems03", "pems04", "pems07", "pems08"],
+      "models": ["MambaTSv3AutoCon", "MambaTSv4AutoCon"], "features": "M", "horizons": [96],
+      "seeds": [2022], "autocon_lambda": 0.001,
+      "baseline_check": false, "mamba_acf_relation_loss": false, "mamba_use_acf_memory": true,
+      "skip_test": true, "stream_metrics": false, "stream_sample_windows": 1
+    }
+  ],
+  "comparison_contract": {
+    "primary_metric": "validation_scaled_mse",
+    "secondary_metrics": ["validation_scaled_mae", "validation_scaled_rmse", "elapsed_sec", "epoch_time_sec", "autocon_loss", "representation_norm"],
+    "pairing_unit": {"fields": ["dataset", "horizon", "seed"], "mode": "exact"},
+    "test_selection_allowed": false, "test_metrics_produced": false,
+    "interpretation": "Compare v4 only with the same-context v3 AutoCon control. Short-context v3/v4 rows are a separate geometry and are not pooled with this screen.",
+    "publication_claim_boundary": "This screen cannot establish a final ranking, long-context superiority, non-inferiority, generalization, or speed claim."
+  },
+  "stopping_rules": [
+    "Run only through the frozen exploratory launcher with skip_test=true.",
+    "Do not select architecture or claim improvement using test metrics.",
+    "A favorable long-context pattern requires fresh seeds, matched strong baselines, and a separately frozen full-budget plan."
+  ],
+  "registered_job_counts": {
+    "pems_mamba_ts_long_context_acf_h96": 8,
+    "exploratory_total": 8, "training_total": 8, "total": 8,
+    "training_started": false, "resource_runs_not_in_training_matrix": true
+  }
+}

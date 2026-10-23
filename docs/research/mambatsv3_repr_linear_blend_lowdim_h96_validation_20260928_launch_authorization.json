@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "kind": "training_plan_launch_authorization",
+  "authorized": true,
+  "plan_path": "docs/research/mambatsv3_repr_linear_blend_lowdim_h96_validation_20260928.json",
+  "plan_sha256": "535d112bf58dec2dfcf6d0a58ea6665c865308ab2cf9866f79414e33a251e6dd",
+  "plan_status": "exploratory_mambatsv3_repr_linear_blend_lowdim_h96_validation",
+  "approval": {
+    "approved": true,
+    "approved_by": "user",
+    "approved_at_utc": "2026-09-28T00:00:00Z"
+  },
+  "prelaunch_gate_evidence_hashes": {
+    "verify the three dataset fingerprints and exact 45-job matrix": {
+      "sha256": "535d112bf58dec2dfcf6d0a58ea6665c865308ab2cf9866f79414e33a251e6dd",
+      "artifact": "docs/research/mambatsv3_repr_linear_blend_lowdim_h96_validation_20260928.json"
+    },
+    "preserve the same optimizer, split, normalization and budget for candidate, exact control and external baselines": {
+      "sha256": "535d112bf58dec2dfcf6d0a58ea6665c865308ab2cf9866f79414e33a251e6dd",
+      "artifact": "docs/research/mambatsv3_repr_linear_blend_lowdim_h96_validation_20260928.json"
+    },
+    "keep all test execution disabled": {
+      "sha256": "535d112bf58dec2dfcf6d0a58ea6665c865308ab2cf9866f79414e33a251e6dd",
+      "artifact": "docs/research/mambatsv3_repr_linear_blend_lowdim_h96_validation_20260928.json"
+    },
+    "freeze source snapshot and immutable launch sidecar before GPU execution": {
+      "sha256": "535d112bf58dec2dfcf6d0a58ea6665c865308ab2cf9866f79414e33a251e6dd",
+      "artifact": "docs/research/mambatsv3_repr_linear_blend_lowdim_h96_validation_20260928.json"
+    }
+  }
+}

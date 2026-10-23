@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "kind": "training_plan_launch_authorization",
+  "authorized": true,
+  "plan_path": "docs/research/metro_pemsbay_graphwavenet_mambatsv3_h12_test_release_draft_20260928.json",
+  "plan_sha256": "0c45297bee576b79f9fa0f776a7b5027efa0e0160d2abc8d467c4cc94f2714cb",
+  "plan_status": "launch_authorized",
+  "approval": {
+    "approved": true,
+    "approved_by": "user blanket authorization for registered training with real-time GPU thermal monitoring",
+    "approved_at_utc": "2026-09-30T23:20:00Z"
+  },
+  "prelaunch_gate_evidence_hashes": {
+    "verify dataset and adjacency fingerprints plus exact 46-job expansion": {
+      "sha256": "0c45297bee576b79f9fa0f776a7b5027efa0e0160d2abc8d467c4cc94f2714cb",
+      "artifact": "docs/research/metro_pemsbay_graphwavenet_mambatsv3_h12_test_release_draft_20260928.json"
+    },
+    "confirm candidate, GraphWaveNet configuration, seeds, and common budget remain fixed": {
+      "sha256": "8f5df477f1c5825baf67cfdf3bcbb969b369ecad6250da4b4c67f05b58a6cd7f",
+      "artifact": "artifacts/exploratory/metro_pemsbay_graphwavenet_mambatsv3_h12_validation_20260928/readout/readout.md"
+    },
+    "approve the exact plan SHA-256 in a separate launch sidecar": {
+      "sha256": "0c45297bee576b79f9fa0f776a7b5027efa0e0160d2abc8d467c4cc94f2714cb",
+      "artifact": "docs/research/metro_pemsbay_graphwavenet_mambatsv3_h12_test_release_draft_20260928.json"
+    },
+    "execute all phases from one immutable source snapshot and read test metrics only after strict validation": {
+      "sha256": "a683b5928238c932ee60dc7ae663621c0649f6406926a1a0034e86fe061524a4",
+      "artifact": "scripts/run_gpu_guarded.py"
+    }
+  }
+}

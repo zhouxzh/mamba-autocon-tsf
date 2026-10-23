@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "kind": "training_plan_launch_authorization",
+  "plan_path": "/home/zhong/Documents/Self-Supervised-Contrastive-Forecsating/docs/research/ett_variants_current_strong_baseline_extension_20260925.json",
+  "plan_sha256": "eca29cd0eae3a008f9669afcba4653f6891e452db8d8b33440076da0394a229d",
+  "plan_status": "exploratory_ett_variants_current_strong_baseline_extension",
+  "authorized": true,
+  "approval": {"approved": true, "approved_by": "user continuation request and active research objective", "approved_at_utc": "2026-09-25T00:00:00Z"},
+  "prelaunch_gate_evidence_hashes": {
+    "verify ETTh2/ETTm2 hashes and M-feature dimensions": "cb25f2809e098d2222f05400a56bbec2d87b58eabf35194c930c125d3a03154a",
+    "verify every baseline runtime contract": "dd4fc9f6f03d9e6cd6df303d4bb2747ae43adf8114bdcb046e61311e4d362fa5",
+    "keep skip_test=true for every job": "ad5378c850a9857a17b51c55d53455d840417e0a1043c8d14a727a8f9a896588",
+    "require all dataset-horizon-seed-model coordinates": "ad5378c850a9857a17b51c55d53455d840417e0a1043c8d14a727a8f9a896588"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "kind": "training_plan_launch_authorization",
+  "plan_path": "/home/zhong/Documents/Self-Supervised-Contrastive-Forecsating/docs/research/mambatsv11_vpt_etth1_h336_preflight_20260927.json",
+  "plan_sha256": "009c701f1ddfc9fa04aa4f17d5b73866514a7fe32294facfcdddfa3fd5fe10b3",
+  "plan_status": "exploratory_mambatsv11_vpt_etth1_h336_preflight",
+  "authorized": true,
+  "approval": {
+    "approved": true,
+    "approved_by": "user continuation request and active research objective",
+    "approved_at_utc": "2026-09-27T00:00:00Z"
+  },
+  "prelaunch_gate_evidence_hashes": {
+    "verify ETTh1 SHA256 and multivariate dimensions": "009c701f1ddfc9fa04aa4f17d5b73866514a7fe32294facfcdddfa3fd5fe10b3",
+    "verify MambaTSv11 direct AutoCon forecast connection": "009c701f1ddfc9fa04aa4f17d5b73866514a7fe32294facfcdddfa3fd5fe10b3",
+    "verify detached pure-MSE VPT edge accounting and learned evaluation order": "009c701f1ddfc9fa04aa4f17d5b73866514a7fe32294facfcdddfa3fd5fe10b3",
+    "retain exactly one Mamba scan and output channel restoration": "009c701f1ddfc9fa04aa4f17d5b73866514a7fe32294facfcdddfa3fd5fe10b3",
+    "use exact paired fresh seeds": "009c701f1ddfc9fa04aa4f17d5b73866514a7fe32294facfcdddfa3fd5fe10b3",
+    "keep skip_test=true for all phases": "009c701f1ddfc9fa04aa4f17d5b73866514a7fe32294facfcdddfa3fd5fe10b3"
+  }
+}

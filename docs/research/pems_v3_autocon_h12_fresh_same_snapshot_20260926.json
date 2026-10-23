@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "schema_version": 1,
+  "status": "exploratory_pems_v3_autocon_h12_fresh_same_snapshot",
+  "created_at": "2026-09-26",
+  "job_order_seed": 20260972,
+  "purpose": "Fresh-seed, same-source validation of the previously selected MambaTS v3 short-horizon PEMS candidate against modern forecasting baselines.",
+  "research_question": "On four non-graph PEMS traffic-flow datasets at H12, is MambaTS v3 with the fixed AutoCon objective non-inferior to each same-snapshot baseline, and does AutoCon improve the same executable backbone over its lambda-zero control?",
+  "selection_history": "MambaTS v3 and AutoCon_lambda=0.001 were selected only from older PEMS H12 exploratory screens. The fresh seeds below were not used in that selection.",
+  "evidence_boundary": "Validation-only confirmation screen. No test metric is generated, inspected, or used for selection. The scope is short-horizon non-graph traffic forecasting only; it makes no H96 or general time-series claim.",
+  "claim_boundary": "A favorable result permits a separately authorized test-release design, not an immediate publication claim. AutoCon attribution requires the active versus exact lambda-zero comparison; Mamba backbone performance requires the plain and null controls.",
+  "execution": {"authorized": true, "status": "exploratory_pems_v3_autocon_h12_fresh_same_snapshot", "training_started": false, "human_review_required": true},
+  "prelaunch_gates": [
+    "verify four PEMS hashes, feature axes, and train-only normalization contract",
+    "freeze the exact MambaTS v3 plain/null/active contract and all baseline runtime contracts",
+    "use fresh seeds only and pair every dataset-horizon-seed-model coordinate",
+    "keep skip_test=true for every job",
+    "run same-shape prediction and end-to-end resource benchmarks only after accuracy results are frozen"
+  ],
+  "data_fingerprints": {
+    "pems03": {"relative_path": "dataset/PEMS03/PEMS03.npz", "format": "npz", "data_key": "data", "data_feature_index": 0, "channels_including_target": 358, "frequency": "t", "time_column": null, "data_interval_minutes": 5, "target_index": 357, "sha256": "34859517425eded66a0014db63de54b95d0428c38890741a1710ed4d3b043de8"},
+    "pems04": {"relative_path": "dataset/PEMS04/PEMS04.npz", "format": "npz", "data_key": "data", "data_feature_index": 0, "channels_including_target": 307, "frequency": "t", "time_column": null, "data_interval_minutes": 5, "target_index": 306, "sha256": "95a3c9b720fffdb85f0330d09bfab41b0b3cad0ca86c0d7d5f3accacb4ac999a"},
+    "pems07": {"relative_path": "dataset/PEMS07/PEMS07.npz", "format": "npz", "data_key": "data", "data_feature_index": 0, "channels_including_target": 883, "frequency": "t", "time_column": null, "data_interval_minutes": 5, "target_index": 882, "sha256": "a07887e610aa986276209bc9384d14ed7858fdcad1ded67f53dca19eb828600b"},
+    "pems08": {"relative_path": "dataset/PEMS08/PEMS08.npz", "format": "npz", "data_key": "data", "data_feature_index": 0, "channels_including_target": 170, "frequency": "t", "time_column": null, "data_interval_minutes": 5, "target_index": 169, "sha256": "e1d03ce74e9fb79149e6e7c37c680214822c4a285baa2f42278cacabcd25c075"}
+  },
+  "global": {
+    "features": "M", "seq_len": 96, "label_len": 48, "d_model": 32, "d_ff": 64, "e_layers": 1, "n_heads": 4, "d_layers": 1, "factor": 1, "top_k": 5, "num_kernels": 6, "moving_avg": 25, "patch_len": 16, "patch_stride": 8, "timemixer_down_sampling_window": 2, "timemixer_down_sampling_layers": 1, "timemixer_channel_independence": false, "timemixer_decomp_method": "moving_avg", "dropout": 0.1, "embed": "timeF", "activation": "gelu", "wo_freq": "", "individual": false,
+    "mamba_d_state": 16, "mamba_d_conv": 4, "mamba_expand": 2, "mamba_headdim": 16, "mamba_ts_context_rank": 16, "mamba_scales": [1], "mamba_token_stride": 1, "mamba_bidirectional": false, "mamba_causal_embedding": true, "mamba_channel_independent": false, "mamba_acf_channel_order": "input", "mamba_acf_lags": [24, 168, 336], "mamba_acf_lag_mode": "fixed", "mamba_acf_max_lag": 720, "mamba_acf_top_k": 8, "mamba_acf_min_lag": 2, "mamba_acf_min_abs": 0.1, "mamba_acf_confidence_z": 1.96, "mamba_acf_min_separation": 2, "mamba_acf_detrend": "mean", "mamba_acf_chunk": 64, "mamba_use_acf_memory": false, "mamba_dynamic_acf": false, "mamba_acf_relation_loss": false,
+    "autocon_scale": 96, "autocon_wnorm": "MeanStd", "autocon_warmup": 0, "autocon_acf_source": "raw", "AutoCon_temperature": 0.2, "AutoCon_relation_temperature": 0.25, "AutoCon_sign_weight": 0.25, "AutoCon_sign_margin": 0.1,
+    "batch_size": 32, "epochs": 20, "patience": 5, "learning_rate": 0.001, "lradj": "cosine", "min_learning_rate": 0.00001, "weight_decay": 0.00001, "num_workers": 0, "drop_last_train": false, "train_ratio": 0.6, "use_gpu": true, "skip_test": true, "save_predictions": false, "stream_metrics": false, "stream_sample_windows": 1
+  },
+  "phases": [
+    {"name": "pems_h12_modern_baselines", "purpose": "Same-source linear, patch, periodic, inverted-variable, multi-scale MLP and plain Mamba references.", "output_root": "artifacts/exploratory/pems_v3_autocon_h12_fresh_same_snapshot_20260926/pems_h12_modern_baselines", "datasets": ["pems03", "pems04", "pems07", "pems08"], "models": ["DLinear", "NLinear", "PatchTST", "TimesNet", "TimeMixer", "iTransformer", "Mamba2"], "features": "M", "horizons": [12], "seeds": [2026, 2027, 2028], "skip_test": true, "stream_metrics": false},
+    {"name": "pems_h12_mambatsv3_plain", "purpose": "MambaTS v3 backbone without AutoCon representation objective.", "output_root": "artifacts/exploratory/pems_v3_autocon_h12_fresh_same_snapshot_20260926/pems_h12_mambatsv3_plain", "datasets": ["pems03", "pems04", "pems07", "pems08"], "models": ["MambaTSv3"], "features": "M", "horizons": [12], "seeds": [2026, 2027, 2028], "mamba_ts_variant": "v3", "skip_test": true, "stream_metrics": false},
+    {"name": "pems_h12_mambatsv3_autocon_null", "purpose": "Exact AutoCon-capable MambaTS v3 executable graph with lambda zero.", "output_root": "artifacts/exploratory/pems_v3_autocon_h12_fresh_same_snapshot_20260926/pems_h12_mambatsv3_autocon_null", "datasets": ["pems03", "pems04", "pems07", "pems08"], "models": ["MambaTSv3AutoCon"], "features": "M", "horizons": [12], "seeds": [2026, 2027, 2028], "mamba_ts_variant": "v3", "autocon_lambda": 0.0, "allow_zero_autocon_lambda": true, "skip_test": true, "stream_metrics": false},
+    {"name": "pems_h12_mambatsv3_autocon_active", "purpose": "Exact AutoCon-capable MambaTS v3 graph with the preselected lambda 0.001 objective.", "output_root": "artifacts/exploratory/pems_v3_autocon_h12_fresh_same_snapshot_20260926/pems_h12_mambatsv3_autocon_active", "datasets": ["pems03", "pems04", "pems07", "pems08"], "models": ["MambaTSv3AutoCon"], "features": "M", "horizons": [12], "seeds": [2026, 2027, 2028], "mamba_ts_variant": "v3", "autocon_lambda": 0.001, "skip_test": true, "stream_metrics": false}
+  ],
+  "comparison_contract": {
+    "primary_metric": "minimum pure-forecast validation val_loss", "pairing_unit": {"fields": ["dataset", "horizon", "seed"], "mode": "exact"}, "primary_contrasts": ["active versus exact lambda-zero AutoCon control", "active versus MambaTSv3 plain", "active versus every same-snapshot modern baseline"], "noninferiority_margin": "0.01 relative validation MSE per dataset, assessed descriptively before any test release", "test_selection_allowed": false, "test_metrics_produced": false, "resource_contract": "After the validation matrix is frozen, benchmark prediction-only latency, peak memory, parameters, and end-to-end training/validation wall time with identical device/software settings.", "publication_claim_boundary": "No result from this plan alone supports an all-horizon, graph-aware, general time-series, or test-set claim."
+  },
+  "stopping_rules": ["Do not alter lambda, architecture, seeds, or budget based on these fresh-seed results.", "If the active candidate is worse than the best baseline by more than 1% in any PEMS dataset mean, do not test-release it as a non-inferior short-horizon candidate.", "If active does not improve the exact lambda-zero control consistently, retain the representation objective as an implemented ablation but do not claim causal AutoCon accuracy benefit.", "Do not claim an efficiency advantage until the post-freeze resource contract is measured; DLinear and NLinear remain mandatory speed references."],
+  "registered_job_counts": {"pems_h12_modern_baselines": 84, "pems_h12_mambatsv3_plain": 12, "pems_h12_mambatsv3_autocon_null": 12, "pems_h12_mambatsv3_autocon_active": 12, "exploratory_total": 120, "training_total": 120, "total": 120, "training_started": false}
+}

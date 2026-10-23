@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "schema_version": 1,
+  "status": "exploratory_mambatsv9_decomposition_etth1_h336_preflight",
+  "created_at": "2026-09-27",
+  "job_order_seed": 20260981,
+  "purpose": "Pre-registered ETTh1 H336 screen for the decomposed single-scan MambaTS v9 candidate.",
+  "research_question": "Can a seasonal Mamba scan plus shared trend head recover the ETTh1 H336 gap without sacrificing the direct AutoCon representation path?",
+  "architecture": "MambaTSv9 decomposes each observed normalized window with a moving average; one shared Mamba-1 scan consumes only the seasonal residual; a shared linear head forecasts trend; a ReZero correction uses the exact AutoCon representation to gate the trend-seasonal difference. No future observation, validation statistic, extra Mamba scan, or attention block is used.",
+  "external_reference": "The decomposition separation is an independently implemented, efficiency-constrained adaptation of the public DMamba design, not an official reproduction: https://github.com/Csusheu/DMamba",
+  "evidence_boundary": "Validation-only exploratory preflight. No test metric is produced, inspected, or used for selection.",
+  "claim_boundary": "A pass only licenses fresh-seed multi-dataset confirmation and matched resource measurement. It does not license a paper claim or held-out test release.",
+  "execution": {"authorized": true, "status": "exploratory_mambatsv9_decomposition_etth1_h336_preflight", "training_started": false, "human_review_required": true},
+  "prelaunch_gates": ["verify ETTh1 SHA256 and multivariate dimensions", "verify MambaTSv9 v9 contract and direct AutoCon forecast connection", "retain exactly one Mamba scan", "use fresh paired seeds", "keep skip_test=true for all phases"],
+  "data_fingerprints": {
+    "ETTh1": {"relative_path": "dataset/ETT-small/ETTh1.csv", "channels_including_target": 7, "frequency": "h", "time_column": "date", "target": "OT", "sha256": "f18de3ad269cef59bb07b5438d79bb3042d3be49bdeecf01c1cd6d29695ee066"}
+  },
+  "global": {
+    "features": "M", "seq_len": 96, "label_len": 48, "d_model": 32, "d_ff": 64, "e_layers": 1, "n_heads": 4, "d_layers": 1, "factor": 1, "top_k": 5, "num_kernels": 6, "moving_avg": 25,
+    "patch_len": 16, "patch_stride": 8, "dropout": 0.1, "embed": "timeF", "activation": "gelu", "wo_freq": "", "individual": false,
+    "mamba_d_state": 16, "mamba_d_conv": 4, "mamba_expand": 2, "mamba_headdim": 16, "mamba_ts_context_rank": 16, "mamba_scales": [1], "mamba_token_stride": 1, "mamba_causal_embedding": true,
+    "mamba_acf_relation_loss": false, "mamba_use_acf_memory": false, "mamba_dynamic_acf": false,
+    "autocon_scale": 96, "autocon_wnorm": "MeanStd", "autocon_warmup": 0, "autocon_acf_source": "raw",
+    "batch_size": 32, "epochs": 8, "patience": 3, "learning_rate": 0.001, "lradj": "cosine", "min_learning_rate": 0.00001, "weight_decay": 0.00001, "num_workers": 0, "train_ratio": 0.6, "use_gpu": true, "skip_test": true, "save_predictions": false, "stream_metrics": false, "stream_sample_windows": 1
+  },
+  "phases": [
+    {"name": "v9_autocon_null", "purpose": "Exact MambaTSv9 graph with AutoCon lambda zero.", "output_root": "artifacts/exploratory/mambatsv9_decomposition_etth1_h336_preflight_20260927/null", "datasets": ["ETTh1"], "models": ["MambaTSv9AutoCon"], "features": "M", "horizons": [336], "seeds": [2191, 2192, 2193], "mamba_ts_variant": "v9", "autocon_lambda": 0.0, "allow_zero_autocon_lambda": true, "skip_test": true, "stream_metrics": false},
+    {"name": "v9_autocon_active", "purpose": "Exact MambaTSv9 graph with AutoCon lambda 0.001.", "output_root": "artifacts/exploratory/mambatsv9_decomposition_etth1_h336_preflight_20260927/active", "datasets": ["ETTh1"], "models": ["MambaTSv9AutoCon"], "features": "M", "horizons": [336], "seeds": [2191, 2192, 2193], "mamba_ts_variant": "v9", "autocon_lambda": 0.001, "skip_test": true, "stream_metrics": false},
+    {"name": "patchtst_baseline", "purpose": "Same-contract external PatchTST baseline.", "output_root": "artifacts/exploratory/mambatsv9_decomposition_etth1_h336_preflight_20260927/patchtst", "datasets": ["ETTh1"], "models": ["PatchTST"], "features": "M", "horizons": [336], "seeds": [2191, 2192, 2193], "skip_test": true, "stream_metrics": false}
+  ],
+  "comparison_contract": {"primary_metric": "minimum pure-forecast validation val_loss", "pairing_unit": {"fields": ["dataset", "horizon", "seed"], "mode": "exact"}, "primary_contrasts": ["v9 active versus exact v9 lambda-zero control", "v9 active versus same-contract PatchTST"], "test_selection_allowed": false, "test_metrics_produced": false, "resource_gate": "After an accuracy pass, benchmark prediction-only v9 and PatchTST under the exact B32/L96/C7/H336 config with 50 warm-up and 200 timed GPU forwards."},
+  "stopping_rules": ["Do not change architecture, moving-average kernel, lambda, seeds, or budget after launch.", "Stop v9 before multi-dataset expansion if active mean validation MSE is higher than PatchTST or if active is not lower than its exact null in at least two of three seed pairs.", "No test release, resource claim, or hyperparameter adjustment is allowed if either condition fails."],
+  "registered_job_counts": {"v9_autocon_null": 3, "v9_autocon_active": 3, "patchtst_baseline": 3, "exploratory_total": 9, "training_total": 9, "total": 9, "training_started": false}
+}

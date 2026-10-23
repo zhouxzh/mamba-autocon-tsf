@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "schema_version": 1,
+  "status": "exploratory_mambats_v4_acf_memory_selector_multihorizon",
+  "created_at": "2026-09-22",
+  "job_order_seed": 20260928,
+  "purpose": "Frozen H336/H720 replication of the MambaTS v4 AutoCon representation-selected correction to train-only static ACF memory.",
+  "research_question": "Does the H96 selector improvement persist at H336 and H720 relative to the exact static-memory control?",
+  "evidence_boundary": "Validation-only exploratory screen; test metrics are withheld and no non-inferiority or publication claim is allowed.",
+  "claim_boundary": "The selector is compared only with the exact static-memory control. External-baseline and speed claims require a separate same-snapshot baseline screen.",
+  "data_fingerprints": {
+    "ETTh1": {"relative_path": "dataset/ETT-small/ETTh1.csv", "channels_including_target": 7, "frequency": "h"},
+    "ETTm1": {"relative_path": "dataset/ETT-small/ETTm1.csv", "channels_including_target": 7, "frequency": "t"},
+    "electricity": {"relative_path": "dataset/electricity/electricity.csv", "channels_including_target": 321, "frequency": "h"},
+    "traffic": {"relative_path": "dataset/traffic/traffic.csv", "channels_including_target": 862, "frequency": "h"}
+  },
+  "global": {
+    "features": "M", "seq_len": 96, "label_len": 48, "d_model": 32, "d_ff": 64, "e_layers": 1, "n_heads": 4, "d_layers": 1, "patch_len": 16, "patch_stride": 8, "dropout": 0.1, "embed": "timeF", "activation": "gelu", "mamba_ts_context_rank": 16,
+    "mamba_d_state": 16, "mamba_d_conv": 4, "mamba_expand": 2, "mamba_scales": [1], "mamba_token_stride": 1, "mamba_bidirectional": false, "mamba_causal_embedding": true,
+    "mamba_use_acf_memory": true, "mamba_acf_lags": [24, 48], "mamba_acf_lag_mode": "fixed", "mamba_acf_temperature": 4.0, "mamba_acf_relation_loss": false, "mamba_acf_repr_fusion": false,
+    "autocon_scale": 96, "autocon_wnorm": "MeanStd", "autocon_warmup": 0, "autocon_acf_source": "raw", "batch_size": 32, "epochs": 8, "patience": 3, "learning_rate": 0.001, "lradj": "cosine", "min_learning_rate": 0.00001, "weight_decay": 0.00001, "num_workers": 0, "drop_last_train": false, "train_ratio": 0.6, "use_gpu": true, "skip_test": true, "stream_metrics": false
+  },
+  "phases": [
+    {"name": "v4_memory_control_h336_h720", "purpose": "Static train-prior ACF memory control at long horizons.", "output_root": "artifacts/exploratory/mamba_ts_v4_acf_memory_selector_multihorizon_20260922/v4_memory_control_h336_h720", "datasets": ["ETTh1", "ETTm1", "electricity", "traffic"], "models": ["MambaTSv4AutoCon"], "features": "M", "horizons": [336, 720], "seeds": [2021, 2022, 2023], "autocon_lambda": 0.001, "mamba_ts_acf_memory_selector": false, "baseline_check": false, "skip_test": true, "stream_metrics": false},
+    {"name": "v4_memory_selector_h336_h720", "purpose": "Representation-selected horizon correction at long horizons.", "output_root": "artifacts/exploratory/mamba_ts_v4_acf_memory_selector_multihorizon_20260922/v4_memory_selector_h336_h720", "datasets": ["ETTh1", "ETTm1", "electricity", "traffic"], "models": ["MambaTSv4AutoCon"], "features": "M", "horizons": [336, 720], "seeds": [2021, 2022, 2023], "autocon_lambda": 0.001, "mamba_ts_acf_memory_selector": true, "baseline_check": false, "skip_test": true, "stream_metrics": false}
+  ],
+  "comparison_contract": {"primary_metric": "minimum pure-forecast validation val_loss", "pairing_unit": "same dataset, horizon, seed", "primary_contrast": "selector versus exact static-memory control", "test_selection_allowed": false, "test_metrics_produced": false},
+  "registered_job_counts": {"v4_memory_control_h336_h720": 24, "v4_memory_selector_h336_h720": 24, "exploratory_total": 48, "training_total": 48, "total": 48, "training_started": false}
+}

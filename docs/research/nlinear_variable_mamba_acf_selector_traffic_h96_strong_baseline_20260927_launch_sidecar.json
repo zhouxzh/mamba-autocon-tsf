@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "kind": "training_plan_launch_authorization",
+  "plan_path": "/home/zhong/Documents/Self-Supervised-Contrastive-Forecsating/docs/research/nlinear_variable_mamba_acf_selector_traffic_h96_strong_baseline_20260927.json",
+  "plan_sha256": "a4f335c804f0433559f182fcfe5fc9b0f5c4e0031c4bced7a681965dd63c68f3",
+  "plan_status": "exploratory_nlinear_variable_mamba_acf_selector_traffic_h96_strong_baseline",
+  "authorized": true,
+  "approval": {"approved": true, "approved_by": "user continuation request and active research objective", "approved_at_utc": "2026-09-27T00:00:00Z"},
+  "prelaunch_gate_evidence_hashes": {
+    "verify Traffic SHA256 fingerprint and multivariate feature dimensions": "a4f335c804f0433559f182fcfe5fc9b0f5c4e0031c4bced7a681965dd63c68f3",
+    "verify prediction-connected AutoCon representation, train-only ACF memory, and legal observed lags": "a4f335c804f0433559f182fcfe5fc9b0f5c4e0031c4bced7a681965dd63c68f3",
+    "verify exact selector-on/off pairing and fresh seeds": "a4f335c804f0433559f182fcfe5fc9b0f5c4e0031c4bced7a681965dd63c68f3",
+    "verify external baseline runtime contracts": "a4f335c804f0433559f182fcfe5fc9b0f5c4e0031c4bced7a681965dd63c68f3",
+    "keep skip_test=true for every job": "a4f335c804f0433559f182fcfe5fc9b0f5c4e0031c4bced7a681965dd63c68f3"
+  }
+}

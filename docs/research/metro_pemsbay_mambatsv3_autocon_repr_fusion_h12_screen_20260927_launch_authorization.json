@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "kind": "training_plan_launch_authorization",
+  "authorized": true,
+  "plan_path": "docs/research/metro_pemsbay_mambatsv3_autocon_repr_fusion_h12_screen_plan_20260927.json",
+  "plan_sha256": "d69131e87a5811d754708413546a9da5ac34f038b1455f88ee628fa2b5383472",
+  "plan_status": "exploratory_mambatsv3_autocon_repr_fusion_h12_screen_authorized",
+  "approval": {"approved": true, "approved_by": "user", "approved_at_utc": "2026-09-27T10:45:00Z"},
+  "prelaunch_gate_evidence_hashes": {
+    "verify METR-LA and PEMS-BAY fingerprints": {"sha256": "d69131e87a5811d754708413546a9da5ac34f038b1455f88ee628fa2b5383472", "artifact": "docs/research/metro_pemsbay_mambatsv3_autocon_repr_fusion_h12_screen_plan_20260927.json"},
+    "verify exact fusion off/on pairing": {"sha256": "d69131e87a5811d754708413546a9da5ac34f038b1455f88ee628fa2b5383472", "artifact": "docs/research/metro_pemsbay_mambatsv3_autocon_repr_fusion_h12_screen_plan_20260927.json"},
+    "keep AutoCon enabled in both arms": {"sha256": "d69131e87a5811d754708413546a9da5ac34f038b1455f88ee628fa2b5383472", "artifact": "docs/research/metro_pemsbay_mambatsv3_autocon_repr_fusion_h12_screen_plan_20260927.json"},
+    "keep skip_test=true and no prediction artifacts": {"sha256": "d69131e87a5811d754708413546a9da5ac34f038b1455f88ee628fa2b5383472", "artifact": "docs/research/metro_pemsbay_mambatsv3_autocon_repr_fusion_h12_screen_plan_20260927.json"},
+    "retain one shared Mamba scan": {"sha256": "d69131e87a5811d754708413546a9da5ac34f038b1455f88ee628fa2b5383472", "artifact": "docs/research/metro_pemsbay_mambatsv3_autocon_repr_fusion_h12_screen_plan_20260927.json"}
+  }
+}

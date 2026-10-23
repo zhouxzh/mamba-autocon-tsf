@@ -1,0 +1,102 @@
+{
+  "version": 1,
+  "schema_version": 1,
+  "status": "draft_test_release",
+  "created_at": "2026-09-28",
+  "job_order_seed": 20261045,
+  "purpose": "Unapproved held-out ETTh1 extension for the current-source AutoCon linear blend and same-source strong baselines.",
+  "research_question": "Does the validation-passing AutoCon Mamba/persistence blend remain non-inferior to exact v3, RLinear and PatchTST on untouched ETTh1 H96 test windows?",
+  "evidence_boundary": "Unapproved draft. No job may be launched until a human approval sidecar binds this exact plan SHA-256. Validation results do not select test hyperparameters.",
+  "claim_boundary": "If approved and passed, the result supports only ETTh1 H96 comparisons; it cannot establish universal accuracy, causal AutoCon attribution, or speed superiority.",
+  "execution": {
+    "authorized": false,
+    "status": "draft_test_release",
+    "training_started": false,
+    "human_review_required": true,
+    "required_before_launch": [
+      "verify ETTh1 fingerprint and exact 32-job expansion",
+      "confirm blend bias=-4 and comparator set are frozen from validation",
+      "approve the exact plan SHA-256 in a separate launch sidecar",
+      "run all phases from one immutable source snapshot and read test metrics only after strict validation"
+    ]
+  },
+  "data_fingerprints": {
+    "ETTh1": {"relative_path": "dataset/ETT-small/ETTh1.csv", "channels_including_target": 7, "frequency": "h", "time_column": "date", "target": "OT", "sha256": "f18de3ad269cef59bb07b5438d79bb3042d3be49bdeecf01c1cd6d29695ee066"}
+  },
+  "global": {
+    "features": "M", "seq_len": 96, "label_len": 48, "d_model": 32, "d_ff": 64, "e_layers": 1, "n_heads": 4, "d_layers": 1,
+    "factor": 1, "top_k": 5, "num_kernels": 6, "moving_avg": 25, "patch_len": 16, "patch_stride": 8, "dropout": 0.1,
+    "embed": "timeF", "activation": "gelu", "wo_freq": "", "individual": false,
+    "mamba_d_state": 16, "mamba_d_conv": 4, "mamba_expand": 2, "mamba_headdim": 16, "mamba_ts_variant": "v3", "mamba_ts_context_rank": 16,
+    "mamba_scales": [1], "mamba_token_stride": 1, "mamba_bidirectional": false, "mamba_causal_embedding": true,
+    "mamba_ts_repr_forecast_fusion": false, "mamba_ts_repr_forecast_channelwise": false, "mamba_ts_repr_linear_expert": false,
+    "mamba_ts_repr_linear_expert_mode": "residual", "mamba_ts_repr_linear_blend_bias": -4.0, "mamba_ts_repr_linear_expert_rank": 16,
+    "mamba_use_acf_memory": false, "mamba_acf_relation_loss": false,
+    "autocon_scale": 96, "autocon_wnorm": "MeanStd", "autocon_warmup": 0, "autocon_acf_source": "raw", "AutoCon_temperature": 0.2,
+    "AutoCon_relation_temperature": 0.25, "AutoCon_sign_weight": 0.25, "AutoCon_sign_margin": 0.1, "autocon_lambda": 0.001,
+    "batch_size": 32, "epochs": 12, "patience": 4, "learning_rate": 0.001, "lradj": "cosine", "min_learning_rate": 0.00001,
+    "weight_decay": 0.00001, "num_workers": 0, "drop_last_train": false, "train_ratio": 0.6, "use_gpu": true,
+    "skip_test": true, "save_predictions": false, "stream_metrics": false, "stream_sample_windows": 1
+  },
+  "selection_contract": {
+    "validation_seeds": [3161, 3162, 3163], "confirmation_seeds": [3171, 3172, 3173, 3174, 3175],
+    "test_split_allowed": false, "selection_metric": "minimum pure-forecast validation scaled MSE",
+    "freeze_rule": "The blend architecture, bias, AutoCon lambda and comparator set were frozen before this draft; no test result may select a model or hyperparameter.",
+    "no_test_selection": true
+  },
+  "capacity_fairness_contract": {
+    "common_public_budget": "All arms share split, features, sequence length, horizon, optimizer, scheduler, batch, epoch budget, patience and normalization.",
+    "candidate_boundary": "Only the blend candidate enables the AutoCon-representation-gated linear expert; exact v3, RLinear and PatchTST remain plain comparators.",
+    "test_read_gate": "Read test metrics only after every registered phase validator succeeds."
+  },
+  "phases": [
+    {
+      "name": "selection_current_source_validation",
+      "purpose": "Reproducibility check using the already registered validation contract; test split remains disabled.",
+      "output_root": "artifacts/paper_final/mambatsv3_etth1_linear_blend_test_release_20260928/selection",
+      "datasets": ["ETTh1"], "models": ["MambaTSv3AutoCon"], "features": "M", "horizons": [96], "seeds": [3161, 3162, 3163],
+      "mamba_ts_variant": "v3", "mamba_ts_repr_forecast_fusion": true, "mamba_ts_repr_linear_expert": true, "mamba_ts_repr_linear_expert_mode": "blend", "mamba_ts_repr_linear_blend_bias": -4.0,
+      "autocon_lambda": 0.001, "skip_test": true, "stream_metrics": false
+    },
+    {
+      "name": "confirmatory_blend_test",
+      "purpose": "Frozen AutoCon Mamba/persistence blend held-out ETTh1 H96 test phase.",
+      "output_root": "artifacts/paper_final/mambatsv3_etth1_linear_blend_test_release_20260928/blend",
+      "datasets": ["ETTh1"], "models": ["MambaTSv3AutoCon"], "features": "M", "horizons": [96], "seeds": [3171, 3172, 3173, 3174, 3175],
+      "mamba_ts_variant": "v3", "mamba_ts_repr_forecast_fusion": true, "mamba_ts_repr_linear_expert": true, "mamba_ts_repr_linear_expert_mode": "blend", "mamba_ts_repr_linear_blend_bias": -4.0,
+      "autocon_lambda": 0.001, "skip_test": false, "stream_metrics": true
+    },
+    {
+      "name": "confirmatory_exact_v3_test",
+      "purpose": "Frozen exact MambaTSv3AutoCon control without the linear blend.",
+      "output_root": "artifacts/paper_final/mambatsv3_etth1_linear_blend_test_release_20260928/control",
+      "datasets": ["ETTh1"], "models": ["MambaTSv3AutoCon"], "features": "M", "horizons": [96], "seeds": [3171, 3172, 3173, 3174, 3175],
+      "mamba_ts_variant": "v3", "mamba_ts_repr_forecast_fusion": true, "mamba_ts_repr_linear_expert": false, "mamba_ts_repr_linear_expert_mode": "residual",
+      "autocon_lambda": 0.001, "skip_test": false, "stream_metrics": true
+    },
+    {
+      "name": "confirmatory_strong_baselines_test",
+      "purpose": "Frozen same-source RLinear and PatchTST held-out ETTh1 H96 comparators.",
+      "output_root": "artifacts/paper_final/mambatsv3_etth1_linear_blend_test_release_20260928/baselines",
+      "datasets": ["ETTh1"], "models": ["RLinear", "PatchTST"], "features": "M", "horizons": [96], "seeds": [3171, 3172, 3173, 3174, 3175],
+      "baseline_check": true, "mamba_ts_variant": "v1", "mamba_ts_repr_forecast_fusion": false, "mamba_ts_repr_linear_expert": false, "mamba_ts_repr_linear_expert_mode": "residual",
+      "mamba_use_acf_memory": false, "mamba_acf_relation_loss": false, "skip_test": false, "stream_metrics": true
+    }
+  ],
+  "comparison_contract": {
+    "primary_metric": "held_out_streaming_scaled_mse", "pairing_unit": ["dataset", "horizon", "seed"], "test_selection_allowed": false, "test_metrics_produced": true,
+    "primary_contrasts": ["confirmatory_blend_test:MambaTSv3AutoCon::confirmatory_exact_v3_test:MambaTSv3AutoCon", "confirmatory_blend_test:MambaTSv3AutoCon::confirmatory_strong_baselines_test:PatchTST", "confirmatory_blend_test:MambaTSv3AutoCon::confirmatory_strong_baselines_test:RLinear"],
+    "metric_source": "results/<setting>/stream_metrics.json"
+  },
+  "statistical_gate": {
+    "paired_effect": "seed-level log(MSE_candidate / MSE_baseline)", "interval_alpha": 0.05, "noninferiority_margin_ratio": 1.02,
+    "interpretation": "Report paired mean, seed wins and one-sided upper ratio; five seeds are the uncertainty unit and forecast windows are not independent replicates."
+  },
+  "prelaunch_gates": [
+    "verify ETTh1 fingerprint and exact 32-job expansion",
+    "confirm blend bias=-4 and comparator set are frozen from validation",
+    "approve the exact plan SHA-256 in a separate launch sidecar",
+    "run all phases from one immutable source snapshot and read test metrics only after strict validation"
+  ],
+  "registered_job_counts": {"selection_current_source_validation": 3, "confirmatory_blend_test": 5, "confirmatory_exact_v3_test": 5, "confirmatory_strong_baselines_test": 10, "selection_total": 3, "confirmation_total": 20, "training_total": 23, "total": 23, "training_started": false}
+}

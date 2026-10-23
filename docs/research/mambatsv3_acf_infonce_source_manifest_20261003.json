@@ -1,0 +1,148 @@
+{
+  "schema_version": "1.0",
+  "sources": [
+    {
+      "authors": [],
+      "confidentiality": "restricted",
+      "evidence_id": "E001",
+      "identifiers": {"doi": "", "isbn": "", "pmcid": "", "pmid": "", "url": ""},
+      "locator": "artifacts/paper_final/mambatsv3_acf_infonce_horizon_confirmatory_20261003/audit.json",
+      "source_type": "report",
+      "title": "PEMS-BAY H192/H336 audited held-out release",
+      "verification": {"source_opened": false, "status": "unverified", "verified_by": "", "verified_on": ""},
+      "year": 2026
+    },
+    {
+      "authors": [],
+      "confidentiality": "restricted",
+      "evidence_id": "E002",
+      "identifiers": {"doi": "", "isbn": "", "pmcid": "", "pmid": "", "url": ""},
+      "locator": "artifacts/paper_final/mambatsv3_acf_infonce_metr_la_h192_confirmatory_20261003/audit.json",
+      "source_type": "report",
+      "title": "METR-LA H192 audited held-out release",
+      "verification": {"source_opened": false, "status": "unverified", "verified_by": "", "verified_on": ""},
+      "year": 2026
+    },
+    {
+      "authors": [],
+      "confidentiality": "restricted",
+      "evidence_id": "E003",
+      "identifiers": {"doi": "", "isbn": "", "pmcid": "", "pmid": "", "url": ""},
+      "locator": "artifacts/paper_final/mambatsv3_acf_infonce_weather_h192_confirmatory_20261003/audit.json",
+      "source_type": "report",
+      "title": "Weather H192 audited held-out release",
+      "verification": {"source_opened": false, "status": "unverified", "verified_by": "", "verified_on": ""},
+      "year": 2026
+    },
+    {
+      "authors": [],
+      "confidentiality": "restricted",
+      "evidence_id": "E004",
+      "identifiers": {"doi": "", "isbn": "", "pmcid": "", "pmid": "", "url": ""},
+      "locator": "artifacts/paper_final/mambatsv3_acf_infonce_core_bundle_20261003/bundle.json",
+      "source_type": "report",
+      "title": "Core evidence bundle and inference boundary",
+      "verification": {"source_opened": false, "status": "unverified", "verified_by": "", "verified_on": ""},
+      "year": 2026
+    },
+    {
+      "authors": [],
+      "confidentiality": "restricted",
+      "evidence_id": "E005",
+      "identifiers": {"doi": "", "isbn": "", "pmcid": "", "pmid": "", "url": "https://github.com/yuqinie98/PatchTST"},
+      "locator": "artifacts/paper_final/mambatsv3_acf_infonce_official_patchtst_h192_extension_20261003/audit.json",
+      "source_type": "software",
+      "title": "Official PatchTST H192 adapter extension",
+      "verification": {"source_opened": false, "status": "unverified", "verified_by": "", "verified_on": ""},
+      "year": 2026
+    },
+    {
+      "authors": [],
+      "confidentiality": "restricted",
+      "evidence_id": "E006",
+      "identifiers": {"doi": "", "isbn": "", "pmcid": "", "pmid": "", "url": "https://github.com/yuqinie98/PatchTST"},
+      "locator": "artifacts/paper_final/mambatsv3_acf_infonce_official_patchtst_h336_extension_20261003/audit.json",
+      "source_type": "software",
+      "title": "Official PatchTST H336 adapter extension",
+      "verification": {"source_opened": false, "status": "unverified", "verified_by": "", "verified_on": ""},
+      "year": 2026
+    },
+    {
+      "authors": [],
+      "confidentiality": "restricted",
+      "evidence_id": "E007",
+      "identifiers": {"doi": "", "isbn": "", "pmcid": "", "pmid": "", "url": "https://github.com/thuml/iTransformer"},
+      "locator": "artifacts/paper_final/mambatsv3_acf_infonce_official_itransformer_h192_extension_20261003/audit.json",
+      "source_type": "software",
+      "title": "Official iTransformer H192 adapter extension",
+      "verification": {"source_opened": false, "status": "unverified", "verified_by": "", "verified_on": ""},
+      "year": 2026
+    },
+    {
+      "authors": [],
+      "confidentiality": "restricted",
+      "evidence_id": "E008",
+      "identifiers": {"doi": "", "isbn": "", "pmcid": "", "pmid": "", "url": "https://github.com/thuml/iTransformer"},
+      "locator": "artifacts/paper_final/mambatsv3_acf_infonce_official_itransformer_h336_extension_20261003/audit.json",
+      "source_type": "software",
+      "title": "Official iTransformer H336 adapter extension",
+      "verification": {"source_opened": false, "status": "unverified", "verified_by": "", "verified_on": ""},
+      "year": 2026
+    },
+    {
+      "authors": [],
+      "confidentiality": "restricted",
+      "evidence_id": "E009",
+      "identifiers": {"doi": "", "isbn": "", "pmcid": "", "pmid": "", "url": "https://github.com/thuml/Time-Series-Library"},
+      "locator": "artifacts/paper_final/mambatsv3_acf_infonce_official_timesnet_h192_extension_20261003/audit.json",
+      "source_type": "software",
+      "title": "Official TimesNet H192 adapter extension",
+      "verification": {"source_opened": false, "status": "unverified", "verified_by": "", "verified_on": ""},
+      "year": 2026
+    },
+    {
+      "authors": [],
+      "confidentiality": "restricted",
+      "evidence_id": "E010",
+      "identifiers": {"doi": "", "isbn": "", "pmcid": "", "pmid": "", "url": "https://github.com/thuml/Time-Series-Library"},
+      "locator": "artifacts/paper_final/mambatsv3_acf_infonce_official_timesnet_h336_extension_20261003/audit.json",
+      "source_type": "software",
+      "title": "Official TimesNet H336 adapter extension",
+      "verification": {"source_opened": false, "status": "unverified", "verified_by": "", "verified_on": ""},
+      "year": 2026
+    },
+    {
+      "authors": [],
+      "confidentiality": "restricted",
+      "evidence_id": "E011",
+      "identifiers": {"doi": "", "isbn": "", "pmcid": "", "pmid": "", "url": "https://github.com/kwuking/TimeMixer"},
+      "locator": "artifacts/paper_final/mambatsv3_acf_infonce_official_timemixer_h192_extension_20261003/audit.json",
+      "source_type": "software",
+      "title": "Official TimeMixer H192 adapter extension",
+      "verification": {"source_opened": false, "status": "unverified", "verified_by": "", "verified_on": ""},
+      "year": 2026
+    },
+    {
+      "authors": [],
+      "confidentiality": "restricted",
+      "evidence_id": "E012",
+      "identifiers": {"doi": "", "isbn": "", "pmcid": "", "pmid": "", "url": "https://github.com/kwuking/TimeMixer"},
+      "locator": "artifacts/paper_final/mambatsv3_acf_infonce_official_timemixer_h336_extension_20261003/audit.json",
+      "source_type": "software",
+      "title": "Official TimeMixer H336 adapter extension",
+      "verification": {"source_opened": false, "status": "unverified", "verified_by": "", "verified_on": ""},
+      "year": 2026
+    },
+    {
+      "authors": [],
+      "confidentiality": "restricted",
+      "evidence_id": "E013",
+      "identifiers": {"doi": "", "isbn": "", "pmcid": "", "pmid": "", "url": ""},
+      "locator": "docs/research/mambatsv3_acf_source_selection_ablation_20261003.md",
+      "source_type": "report",
+      "title": "ACF source-selection negative ablation",
+      "verification": {"source_opened": false, "status": "unverified", "verified_by": "", "verified_on": ""},
+      "year": 2026
+    }
+  ]
+}

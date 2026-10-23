@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "schema_version": 1,
+  "status": "exploratory_mamba_ts_v3_variable_permutation_screen",
+  "created_at": "2026-09-22",
+  "job_order_seed": 20260928,
+  "purpose": "Evaluate MambaTS-style training-time variable patch-token permutation on the fast v3 shared scan while preserving the prediction-connected AutoCon representation route.",
+  "research_question": "Does variable-order augmentation improve the active global AutoCon model, and does the active AutoCon objective improve the exact permutation architecture null?",
+  "evidence_boundary": "Exploratory validation-only screen; test metrics are withheld. No phase may be used as a paper or test-set selection result.",
+  "claim_boundary": "Permutation active versus permutation null is the causal AutoCon contrast. Permutation active versus no-permutation active is the causal architecture contrast. Both must be reported before considering any later confirmation.",
+  "execution": {"authorized": false, "status": "exploratory_mamba_ts_v3_variable_permutation_screen", "training_started": false, "human_review_required": true, "required_before_launch": ["verify data hashes", "preserve fusion in all phases", "retain permutation null", "disable test execution"]},
+  "data_fingerprints": {
+    "ETTh1": {"relative_path": "dataset/ETT-small/ETTh1.csv", "channels_including_target": 7, "frequency": "h", "time_column": "date", "target": "OT", "sha256": "f18de3ad269cef59bb07b5438d79bb3042d3be49bdeecf01c1cd6d29695ee066"},
+    "ETTm1": {"relative_path": "dataset/ETT-small/ETTm1.csv", "channels_including_target": 7, "frequency": "t", "time_column": "date", "target": "OT", "sha256": "6ce1759b1a18e3328421d5d75fadcb316c449fcd7cec32820c8dafda71986c9e"},
+    "electricity": {"relative_path": "dataset/electricity/electricity.csv", "channels_including_target": 321, "frequency": "h", "time_column": "date", "target": "OT", "sha256": "7e45845d54c5219bad0ae6bc1b5316cf8ff9cead5d33fa998a5a51c2e4a497ad"},
+    "traffic": {"relative_path": "dataset/traffic/traffic.csv", "channels_including_target": 862, "frequency": "h", "time_column": "date", "target": "OT", "sha256": "cb06463d56fa17d87f47027cd9389ceae82a69eddee51cdb61480e120dab0b16"}
+  },
+  "global": {
+    "features": "M", "seq_len": 96, "label_len": 48, "d_model": 32, "d_ff": 64, "e_layers": 1, "n_heads": 4, "d_layers": 1, "factor": 1, "top_k": 5, "num_kernels": 6, "moving_avg": 25, "patch_len": 16, "patch_stride": 8, "dropout": 0.1, "embed": "timeF", "activation": "gelu", "wo_freq": "",
+    "mamba_d_state": 16, "mamba_d_conv": 4, "mamba_expand": 2, "mamba_ts_context_rank": 16, "mamba_ts_repr_forecast_fusion": true, "mamba_ts_repr_forecast_channelwise": false, "mamba_scales": [1], "mamba_token_stride": 1, "mamba_bidirectional": false, "mamba_causal_embedding": true, "mamba_use_acf_memory": false, "mamba_acf_relation_loss": false, "mamba_acf_repr_fusion": false,
+    "autocon_scale": 96, "autocon_wnorm": "MeanStd", "autocon_warmup": 0, "autocon_acf_source": "raw", "AutoCon_temperature": 0.2, "AutoCon_relation_temperature": 0.25, "AutoCon_sign_weight": 0.25, "AutoCon_sign_margin": 0.1,
+    "batch_size": 32, "epochs": 8, "patience": 3, "learning_rate": 0.001, "lradj": "cosine", "min_learning_rate": 0.00001, "weight_decay": 0.00001, "num_workers": 0, "drop_last_train": false, "train_ratio": 0.6, "use_gpu": true, "skip_test": true, "save_predictions": false, "stream_metrics": false, "stream_sample_windows": 1
+  },
+  "phases": [
+    {"name": "global_repr_active_h96", "purpose": "Active global representation fusion without variable permutation.", "output_root": "artifacts/exploratory/mamba_ts_v3_variable_permutation_screen_20260922/global_repr_active_h96", "datasets": ["ETTh1", "ETTm1", "electricity", "traffic"], "models": ["MambaTSv3AutoCon"], "features": "M", "horizons": [96], "seeds": [2021, 2022, 2023], "autocon_lambda": 0.003, "mamba_ts_variable_permutation": false, "baseline_check": false, "skip_test": true, "stream_metrics": false},
+    {"name": "permuted_repr_null_h96", "purpose": "Exact variable-permuted fusion architecture with AutoCon objective disabled.", "output_root": "artifacts/exploratory/mamba_ts_v3_variable_permutation_screen_20260922/permuted_repr_null_h96", "datasets": ["ETTh1", "ETTm1", "electricity", "traffic"], "models": ["MambaTSv3AutoCon"], "features": "M", "horizons": [96], "seeds": [2021, 2022, 2023], "autocon_lambda": 0.0, "mamba_ts_variable_permutation": true, "allow_zero_autocon_lambda": true, "baseline_check": false, "skip_test": true, "stream_metrics": false},
+    {"name": "permuted_repr_active_h96", "purpose": "Exact variable-permuted fusion architecture with active AutoCon objective.", "output_root": "artifacts/exploratory/mamba_ts_v3_variable_permutation_screen_20260922/permuted_repr_active_h96", "datasets": ["ETTh1", "ETTm1", "electricity", "traffic"], "models": ["MambaTSv3AutoCon"], "features": "M", "horizons": [96], "seeds": [2021, 2022, 2023], "autocon_lambda": 0.003, "mamba_ts_variable_permutation": true, "baseline_check": false, "skip_test": true, "stream_metrics": false}
+  ],
+  "comparison_contract": {"primary_metric": "minimum pure-forecast validation val_loss", "pairing_unit": "same dataset, horizon, seed", "primary_contrasts": ["permuted active versus permuted null", "permuted active versus global active"], "test_selection_allowed": false, "test_metrics_produced": false, "publication_claim_boundary": "Only a candidate that improves or preserves all four validation datasets and passes a separate speed gate may enter a new frozen multi-horizon confirmation."},
+  "registered_job_counts": {"global_repr_active_h96": 12, "permuted_repr_null_h96": 12, "permuted_repr_active_h96": 12, "exploratory_total": 36, "training_total": 36, "total": 36, "training_started": false}
+}

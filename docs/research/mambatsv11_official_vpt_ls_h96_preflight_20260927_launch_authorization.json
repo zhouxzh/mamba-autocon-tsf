@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "kind": "training_plan_launch_authorization",
+  "authorized": true,
+  "plan_path": "docs/research/mambatsv11_official_vpt_ls_h96_preflight_20260927.json",
+  "plan_sha256": "b9c744838aaf04c63e4e4af88e63b1a6584d2e5e21d0c4bafb1ac605fcf705d6",
+  "plan_status": "exploratory_mambatsv11_official_vpt_ls_h96_preflight",
+  "approval": {"approved": true, "approved_by": "user", "approved_at_utc": "2026-09-27T15:00:00Z"},
+  "prelaunch_gate_evidence_hashes": {
+    "verify ETTh1 and Weather hashes and exact 42-job expansion": {"sha256": "b9c744838aaf04c63e4e4af88e63b1a6584d2e5e21d0c4bafb1ac605fcf705d6", "artifact": "docs/research/mambatsv11_official_vpt_ls_h96_preflight_20260927.json"},
+    "freeze VPT architecture and solver-only paired contrast": {"sha256": "b9c744838aaf04c63e4e4af88e63b1a6584d2e5e21d0c4bafb1ac605fcf705d6", "artifact": "docs/research/mambatsv11_official_vpt_ls_h96_preflight_20260927.json"},
+    "keep test execution disabled": {"sha256": "b9c744838aaf04c63e4e4af88e63b1a6584d2e5e21d0c4bafb1ac605fcf705d6", "artifact": "docs/research/mambatsv11_official_vpt_ls_h96_preflight_20260927.json"},
+    "run all phases under the immutable launch sidecar": {"sha256": "b9c744838aaf04c63e4e4af88e63b1a6584d2e5e21d0c4bafb1ac605fcf705d6", "artifact": "docs/research/mambatsv11_official_vpt_ls_h96_preflight_20260927.json"},
+    "preserve source snapshot and output root": {"sha256": "b9c744838aaf04c63e4e4af88e63b1a6584d2e5e21d0c4bafb1ac605fcf705d6", "artifact": "docs/research/mambatsv11_official_vpt_ls_h96_preflight_20260927.json"}
+  }
+}

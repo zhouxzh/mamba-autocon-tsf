@@ -1,0 +1,161 @@
+{
+  "version": 1,
+  "schema_version": 1,
+  "status": "exploratory_metro_pemsbay_mambatsv3_global_channel_mixer_screen",
+  "created_at": "2026-09-27",
+  "job_order_seed": 20260979,
+  "purpose": "Validation-only paired screen of a low-rank global channel-state mixer on the frozen fast MambaTSv3 AutoCon H12 traffic configuration.",
+  "research_question": "Can a one-scan MambaTSv3 state conditioned by an O(C*r) window summary close the METR-LA gap while preserving PEMS-BAY and retaining AutoCon representation learning?",
+  "evidence_boundary": "All jobs use skip_test=true. No held-out test metrics are generated, read, or used for selection.",
+  "claim_boundary": "This is a local MambaMixer-inspired optimization, not an official reproduction. It cannot establish universal accuracy, a stable independent AutoCon effect, or publication readiness.",
+  "execution": {
+    "authorized": false,
+    "status": "exploratory_metro_pemsbay_mambatsv3_global_channel_mixer_screen",
+    "training_started": false,
+    "human_review_required": true
+  },
+  "prelaunch_gates": [
+    "verify data hashes and numeric CSV contracts",
+    "freeze the one-factor GCM off/on contrast and all training hyperparameters",
+    "preserve skip_test=true for every job",
+    "require exact paired coverage before computing an architecture contrast"
+  ],
+  "data_fingerprints": {
+    "metr_la": {
+      "relative_path": "dataset/METR-LA/METR-LA.csv",
+      "format": "csv_numeric",
+      "channels_including_target": 207,
+      "frequency": "t",
+      "time_column": null,
+      "target_index": 206,
+      "data_interval_minutes": 5,
+      "sha256": "5fa498de0c90f5ff9b67e7cf9654bec031a803b320a8eb13d48021b9983bec82"
+    },
+    "pems_bay": {
+      "relative_path": "dataset/PEMS-BAY/PEMS-BAY.csv",
+      "format": "csv_numeric",
+      "channels_including_target": 325,
+      "frequency": "t",
+      "time_column": null,
+      "target_index": 324,
+      "data_interval_minutes": 5,
+      "sha256": "c39dc8f5f3a7f1e9e9deeab1f3fdfa7b87d2b4e45b4075d4c3bd3c62c3051ef2"
+    }
+  },
+  "global": {
+    "features": "M",
+    "seq_len": 96,
+    "label_len": 48,
+    "d_model": 24,
+    "d_ff": 48,
+    "e_layers": 1,
+    "n_heads": 4,
+    "d_layers": 1,
+    "factor": 1,
+    "top_k": 5,
+    "num_kernels": 6,
+    "moving_avg": 25,
+    "patch_len": 24,
+    "patch_stride": 24,
+    "dropout": 0.1,
+    "embed": "timeF",
+    "activation": "gelu",
+    "wo_freq": "",
+    "mamba_d_state": 8,
+    "mamba_d_conv": 2,
+    "mamba_expand": 1,
+    "mamba_headdim": 8,
+    "mamba_ts_context_rank": 16,
+    "mamba_ts_global_channel_mixer": false,
+    "mamba_ts_global_channel_mixer_rank": 4,
+    "batch_size": 32,
+    "epochs": 8,
+    "patience": 3,
+    "learning_rate": 0.001,
+    "lradj": "cosine",
+    "min_learning_rate": 0.00001,
+    "weight_decay": 0.00001,
+    "num_workers": 0,
+    "drop_last_train": false,
+    "train_ratio": 0.6,
+    "use_gpu": true,
+    "skip_test": true,
+    "save_predictions": false,
+    "stream_metrics": false,
+    "stream_sample_windows": 1,
+    "autocon_scale": 96,
+    "autocon_wnorm": "LastVal",
+    "autocon_warmup": 1,
+    "autocon_acf_source": "raw",
+    "autocon_lambda": 0.001
+  },
+  "phases": [
+    {
+      "name": "mambatsv3_global_channel_mixer_off_h12",
+      "purpose": "Frozen MambaTSv3 AutoCon control without the global channel-state mixer.",
+      "output_root": "artifacts/exploratory/metro_pemsbay_mambatsv3_global_channel_mixer_screen_20260927/mambatsv3_global_channel_mixer_off_h12",
+      "datasets": ["metr_la", "pems_bay"],
+      "models": ["MambaTSv3AutoCon"],
+      "features": "M",
+      "horizons": [12],
+      "seeds": [2411, 2412, 2413],
+      "skip_test": true,
+      "stream_metrics": false
+    },
+    {
+      "name": "mambatsv3_global_channel_mixer_on_h12",
+      "purpose": "One-factor treatment: the same AutoCon MambaTSv3 plus rank-4 global channel-state FiLM mixer after the shared scan.",
+      "output_root": "artifacts/exploratory/metro_pemsbay_mambatsv3_global_channel_mixer_screen_20260927/mambatsv3_global_channel_mixer_on_h12",
+      "datasets": ["metr_la", "pems_bay"],
+      "models": ["MambaTSv3AutoCon"],
+      "features": "M",
+      "horizons": [12],
+      "seeds": [2411, 2412, 2413],
+      "mamba_ts_global_channel_mixer": true,
+      "mamba_ts_global_channel_mixer_rank": 4,
+      "skip_test": true,
+      "stream_metrics": false
+    },
+    {
+      "name": "external_strong_baselines_h12",
+      "purpose": "Same-budget external baselines; all remain validation-only.",
+      "output_root": "artifacts/exploratory/metro_pemsbay_mambatsv3_global_channel_mixer_screen_20260927/external_strong_baselines_h12",
+      "datasets": ["metr_la", "pems_bay"],
+      "models": ["PatchTST", "TimeMixer", "iTransformer", "MambaTSv3"],
+      "features": "M",
+      "horizons": [12],
+      "seeds": [2411, 2412, 2413],
+      "skip_test": true,
+      "stream_metrics": false
+    }
+  ],
+  "pairing_contract": {
+    "control_phase": "mambatsv3_global_channel_mixer_off_h12",
+    "treatment_phase": "mambatsv3_global_channel_mixer_on_h12",
+    "allowed_difference": ["mamba_ts_global_channel_mixer", "mamba_ts_global_channel_mixer_rank"],
+    "pairing_unit": ["dataset", "horizon", "seed"],
+    "interpretation": "The off/on contrast isolates the global channel-state mixer. External models are same-budget descriptive context."
+  },
+  "comparison_contract": {
+    "primary_metric": "minimum pure-forecast validation val_loss",
+    "selection_metric": "minimum pure-forecast validation val_loss",
+    "pairing_unit": {"fields": ["dataset", "horizon", "seed"], "mode": "exact"},
+    "test_selection_allowed": false,
+    "test_metrics_produced": false,
+    "publication_claim_boundary": "Validation-only candidate screen; no held-out test or universal claim.",
+    "accuracy_gate": {
+      "mixer_vs_control": "METR-LA treatment mean validation MSE must improve by at least 1.0%, win at least 2/3 paired seeds, and no paired seed may degrade by more than 2.0%. PEMS-BAY treatment must be non-inferior to control within 1.0% mean MSE and no paired seed may degrade by more than 2.0%.",
+      "external_context": "The treatment must be within 2.0% of the best same-budget external validation baseline on each dataset before any confirmation test is registered.",
+      "resource_gate": "Use the recorded exact-shape prediction-only preflight; the treatment must remain faster than PatchTST and TimeMixer on METR-LA and PEMS-BAY."
+    }
+  },
+  "registered_job_counts": {
+    "mambatsv3_global_channel_mixer_off_h12": 6,
+    "mambatsv3_global_channel_mixer_on_h12": 6,
+    "external_strong_baselines_h12": 24,
+    "exploratory_total": 36,
+    "training_total": 36,
+    "total": 36,
+    "training_started": false
+  }
+}

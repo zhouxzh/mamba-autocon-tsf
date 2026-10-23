@@ -1,0 +1,2 @@
+dataset,horizon,passes_accuracy_gate,passes_selector_gate,seeds,selector_off_mean_val_mse,selector_on_mean_val_mse,selector_vs_off_percent,selector_vs_strongest_percent,selector_wins_vs_off,source_snapshot,strongest_baseline,strongest_baseline_mean_val_mse,test_metrics_produced
+electricity,96,False,True,"[2261, 2262, 2263]",0.18506696970365544,0.18474457455680585,-0.17420458516494985,7.537106361011214,3,7755385b888f8c160bf8f1d5c83e6c81814af86c5b1e25dbf07d4fd4b89e28a4,TimesNet,0.17179611838968645,False

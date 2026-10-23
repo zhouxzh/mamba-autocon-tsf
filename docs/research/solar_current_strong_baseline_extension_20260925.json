@@ -1,0 +1,96 @@
+{
+  "version": 1,
+  "schema_version": 1,
+  "status": "exploratory_solar_current_strong_baseline_extension",
+  "created_at": "2026-09-25",
+  "job_order_seed": 20260955,
+  "purpose": "Add a reproducible SolarEnergy baseline coordinate for the current Mamba/AutoCon comparison matrix.",
+  "evidence_boundary": "Validation-only baseline extension. No test metric is generated or used.",
+  "execution": {
+    "authorized": true,
+    "status": "exploratory_solar_current_strong_baseline_extension",
+    "training_started": false,
+    "human_review_required": true
+  },
+  "prelaunch_gates": [
+    "verify SolarEnergy source hash and 52,560x137 numeric schema",
+    "verify every baseline runtime contract",
+    "keep skip_test=true for every job",
+    "require all dataset-horizon-seed-model coordinates"
+  ],
+  "data_fingerprints": {
+    "solar": {
+      "relative_path": "dataset/solar/solar_AL.txt",
+      "format": "txt",
+      "channels_including_target": 137,
+      "frequency": "t",
+      "time_column": null,
+      "target_index": 136,
+      "data_feature_index": 0,
+      "data_interval_minutes": 10,
+      "sha256": "230327ef72d2abb387939d4a35d6fd34f1066071bc7c40ce7ecf5531a0122ac2"
+    }
+  },
+  "global": {
+    "features": "M",
+    "seq_len": 96,
+    "label_len": 48,
+    "d_model": 32,
+    "d_ff": 64,
+    "e_layers": 1,
+    "n_heads": 4,
+    "d_layers": 1,
+    "factor": 1,
+    "top_k": 5,
+    "num_kernels": 6,
+    "moving_avg": 25,
+    "patch_len": 16,
+    "patch_stride": 8,
+    "dropout": 0.1,
+    "embed": "timeF",
+    "activation": "gelu",
+    "wo_freq": "",
+    "batch_size": 32,
+    "epochs": 8,
+    "patience": 3,
+    "learning_rate": 0.001,
+    "lradj": "cosine",
+    "min_learning_rate": 0.00001,
+    "weight_decay": 0.00001,
+    "num_workers": 0,
+    "train_ratio": 0.6,
+    "use_gpu": true,
+    "skip_test": true,
+    "save_predictions": false,
+    "stream_metrics": false,
+    "stream_sample_windows": 1
+  },
+  "phases": [
+    {
+      "name": "solar_strong_baselines_h96",
+      "purpose": "Current-source DLinear, NLinear, PatchTST, TimesNet and iTransformer references on SolarEnergy.",
+      "output_root": "artifacts/exploratory/solar_current_strong_baseline_extension_20260925/solar_strong_baselines_h96",
+      "datasets": ["solar"],
+      "models": ["DLinear", "NLinear", "PatchTST", "TimesNet", "iTransformer"],
+      "features": "M",
+      "horizons": [96],
+      "seeds": [2021, 2022, 2023],
+      "skip_test": true,
+      "stream_metrics": false
+    }
+  ],
+  "comparison_contract": {
+    "primary_metric": "minimum pure-forecast validation val_loss",
+    "pairing_unit": {"fields": ["dataset", "horizon", "seed", "model"], "mode": "exact"},
+    "test_selection_allowed": false,
+    "test_metrics_produced": false,
+    "claim_boundary": "This completes a current-source SolarEnergy baseline table only; it does not establish a Mamba candidate or a test-set conclusion."
+  },
+  "registered_job_counts": {
+    "solar_strong_baselines_h96": 15,
+    "exploratory_total": 15,
+    "training_total": 15,
+    "total": 15,
+    "training_started": false
+  }
+}

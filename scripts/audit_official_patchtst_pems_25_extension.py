@@ -1,0 +1,90 @@
+#!/usr/bin/env python3
+"""Audit the PEMS-BAY 25% official PatchTST extension."""
+
+from __future__ import annotations
+
+import json
+import math
+from pathlib import Path
+
+import numpy as np
+
+
+BASELINE = Path("artifacts/exploratory/official_patchtst_adapter_pems_25_validation_20261003")
+TEST = Path("artifacts/paper_final/mambatsv3_acf_infonce_official_patchtst_pems_25_extension_20261003")
+ACTIVE = Path("artifacts/exploratory/mambatsv3_acf_infonce_local_cluster_pems_25_confirmation_20261003")
+SEEDS = (5540, 5541, 5542)
+COMMIT = "204c21efe0b39603ad6e2ca640ef5896646ab1a9"
+MODEL_SHA = "49d8bb865e1226d6338842f4b33c4bc6992cefb048dc2a4a5a8c410ca708586b"
+BACKBONE_SHA = "df67173153787c2356bdfb6491159cd754332ef7382986efe879e1fbea8ebf26"
+
+
+def load(path: Path):
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def guard(path: Path):
+    event = load(path)
+    if event.get("status") != "completed" or event.get("trigger") is not None:
+        raise ValueError("GPU guard failure: {}".format(path))
+
+
+def main() -> int:
+    rows = []
+    for seed in SEEDS:
+        stem = "pems_bay_h192_s{}_official_patchtst".format(seed)
+        validation = load(BASELINE / (stem + ".json"))
+        official = load(TEST / (stem + ".json"))
+        active = load(ACTIVE / ("s{}_active_test.json".format(seed)))
+        if validation.get("test_metrics_produced"):
+            raise ValueError("official validation artifact opened test")
+        if official.get("test_metrics_produced") is not True or official.get("training_performed") is not False:
+            raise ValueError("official test reader lifecycle failure")
+        if official.get("selection_done_before_test") is not True:
+            raise ValueError("official test was not validation-selected")
+        if active.get("test_metrics_produced") is not True or active.get("training_performed") is not False:
+            raise ValueError("candidate test reader lifecycle failure")
+        if official["official_commit"] != COMMIT or official["official_model_sha256"] != MODEL_SHA or official["official_backbone_sha256"] != BACKBONE_SHA:
+            raise ValueError("external source lock mismatch")
+        guard(BASELINE / (stem + "_event.json"))
+        guard(TEST / (stem + "_event.json"))
+        rows.append({
+            "seed": seed,
+            "active_test_mse": float(active["test_mse"]),
+            "official_patchtst_test_mse": float(official["test_mse"]),
+            "official_patchtst_validation_mse": float(validation["best_validation_mse"]),
+        })
+    active = np.asarray([row["active_test_mse"] for row in rows])
+    official = np.asarray([row["official_patchtst_test_mse"] for row in rows])
+    ratio = active / official
+    result = {
+        "external_repository": "yuqinie98/PatchTST",
+        "official_commit": COMMIT,
+        "official_model_sha256": MODEL_SHA,
+        "official_backbone_sha256": BACKBONE_SHA,
+        "coordinate": "PEMS-BAY H192, 25% labels",
+        "rows": rows,
+        "summary": {
+            "active_mean_mse": float(active.mean()),
+            "official_patchtst_mean_mse": float(official.mean()),
+            "active_vs_official_patchtst_percent": float((active.mean() / official.mean() - 1.0) * 100.0),
+            "active_wins": int((active < official).sum()),
+            "active_official_ratio_upper_1se": float(ratio.mean() + ratio.std(ddof=1) / math.sqrt(len(ratio))),
+        },
+        "audit_valid": True,
+        "scope": "post-confirmation official-code extension; not part of active/null causal matrix",
+    }
+    (TEST / "audit.json").write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
+    lines = [
+        "# Official PatchTST PEMS-BAY 25% Extension Audit", "",
+        "| Active | Official PatchTST | Active vs official | Wins | One-SE upper ratio |", "| ---: | ---: | ---: | ---: | ---: |",
+        "| {:.6f} | {:.6f} | {:+.3f}% | {}/3 | {:.4f} |".format(result["summary"]["active_mean_mse"], result["summary"]["official_patchtst_mean_mse"], result["summary"]["active_vs_official_patchtst_percent"], result["summary"]["active_wins"], result["summary"]["active_official_ratio_upper_1se"]),
+        "", "Pinned official commit: `{}`".format(COMMIT),
+    ]
+    (TEST / "readout.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
+    print(json.dumps(result, sort_keys=True))
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

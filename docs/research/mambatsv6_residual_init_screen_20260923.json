@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "schema_version": 1,
+  "status": "exploratory_mambatsv6_residual_init_screen",
+  "created_at": "2026-09-23",
+  "job_order_seed": 20260953,
+  "purpose": "Validation-only paired test of a documented nonzero Mamba residual initialization for MambaTS v6 on the remaining low-dimensional failure coordinates.",
+  "research_question": "Does initializing the v6 Mamba residual at the empirically observed Exchange checkpoint scale (raw 0.1) improve early Mamba optimization over the exact zero-init v6 control without changing the linear base or AutoCon objective?",
+  "evidence_boundary": "Exploratory validation-only screen. No test metrics are generated and no held-out test release or final model selection is allowed.",
+  "execution": {"authorized": false, "status": "exploratory_mambatsv6_residual_init_screen", "training_started": false, "required_before_launch": ["verify Exchange-Rate and ILI fingerprints", "retain all six paired arms at identical coordinates", "keep test execution disabled", "freeze source snapshot and output root"]},
+  "data_fingerprints": {
+    "exchange_rate": {"relative_path": "dataset/exchange_rate/exchange_rate.csv", "channels_including_target": 8, "frequency": "d", "time_column": "date", "target": "OT", "sha256": "d55e7aa2641009814a18ba3279431b13f6d413b0eab195b9ff21988d8cf94e97"},
+    "national_illness": {"relative_path": "dataset/illness/national_illness.csv", "channels_including_target": 7, "frequency": "d", "time_column": "date", "target": "OT", "sha256": "8594cecb98c6f2f9dc014eca11c4d5d1e38ad5ce6ed0592d4abe65b146fce395"}
+  },
+  "global": {"features": "M", "seq_len": 96, "label_len": 48, "d_model": 32, "d_ff": 64, "e_layers": 1, "n_heads": 4, "d_layers": 1, "factor": 1, "top_k": 5, "num_kernels": 6, "moving_avg": 25, "patch_len": 16, "patch_stride": 8, "dropout": 0.1, "embed": "timeF", "activation": "gelu", "wo_freq": "", "mamba_d_state": 16, "mamba_d_conv": 4, "mamba_expand": 2, "mamba_headdim": 16, "mamba_ts_context_rank": 16, "mamba_scales": [1], "mamba_token_stride": 1, "mamba_bidirectional": false, "mamba_causal_embedding": true, "autocon_scale": 96, "autocon_wnorm": "MeanStd", "autocon_warmup": 0, "autocon_acf_source": "raw", "batch_size": 32, "epochs": 20, "patience": 5, "learning_rate": 0.001, "lradj": "cosine", "min_learning_rate": 0.00001, "weight_decay": 0.00001, "num_workers": 0, "drop_last_train": false, "train_ratio": 0.6, "use_gpu": true, "skip_test": true, "save_predictions": false, "stream_metrics": false},
+  "phases": [
+    {"name": "mambatsv6_residual_init_lowdim", "purpose": "Six paired arms at H96 on the two remaining low-dimensional failure coordinates.", "output_root": "artifacts/exploratory/mambatsv6_residual_init_screen_20260923/mambatsv6_residual_init_lowdim", "datasets": ["exchange_rate", "national_illness"], "models": ["DLinear", "NLinear", "PatchTST", "iTransformer", "MambaTSv6AutoCon", "MambaTSv6WarmAutoCon"], "features": "M", "horizons": [96], "seeds": [2021, 2022, 2023], "autocon_lambda": 0.001, "baseline_check": true, "skip_test": true, "stream_metrics": false}
+  ],
+  "comparison_contract": {"primary_metric": "minimum pure-forecast validation scaled MSE", "pairing_unit": "same dataset, horizon and seed", "primary_contrasts": ["MambaTSv6WarmAutoCon versus MambaTSv6AutoCon", "MambaTSv6WarmAutoCon versus DLinear/NLinear/PatchTST/iTransformer"], "warm_arm_only_change": "mamba_ts_residual_init=0.1 via the registered alias; all other executable configuration fields are matched", "resource_metrics": ["elapsed_sec", "parameter_count", "prediction_only_latency"], "test_selection_allowed": false, "test_metrics_produced": false},
+  "registered_job_counts": {"mambatsv6_residual_init_lowdim": 36, "exploratory_total": 36, "training_total": 36, "total": 36, "training_started": false}
+}

@@ -1,0 +1,10 @@
+claim_id,evidence_id,artifact,review_task,verification_status,verified_by,verified_on,review_notes
+C101,E101,artifacts/paper_final/mambatsv3_local_cluster_acf_evidence_package_20261003/bundle.json,Confirm one-scan training/deployment contract and exact-null arm definition,pending_human,,,
+C102,E101,artifacts/paper_final/mambatsv3_local_cluster_acf_evidence_package_20261003/bundle.json,Open six confirmation audits and confirm all target/horizon/label/MSE values,pending_human,,,
+C103,E101,artifacts/exploratory/mambatsv3_acf_infonce_local_cluster_pems_h336_confirmation_20261003/audit.json,Confirm H336 is a separate seed set with validation-first test lifecycle,pending_human,,,
+C104,E101,artifacts/paper_final/mambatsv3_local_cluster_acf_evidence_package_20261003/bundle.json,Confirm robustness entries are validation-only extensions and retain all six conditions,pending_human,,,
+C105,E101,artifacts/paper_final/mambatsv3_acf_infonce_official_patchtst_pems_h336_extension_20261003/inference_boundary.json,Confirm one-scan/no-relation inference and slower-PatchTST latency boundary,pending_human,,,
+C106,E101,artifacts/paper_final/mambatsv3_local_cluster_acf_evidence_package_20261003/bundle.json,Confirm official-code extensions are separated from active-null causal estimates,pending_human,,,
+C107,E101,docs/research/mambatsv3_acf_infonce_local_cluster_human_review_20261003.md,Confirm Electricity Traffic Weather25 and PEMS03 negative boundaries are retained,pending_human,,,
+C108,E102,docs/research/acf_transfer_compatibility_analysis_20261003.md,Confirm compatibility association is described only as exploratory risk signal,pending_human,,,
+C109,E103,artifacts/reproducibility/mambatsv3_local_cluster_independent_replication_program_20261008/audit.json,Confirm the three-domain independent-machine replication program and complete author/venue review gates before submission,pending_human,,,

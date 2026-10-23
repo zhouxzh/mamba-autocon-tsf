@@ -1,0 +1,2 @@
+dataset,horizon,passes_accuracy_gate,passes_selector_gate,seeds,selector_off_mean_val_mse,selector_on_mean_val_mse,selector_vs_off_percent,selector_vs_strongest_percent,selector_wins_vs_off,source_snapshot,strongest_baseline,strongest_baseline_mean_val_mse,test_metrics_produced
+ETTh1,96,True,True,"[2251, 2252, 2253]",0.6511469477997865,0.6473439945043643,-0.5840391801378075,-0.4269127043879384,3,7755385b888f8c160bf8f1d5c83e6c81814af86c5b1e25dbf07d4fd4b89e28a4,DLinear,0.6501194369745038,False

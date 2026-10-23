@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "kind": "training_plan_launch_authorization",
+  "authorized": true,
+  "plan_path": "docs/research/mambatsv3_etth1_linear_blend_current_20260928.json",
+  "plan_sha256": "2a273975e56b456429c2eddf1f676b0acd9d75f0c4d59fe389a14ff11cd67948",
+  "plan_status": "exploratory_mambatsv3_etth1_linear_blend_current_validation",
+  "approval": {
+    "approved": true,
+    "approved_by": "user persistent objective: improve low-dimensional baseline gap",
+    "approved_at_utc": "2026-09-28T08:20:00Z"
+  },
+  "prelaunch_gate_evidence_hashes": {
+    "verify ETTh1 fingerprint and exact 12-job expansion": {"sha256": "2a273975e56b456429c2eddf1f676b0acd9d75f0c4d59fe389a14ff11cd67948", "artifact": "docs/research/mambatsv3_etth1_linear_blend_current_20260928.json"},
+    "freeze blend bias and all baseline contracts": {"sha256": "2a273975e56b456429c2eddf1f676b0acd9d75f0c4d59fe389a14ff11cd67948", "artifact": "docs/research/mambatsv3_etth1_linear_blend_current_20260928.json"},
+    "keep test execution disabled for every job": {"sha256": "2a273975e56b456429c2eddf1f676b0acd9d75f0c4d59fe389a14ff11cd67948", "artifact": "docs/research/mambatsv3_etth1_linear_blend_current_20260928.json"},
+    "preserve one source snapshot and output root": {"sha256": "2a273975e56b456429c2eddf1f676b0acd9d75f0c4d59fe389a14ff11cd67948", "artifact": "docs/research/mambatsv3_etth1_linear_blend_current_20260928.json"}
+  }
+}

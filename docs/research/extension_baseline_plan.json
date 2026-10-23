@@ -1,0 +1,146 @@
+{
+  "version": 2,
+  "schema_version": 1,
+  "status": "registered_exploratory_extension",
+  "purpose": "Add reproducible plain forecasting baselines and high-dimensional transfer data without changing frozen core phases.",
+  "evidence_boundary": "Results from this plan are exploratory until a launch-time provenance record, validation gate, and seed-level replication are complete.",
+  "execution": {
+    "authorized": false,
+    "status": "registered_exploratory_extension",
+    "training_started": false,
+    "human_review_required": true,
+    "required_before_launch": [
+      "human review of the exact baseline and Mamba-encoder-plus-compatible-head definitions",
+      "verify dataset fingerprints, model aliases, normalization, and train-only selection contracts",
+      "review the matched high-dimensional resource budget and fresh output root",
+      "freeze this JSON and bind an approved launch sidecar with evidence hashes"
+    ]
+  },
+  "prelaunch_gates": [
+    "human review of the exact baseline and Mamba-encoder-plus-compatible-head definitions",
+    "verify dataset fingerprints, model aliases, normalization, and train-only selection contracts",
+    "review the matched high-dimensional resource budget and fresh output root",
+    "freeze this JSON and bind an approved launch sidecar with evidence hashes"
+  ],
+  "registered_job_counts": {
+    "extension_highdim_plain_M": 180,
+    "training_total": 180,
+    "exploratory_total": 180,
+    "training_started": false
+  },
+  "global": {
+    "features": "M",
+    "seq_len": 96,
+    "label_len": 48,
+    "d_model": 64,
+    "d_ff": 64,
+    "e_layers": 1,
+    "n_heads": 8,
+    "d_layers": 1,
+    "factor": 1,
+    "top_k": 5,
+    "num_kernels": 6,
+    "moving_avg": 25,
+    "patch_len": 16,
+    "patch_stride": 8,
+    "dropout": 0.1,
+    "embed": "timeF",
+    "activation": "gelu",
+    "wo_freq": "",
+    "mamba_d_state": 16,
+    "mamba_d_conv": 4,
+    "mamba_expand": 2,
+    "mamba_headdim": 16,
+    "mamba_scales": [1, 2],
+    "autocon_scale": 96,
+    "autocon_warmup": 0,
+    "autocon_acf_source": "residual",
+    "horizons": [96, 336, 720],
+    "seeds": [2021, 2022, 2023, 2024, 2025],
+    "epochs": 50,
+    "patience": 10,
+    "batch_size": 16,
+    "learning_rate": 0.001,
+    "lradj": "cosine",
+    "min_learning_rate": 0.00001,
+    "weight_decay": 0.00001,
+    "num_workers": 0,
+    "use_gpu": true,
+    "save_predictions": false,
+    "stream_metrics": true,
+    "stream_sample_windows": 4
+  },
+  "dataset_contract": {
+    "electricity": {
+      "description": "UCI electricity load (ECL) hourly multivariate series",
+      "relative_path": "dataset/electricity/electricity.csv",
+      "channels_including_target": 321,
+      "frequency": "h",
+      "time_column": "date",
+      "target": "OT",
+      "sha256": "7e45845d54c5219bad0ae6bc1b5316cf8ff9cead5d33fa998a5a51c2e4a497ad",
+      "source_repository": "thuml/Time-Series-Library",
+      "source_revision": "2b66e59ee19dac8f6f19fb5d4997f289fdfea357",
+      "license": "CC-BY-4.0",
+      "quality_report": "artifacts/paper_final/corrected/highdim_data_quality/electricity.json",
+      "quality_report_content_sha256": "f7c52979ec7e659f7c9ea7860104816b01b68fc105feecda5741c04ec6dd6ea8"
+    },
+    "traffic": {
+      "description": "Standard Traffic multivariate forecasting benchmark",
+      "relative_path": "dataset/traffic/traffic.csv",
+      "channels_including_target": 862,
+      "frequency": "h",
+      "time_column": "date",
+      "target": "OT",
+      "sha256": "cb06463d56fa17d87f47027cd9389ceae82a69eddee51cdb61480e120dab0b16",
+      "source_repository": "thuml/Time-Series-Library",
+      "source_revision": "2b66e59ee19dac8f6f19fb5d4997f289fdfea357",
+      "license": "CC-BY-4.0",
+      "quality_report": "artifacts/paper_final/corrected/highdim_data_quality/traffic.json",
+      "quality_report_content_sha256": "b13fd11bce5d6677c6ff028cedd4d6cd41f97cdb70281617e86e9b54dda39092"
+    }
+  },
+  "models": [
+    {"id": "DLinear", "model": "DLinear", "purpose": "decomposition linear baseline"},
+    {"id": "NLinear", "model": "NLinear", "purpose": "last-value normalized linear baseline"},
+    {"id": "PatchTST", "model": "PatchTST", "purpose": "patch attention baseline"},
+    {"id": "TimesNet", "model": "TimesNet", "purpose": "frequency/periodic convolution baseline"},
+    {"id": "Mamba1", "model": "Mamba1", "purpose": "Mamba-1 encoder with the repository's compatible forecasting head and no relation loss"},
+    {"id": "Mamba2", "model": "Mamba2", "purpose": "Mamba-2 encoder with the repository's compatible forecasting head and no relation loss"}
+  ],
+  "phases": [
+    {
+      "name": "extension_highdim_plain_M",
+      "output_root": "artifacts/paper_final/extension_highdim_plain_M",
+      "datasets": ["electricity", "traffic"],
+      "models": ["DLinear", "NLinear", "PatchTST", "TimesNet", "Mamba1", "Mamba2"],
+      "features": "M",
+      "horizons_by_dataset": {
+        "electricity": [96, 336, 720],
+        "traffic": [96, 336, 720]
+      },
+      "seeds": [2021, 2022, 2023, 2024, 2025],
+      "epochs": 50,
+      "patience": 10,
+      "lradj": "cosine",
+      "min_learning_rate": 0.00001,
+      "drop_last_train": false,
+      "save_predictions": false,
+      "stream_metrics": true,
+      "stream_sample_windows": 4
+    }
+  ],
+  "comparison_contract": {
+    "primary_metric": "scaled_mse",
+    "pairing_unit": "same dataset, horizon, seed",
+    "non_independent_axes": ["sliding windows", "channels"],
+    "required_reports": [
+      "seed-level mean and 95% confidence interval",
+      "paired deltas against PatchTST and DLinear",
+      "streamed metrics and origin-stride sensitivity",
+      "parameter count, peak GPU memory, end-to-end epoch time"
+    ],
+    "test_selection": "Test metrics are not read for model or hyperparameter selection.",
+    "resource_note": "Streaming output is required for high-dimensional data; do not materialize all Traffic predictions in memory."
+  }
+}

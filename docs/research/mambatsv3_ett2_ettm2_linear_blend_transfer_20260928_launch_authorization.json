@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "kind": "training_plan_launch_authorization",
+  "authorized": true,
+  "plan_path": "docs/research/mambatsv3_ett2_ettm2_linear_blend_transfer_20260928.json",
+  "plan_sha256": "5da1f60c4517db722c760e4edcaaad5fb9d397380c7f72b6c596c8113f9ce895",
+  "plan_status": "exploratory_mambatsv3_ett2_ettm2_linear_blend_transfer_validation",
+  "approval": {
+    "approved": true,
+    "approved_by": "user persistent objective: optimize MambaTS with AutoCon representation learning",
+    "approved_at_utc": "2026-09-28T09:35:00Z"
+  },
+  "prelaunch_gate_evidence_hashes": {
+    "verify two ETT fingerprints and exact 24-job expansion": {"sha256": "5da1f60c4517db722c760e4edcaaad5fb9d397380c7f72b6c596c8113f9ce895", "artifact": "docs/research/mambatsv3_ett2_ettm2_linear_blend_transfer_20260928.json"},
+    "freeze blend bias=-4, AutoCon lambda and baseline contracts": {"sha256": "5da1f60c4517db722c760e4edcaaad5fb9d397380c7f72b6c596c8113f9ce895", "artifact": "docs/research/mambatsv3_ett2_ettm2_linear_blend_transfer_20260928.json"},
+    "keep test execution disabled for every job": {"sha256": "5da1f60c4517db722c760e4edcaaad5fb9d397380c7f72b6c596c8113f9ce895", "artifact": "docs/research/mambatsv3_ett2_ettm2_linear_blend_transfer_20260928.json"},
+    "preserve one source snapshot and output root": {"sha256": "5da1f60c4517db722c760e4edcaaad5fb9d397380c7f72b6c596c8113f9ce895", "artifact": "docs/research/mambatsv3_ett2_ettm2_linear_blend_transfer_20260928.json"}
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "kind": "training_plan_launch_authorization",
+  "plan_path": "/home/zhong/Documents/Self-Supervised-Contrastive-Forecsating/docs/research/mambatsv3_transfer_baseline_extension_20260922.json",
+  "plan_sha256": "97438d4d7eea7509687251d99619a36dd3fb95d1f2606b1a619196df229054d8",
+  "plan_status": "exploratory_mambatsv3_transfer_baseline_extension",
+  "authorized": true,
+  "approval": {"approved": true, "approved_by": "user continuation request and Codex implementation authorization", "approved_at_utc": "2026-09-22T13:00:00Z"},
+  "prelaunch_gate_evidence_hashes": {
+    "verify dataset hashes and model aliases": "773b97c4495ed044b390241cea9a9c39b79c80b2436dbcc0fbd32e289c86abf5",
+    "review MambaTS v3 AutoCon versus baseline normalization and capacity": "97438d4d7eea7509687251d99619a36dd3fb95d1f2606b1a619196df229054d8",
+    "retain test execution disabled": "aa71ad739f1331ca299d5ae2717349f7c9193dc3ffaa2501526136b0ff93f78f",
+    "freeze source snapshot and output root": "b0b959a36dae5f83885f5bec419d494e5b993451dd5946b6c9a6f448e5d9cf16"
+  },
+  "evidence_files": ["docs/research/mambatsv3_transfer_baseline_extension_launch_review_20260922.md", "docs/research/mambatsv3_transfer_baseline_extension_20260922.json"],
+  "evidence_hashes": {"weather": "773b97c4495ed044b390241cea9a9c39b79c80b2436dbcc0fbd32e289c86abf5", "exchange_rate": "d55e7aa2641009814a18ba3279431b13f6d413b0eab195b9ff21988d8cf94e97", "national_illness": "8594cecb98c6f2f9dc014eca11c4d5d1e38ad5ce6ed0592d4abe65b146fce395"}
+}

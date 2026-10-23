@@ -1,0 +1,7 @@
+phase,dataset,model,horizon,seed,elapsed_sec,epochs_ran
+selection_metro_pemsbay_d24_candidate_validation,pems_bay,MambaTSv3AutoCon,12,2551,68.647,13
+selection_metro_pemsbay_d24_candidate_validation,metr_la,MambaTSv3AutoCon,12,2553,25.547,8
+selection_metro_pemsbay_d24_candidate_validation,metr_la,MambaTSv3AutoCon,12,2552,22.632,7
+selection_metro_pemsbay_d24_candidate_validation,metr_la,MambaTSv3AutoCon,12,2551,24.752,8
+selection_metro_pemsbay_d24_candidate_validation,pems_bay,MambaTSv3AutoCon,12,2552,70.754,13
+selection_metro_pemsbay_d24_candidate_validation,pems_bay,MambaTSv3AutoCon,12,2553,74.115,14

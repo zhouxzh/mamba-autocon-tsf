@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "kind": "training_plan_launch_authorization",
+  "plan_path": "/home/zhong/Documents/Self-Supervised-Contrastive-Forecsating/docs/research/ramamba_lite_autocon_h96_screen_20260925.json",
+  "plan_sha256": "8eadabb99d9a075f23b87572e5a0e157e423d858f89919459fb7e352290ea710",
+  "plan_status": "exploratory_ramamba_lite_h96_screen",
+  "authorized": true,
+  "approval": {
+    "approved": true,
+    "approved_by": "user continuation request and Codex implementation authorization",
+    "approved_at_utc": "2026-09-25T00:00:00Z"
+  },
+  "prelaunch_gate_evidence_hashes": {
+    "verify four dataset hashes and M-feature dimensions": "13db617914ba578382272e5aed2c709a5fb53f1fa1f8872232d64dc58f500d79",
+    "verify all strong-baseline and RaMambaLite runtime contracts": "71ef3e53a6ac33341b65247aacec869dcca708c65c4bb5c62e01d0e144d1a337",
+    "keep skip_test=true for every job": "8eadabb99d9a075f23b87572e5a0e157e423d858f89919459fb7e352290ea710",
+    "pair every model by exact dataset-horizon-seed coordinate": "8eadabb99d9a075f23b87572e5a0e157e423d858f89919459fb7e352290ea710",
+    "report prediction-only GPU latency and parameter counts separately": "71ef3e53a6ac33341b65247aacec869dcca708c65c4bb5c62e01d0e144d1a337"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "schema_version": 1,
+  "status": "exploratory_mambatsv6_h96_screen",
+  "created_at": "2026-09-23",
+  "job_order_seed": 20260951,
+  "purpose": "Validation-only screen of a DLinear-initialized Mamba residual correction with the existing AutoCon representation against strong linear, patch, iTransformer, and MambaTS controls.",
+  "research_question": "Can a MambaTS backbone recover the low-dimensional linear-baseline advantage when its forecast is initialized as a DLinear-style decomposition and Mamba is restricted to a gated residual correction, while retaining AutoCon representation learning?",
+  "evidence_boundary": "Exploratory validation-only screen. No test metrics are generated and no held-out test release or final model selection is allowed.",
+  "execution": {"authorized": false, "status": "exploratory_mambatsv6_h96_screen", "training_started": false, "required_before_launch": ["verify ETTh1, Weather, Exchange-Rate and ILI fingerprints", "retain all seven paired arms at identical coordinates", "keep test execution disabled", "freeze source snapshot and output root"]},
+  "data_fingerprints": {
+    "ETTh1": {"relative_path": "dataset/ETT-small/ETTh1.csv", "channels_including_target": 7, "frequency": "h", "time_column": "date", "target": "OT", "sha256": "f18de3ad269cef59bb07b5438d79bb3042d3be49bdeecf01c1cd6d29695ee066"},
+    "weather": {"relative_path": "dataset/weather/weather.csv", "channels_including_target": 21, "frequency": "t", "time_column": "date", "target": "OT", "sha256": "773b97c4495ed044b390241cea9a9c39b79c80b2436dbcc0fbd32e289c86abf5"},
+    "exchange_rate": {"relative_path": "dataset/exchange_rate/exchange_rate.csv", "channels_including_target": 8, "frequency": "d", "time_column": "date", "target": "OT", "sha256": "d55e7aa2641009814a18ba3279431b13f6d413b0eab195b9ff21988d8cf94e97"},
+    "national_illness": {"relative_path": "dataset/illness/national_illness.csv", "channels_including_target": 7, "frequency": "d", "time_column": "date", "target": "OT", "sha256": "8594cecb98c6f2f9dc014eca11c4d5d1e38ad5ce6ed0592d4abe65b146fce395"}
+  },
+  "global": {"features": "M", "seq_len": 96, "label_len": 48, "d_model": 32, "d_ff": 64, "e_layers": 1, "n_heads": 4, "d_layers": 1, "factor": 1, "top_k": 5, "num_kernels": 6, "moving_avg": 25, "patch_len": 16, "patch_stride": 8, "dropout": 0.1, "embed": "timeF", "activation": "gelu", "wo_freq": "", "mamba_d_state": 16, "mamba_d_conv": 4, "mamba_expand": 2, "mamba_headdim": 16, "mamba_ts_context_rank": 16, "mamba_scales": [1], "mamba_token_stride": 1, "mamba_bidirectional": false, "mamba_causal_embedding": true, "autocon_scale": 96, "autocon_wnorm": "MeanStd", "autocon_warmup": 0, "autocon_acf_source": "raw", "batch_size": 32, "epochs": 20, "patience": 5, "learning_rate": 0.001, "lradj": "cosine", "min_learning_rate": 0.00001, "weight_decay": 0.00001, "num_workers": 0, "drop_last_train": false, "train_ratio": 0.6, "use_gpu": true, "skip_test": true, "save_predictions": false, "stream_metrics": false},
+  "phases": [
+    {"name": "mambatsv6_h96_baselines", "purpose": "Seven fixed arms at H96 across four datasets and three paired seeds.", "output_root": "artifacts/exploratory/mambatsv6_h96_screen_20260923/mambatsv6_h96_baselines", "datasets": ["ETTh1", "weather", "exchange_rate", "national_illness"], "models": ["DLinear", "NLinear", "PatchTST", "iTransformer", "MambaTSv3AutoCon", "MambaTSv6AutoCon", "MambaSMAutoCon"], "features": "M", "horizons": [96], "seeds": [2021, 2022, 2023], "autocon_lambda": 0.001, "baseline_check": true, "skip_test": true, "stream_metrics": false}
+  ],
+  "comparison_contract": {"primary_metric": "minimum pure-forecast validation scaled MSE", "pairing_unit": "same dataset, horizon and seed", "primary_contrasts": ["MambaTSv6AutoCon versus MambaTSv3AutoCon", "MambaTSv6AutoCon versus DLinear/NLinear/PatchTST/iTransformer", "MambaTSv6AutoCon versus MambaSMAutoCon"], "resource_metrics": ["elapsed_sec", "parameter_count", "prediction_only_latency"], "test_selection_allowed": false, "test_metrics_produced": false},
+  "registered_job_counts": {"mambatsv6_h96_baselines": 84, "exploratory_total": 84, "training_total": 84, "total": 84, "training_started": false}
+}

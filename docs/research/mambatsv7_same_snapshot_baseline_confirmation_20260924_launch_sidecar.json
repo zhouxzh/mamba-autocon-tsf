@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "kind": "training_plan_launch_authorization",
+  "plan_path": "/home/zhong/Documents/Self-Supervised-Contrastive-Forecsating/docs/research/mambatsv7_same_snapshot_baseline_confirmation_20260924.json",
+  "plan_sha256": "03475473997f106feca1db8648b92714dc58e3ac86b4c76ce78efef64d9ba9ed",
+  "plan_status": "exploratory_mambatsv7_same_snapshot_baseline_confirmation",
+  "authorized": true,
+  "approval": {
+    "approved": true,
+    "approved_by": "user continuation request and Codex implementation authorization",
+    "approved_at_utc": "2026-09-24T16:00:00Z"
+  },
+  "prelaunch_gate_evidence_hashes": {
+    "verify four dataset hashes and M-feature dimensions": "03475473997f106feca1db8648b92714dc58e3ac86b4c76ce78efef64d9ba9ed",
+    "verify all baseline, v6 and v7 model/runtime contracts": "e4a34dc887b9598e06edbbc882f3a657c7dff80f33e62e93856d934c5dccb030",
+    "verify v7 train-only ACF sidecars and finite AutoCon/ACF telemetry": "cb5039ff61ae125ebadb8e107d5caff1a5c02bced5e4f6518cc217f22c2a2353",
+    "keep skip_test=true for every job": "03475473997f106feca1db8648b92714dc58e3ac86b4c76ce78efef64d9ba9ed",
+    "pair every model by exact dataset-horizon-seed coordinate": "03475473997f106feca1db8648b92714dc58e3ac86b4c76ce78efef64d9ba9ed"
+  }
+}

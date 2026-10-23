@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "kind": "training_plan_launch_authorization",
+  "plan_path": "/home/zhong/Documents/Self-Supervised-Contrastive-Forecsating/docs/research/nlinear_variable_mamba_repr_fusion_solar_multihorizon_confirmation_screen_20260925.json",
+  "plan_sha256": "4fa9c7883f3cf3c902e7489239c17a2f9030fe2594a9d31abb284dbee64dafaa",
+  "plan_status": "exploratory_nlinear_variable_mamba_repr_fusion_solar_multihorizon_screen",
+  "authorized": true,
+  "approval": {
+    "approved": true,
+    "approved_by": "user continuation request and active research objective",
+    "approved_at_utc": "2026-09-25T00:00:00Z"
+  },
+  "prelaunch_gate_evidence_hashes": {
+    "verify SolarEnergy source hash and numeric-array contract": "230327ef72d2abb387939d4a35d6fd34f1066071bc7c40ce7ecf5531a0122ac2",
+    "freeze the candidate architecture and all training hyperparameters before fresh seeds run": "022503d92fee0dff98f105fff9ec38ea66bd6558d5fb1072a4a020eb569d51a3",
+    "use DLinear, iTransformer, and PatchTST for every dataset-horizon-seed baseline coordinate": "4fa9c7883f3cf3c902e7489239c17a2f9030fe2594a9d31abb284dbee64dafaa",
+    "keep skip_test=true for every job": "4fa9c7883f3cf3c902e7489239c17a2f9030fe2594a9d31abb284dbee64dafaa"
+  }
+}

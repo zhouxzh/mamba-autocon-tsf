@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "schema_version": 1,
+  "status": "exploratory_pems07_mambatsv3_fullcover_p24_s24_autocon_h12_probe",
+  "created_at": "2026-09-26",
+  "job_order_seed": 20260975,
+  "purpose": "Paired PEMS07 H12 accuracy screen for a full-coverage, four-token MambaTS v3 architecture.",
+  "research_question": "Does replacing the gapful patch_len=16, stride=24 representation with full-coverage patch_len=24, stride=24 recover accuracy while retaining a faster-than-TimeMixer Mamba path?",
+  "selection_history": "The architecture was fixed before these seeds from a resource preflight: patch_len=24, patch_stride=24, d_model=16, d_ff=32, d_state=8, d_conv=2, expand=1. It preserves four Mamba tokens per variable, but every one of the 96 observed input steps is encoded. The earlier gapful p16/s24 and p16/s32 screens are not used to tune these seeds.",
+  "evidence_boundary": "Validation-only exploratory architecture probe on PEMS07 H12. No test metric is generated, inspected, or used for selection.",
+  "claim_boundary": "A favorable result only justifies a preregistered multi-dataset confirmation with fresh seeds; it is not a publication or general time-series claim.",
+  "execution": {"authorized": true, "status": "exploratory_pems07_mambatsv3_fullcover_p24_s24_autocon_h12_probe", "training_started": false, "human_review_required": true},
+  "prelaunch_gates": ["verify PEMS07 fingerprint, M feature geometry, and train-only normalization contract", "freeze full-coverage p24/s24 MambaTS v3 active/null graph and dimensions", "use fresh paired seeds", "keep skip_test=true for every job", "verify the pre-training full-coverage GPU forward measurement"],
+  "data_fingerprints": {"pems07": {"relative_path": "dataset/PEMS07/PEMS07.npz", "format": "npz", "data_key": "data", "data_feature_index": 0, "channels_including_target": 883, "frequency": "t", "time_column": null, "data_interval_minutes": 5, "target_index": 882, "sha256": "a07887e610aa986276209bc9384d14ed7858fdcad1ded67f53dca19eb828600b"}},
+  "global": {
+    "features": "M", "seq_len": 96, "label_len": 48, "d_model": 16, "d_ff": 32, "e_layers": 1, "n_heads": 4, "d_layers": 1,
+    "factor": 1, "top_k": 5, "num_kernels": 6, "moving_avg": 25, "patch_len": 24, "patch_stride": 24, "dropout": 0.1, "embed": "timeF", "activation": "gelu", "wo_freq": "", "individual": false,
+    "mamba_d_state": 8, "mamba_d_conv": 2, "mamba_expand": 1, "mamba_headdim": 16, "mamba_ts_context_rank": 8, "mamba_scales": [1], "mamba_token_stride": 1, "mamba_bidirectional": false, "mamba_causal_embedding": true, "mamba_channel_independent": false,
+    "mamba_acf_channel_order": "input", "mamba_acf_lags": [24, 168, 336], "mamba_acf_lag_mode": "fixed", "mamba_acf_max_lag": 720, "mamba_acf_top_k": 8, "mamba_acf_min_lag": 2, "mamba_acf_min_abs": 0.1, "mamba_acf_confidence_z": 1.96, "mamba_acf_min_separation": 2, "mamba_acf_detrend": "mean", "mamba_acf_chunk": 64, "mamba_use_acf_memory": false, "mamba_dynamic_acf": false, "mamba_acf_relation_loss": false,
+    "autocon_scale": 96, "autocon_wnorm": "MeanStd", "autocon_warmup": 0, "autocon_acf_source": "raw", "AutoCon_temperature": 0.2, "AutoCon_relation_temperature": 0.25, "AutoCon_sign_weight": 0.25, "AutoCon_sign_margin": 0.1,
+    "batch_size": 32, "epochs": 20, "patience": 5, "learning_rate": 0.001, "lradj": "cosine", "min_learning_rate": 0.00001, "weight_decay": 0.00001, "num_workers": 0, "drop_last_train": false, "train_ratio": 0.6, "use_gpu": true, "skip_test": true, "save_predictions": false, "stream_metrics": false, "stream_sample_windows": 1
+  },
+  "phases": [
+    {"name": "pems07_h12_mambatsv3_fullcover_p24_s24_autocon_null", "purpose": "Exact full-coverage AutoCon graph with lambda zero.", "output_root": "artifacts/exploratory/pems07_mambatsv3_fullcover_p24_s24_autocon_h12_probe_20260926/null", "datasets": ["pems07"], "models": ["MambaTSv3AutoCon"], "features": "M", "horizons": [12], "seeds": [2091, 2092, 2093], "mamba_ts_variant": "v3", "autocon_lambda": 0.0, "allow_zero_autocon_lambda": true, "skip_test": true, "stream_metrics": false},
+    {"name": "pems07_h12_mambatsv3_fullcover_p24_s24_autocon_active", "purpose": "Exact full-coverage AutoCon graph with lambda 0.001.", "output_root": "artifacts/exploratory/pems07_mambatsv3_fullcover_p24_s24_autocon_h12_probe_20260926/active", "datasets": ["pems07"], "models": ["MambaTSv3AutoCon"], "features": "M", "horizons": [12], "seeds": [2091, 2092, 2093], "mamba_ts_variant": "v3", "autocon_lambda": 0.001, "skip_test": true, "stream_metrics": false}
+  ],
+  "comparison_contract": {"primary_metric": "minimum pure-forecast validation val_loss", "pairing_unit": {"fields": ["dataset", "horizon", "seed"], "mode": "exact"}, "primary_contrasts": ["active versus exact lambda-zero control", "candidate versus historical PEMS07 TimeMixer mean"], "test_selection_allowed": false, "test_metrics_produced": false, "resource_contract": "Use the fixed full-coverage PEMS07 B32 L96 C883 H12 probe (MambaTSv3AutoCon, 0.489 ms median forward).", "publication_claim_boundary": "No test-set, all-PEMS, long-horizon, or general time-series claim is permitted."},
+  "stopping_rules": ["Do not change architecture, lambda, seeds, or budget after launch.", "If candidate mean is more than 1% worse than historical TimeMixer, stop this route.", "If active/null is not directionally reproducible, make no causal AutoCon accuracy claim.", "Do not release test metrics from this probe."],
+  "registered_job_counts": {"pems07_h12_mambatsv3_fullcover_p24_s24_autocon_null": 3, "pems07_h12_mambatsv3_fullcover_p24_s24_autocon_active": 3, "exploratory_total": 6, "training_total": 6, "total": 6, "training_started": false}
+}

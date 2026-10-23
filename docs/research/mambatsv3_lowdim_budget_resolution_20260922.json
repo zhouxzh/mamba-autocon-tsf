@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "schema_version": 1,
+  "status": "exploratory_mambatsv3_lowdim_budget_resolution",
+  "created_at": "2026-09-22",
+  "job_order_seed": 20260944,
+  "purpose": "Disambiguate a short-budget optimization failure from a representational failure on the Exchange-Rate and ILI coordinates where MambaTS v3 lost to linear/patch baselines.",
+  "research_question": "With the architecture frozen and the maximum budget raised from eight to twenty epochs, can MambaTS v3 AutoCon approach DLinear and PatchTST on low-dimensional Exchange-Rate and ILI?",
+  "evidence_boundary": "Validation-only exploratory resolution. No test metrics are produced and this screen cannot select a test-release architecture.",
+  "execution": {"authorized": true, "status": "exploratory_mambatsv3_lowdim_budget_resolution", "training_started": false, "required_before_launch": ["verify Exchange-Rate and ILI fingerprints", "retain exact candidate and two winning baselines at each coordinate", "keep test execution disabled", "freeze the source snapshot and output root"]},
+  "data_fingerprints": {
+    "exchange_rate": {"relative_path": "dataset/exchange_rate/exchange_rate.csv", "channels_including_target": 8, "frequency": "d", "time_column": "date", "target": "OT", "sha256": "d55e7aa2641009814a18ba3279431b13f6d413b0eab195b9ff21988d8cf94e97"},
+    "national_illness": {"relative_path": "dataset/illness/national_illness.csv", "channels_including_target": 7, "frequency": "d", "time_column": "date", "target": "OT", "sha256": "8594cecb98c6f2f9dc014eca11c4d5d1e38ad5ce6ed0592d4abe65b146fce395"}
+  },
+  "global": {"features": "M", "seq_len": 96, "label_len": 48, "d_model": 32, "d_ff": 64, "e_layers": 1, "n_heads": 4, "d_layers": 1, "factor": 1, "top_k": 5, "num_kernels": 6, "moving_avg": 25, "patch_len": 16, "patch_stride": 8, "dropout": 0.1, "embed": "timeF", "activation": "gelu", "wo_freq": "", "mamba_d_state": 16, "mamba_d_conv": 4, "mamba_expand": 2, "mamba_ts_variant": "v3", "mamba_ts_context_rank": 16, "mamba_scales": [1], "mamba_token_stride": 1, "mamba_bidirectional": false, "mamba_causal_embedding": true, "mamba_use_acf_memory": false, "mamba_acf_relation_loss": false, "mamba_acf_repr_fusion": false, "mamba_ts_repr_forecast_fusion": false, "autocon_scale": 96, "autocon_wnorm": "MeanStd", "autocon_warmup": 0, "autocon_acf_source": "raw", "batch_size": 32, "epochs": 20, "patience": 5, "learning_rate": 0.001, "lradj": "cosine", "min_learning_rate": 0.00001, "weight_decay": 0.00001, "num_workers": 0, "drop_last_train": false, "train_ratio": 0.6, "use_gpu": true, "skip_test": true, "save_predictions": false, "stream_metrics": false},
+  "phases": [
+    {"name": "lowdim_budget_resolution_exchange", "purpose": "Exchange H96/H336, candidate versus winning linear/patch baselines.", "output_root": "artifacts/exploratory/mambatsv3_lowdim_budget_resolution_20260922/lowdim_budget_resolution_exchange", "datasets": ["exchange_rate"], "models": ["DLinear", "PatchTST", "MambaTSv3AutoCon"], "features": "M", "horizons": [96, 336], "seeds": [2021, 2022, 2023], "autocon_lambda": 0.001, "baseline_check": true, "skip_test": true, "stream_metrics": false},
+    {"name": "lowdim_budget_resolution_ili", "purpose": "ILI endpoints H24/H60, candidate versus winning linear/patch baselines.", "output_root": "artifacts/exploratory/mambatsv3_lowdim_budget_resolution_20260922/lowdim_budget_resolution_ili", "datasets": ["national_illness"], "models": ["DLinear", "PatchTST", "MambaTSv3AutoCon"], "features": "M", "horizons": [24, 60], "seeds": [2021, 2022, 2023], "autocon_lambda": 0.001, "baseline_check": true, "skip_test": true, "stream_metrics": false}
+  ],
+  "comparison_contract": {"primary_metric": "minimum pure-forecast validation scaled MSE", "pairing_unit": "same dataset, horizon, seed", "primary_contrasts": ["candidate versus DLinear", "candidate versus PatchTST"], "test_selection_allowed": false, "test_metrics_produced": false},
+  "registered_job_counts": {"lowdim_budget_resolution_exchange": 18, "lowdim_budget_resolution_ili": 18, "exploratory_total": 36, "training_total": 36, "total": 36, "training_started": false}
+}
