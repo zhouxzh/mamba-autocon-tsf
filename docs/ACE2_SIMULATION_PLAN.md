@@ -440,3 +440,5 @@ pilot 预算报价：S-pilot 320 任务；P1 pilot 24 任务；R1 仅在旧训�
 - 首次 S-core 启动后发现 `low` 未实现第 8.2 节规定的 0.1 倍观测噪声方差，已在发现时停止。该目录完整保留为 `PROTOCOL_DEVIATION`，不纳入任何分析、S-extension 放行或论文证据。修正版本 S-core-v2 已完成目标 14,400/14,400 项；guard 事件为 `completed`，全量 ledger 审计有效（2,880 个五臂组、11,520 个配对对比、零重复键、零失败）。在此门槛通过后，自动推进器启动 S-extension-v2 的剩余 43,200 个设计单元，并已完成。合并的 S-full-v2 审计覆盖 57,600/57,600 个预登记合成任务、11,520 个完整五臂组和 46,080 个配对对比，所有任务状态为 `COMPLETED`，低/高噪声方差比例分别为 0.1/1.0，且两个阶段均未触发 GPU guard。其结果仍属于本合成仿真线，未并入 L0/R1/P1，也不自动构成论文结论。
 - 每个运行阶段均使用 5 秒 GPU telemetry guard（温度上限 78C、风扇上限 85%），并另写入每 30 分钟的进度/GPU 汇总。超过任一即时阈值会终止该阶段的进程组并保留失败记录；不因中间效应大小停止或扩展任务。
 - A 阶段既有证据验证器已重建派生审计并通过技术检查；它未启动训练或打开新测试读取。作者人工核验与投稿级审批仍未完成。
+
+S-full-v2 的紧凑交付物已生成于被忽略的 `artifacts/ace2_simulation/S-full-v2-20261025/`：完整合并审计 `audit.json`、逐优化 seed 配对表 `seed_level_paired_deltas.csv`、按 DGP replicate 聚合的 `replicate_level_paired_deltas.csv`、条件摘要 `condition_summary.csv`、数据/变换/不确定性 manifest，以及 F5 候选图 `figures/ace2_sfull_signed_vs_null.{png,pdf}`。F5 图的统计单位是独立 DGP replicate（每个 replicate 先平均 3 个优化 seed），区间为跨 20 个 DGP replicate 的双侧 95% t 区间；它是描述性合成证据，不替代 R1/P1、外部基线或作者核验。
